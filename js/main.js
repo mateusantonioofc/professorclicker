@@ -137,4 +137,3 @@ const store = document.querySelector(".store");
 menuToggle.addEventListener("click", () => {
     store.classList.toggle("active");
 });
-
