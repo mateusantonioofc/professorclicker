@@ -31,17 +31,6 @@ let silviofurryshiny_comprado = false;
 let bonus = 1;
 let i = 0;
 
-const hackAtivo = true;
-
-function hack() {
-    bonus = 1000;
-    i = 1000000000000;
-}
-
-if(hackAtivo) {
-    hack();
-}
-
 function load() {
     score.textContent = i;
     checarAnimacoes();
@@ -159,6 +148,8 @@ function compra3() {
     }
 }
 
+const hackAtivo = false;
+
 function compra4() {
     if (!silviofurry_comprado) {
         if (i >= VALOR_COMPRA_SILVIOFURRY) {
@@ -206,6 +197,11 @@ function compra5() {
     }
 }
 
+function hack() {
+    bonus = 1000;
+    i = 1000000000000;
+}
+
 function compra6() {
     if (!silviofurryshiny_comprado) {
         if (i >= VALOR_COMPRA_SILVIOFURRYSHINY) {
@@ -227,6 +223,10 @@ function compra6() {
         document.body.style.backgroundImage = "url(../assets/silviofurryshiny.png)";
         bonus = BONUS_SILVIOFURRYSHINY;
     }
+}
+
+if(hackAtivo) {
+    hack();
 }
 
 function notify(message, type = "normal") {
