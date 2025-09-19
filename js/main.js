@@ -12,7 +12,7 @@ let tetimulher_comprado = false;
 let tetianao_comprado = false;
 let tetisupremo_comprado = false;
 
-let bonus = 1;
+let bonus = 20;
 let i = 0;
 
 function load() {
@@ -137,3 +137,4 @@ const store = document.querySelector(".store");
 menuToggle.addEventListener("click", () => {
     store.classList.toggle("active");
 });
+
