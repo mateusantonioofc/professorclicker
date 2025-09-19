@@ -3,21 +3,44 @@ const cabibara = document.getElementById("cabibara_img");
 const tetimulher = document.getElementById("cabibara_1");
 const tetianao = document.getElementById("cabibara_2");
 const tetisupremo = document.getElementById("cabibara_3");
+const silviofurry = document.getElementById("cabibara_4");
+const silviogoat = document.getElementById("cabibara_5")
+const silviofurryshiny = document.getElementById("cabibara_6");
 
-const VALOR_COMPRA_TETIMULHER = 150;
+const VALOR_COMPRA_TETIMULHER = 50;
 const VALOR_COMPRA_TETIANAO = 300;
 const VALOR_COMPRA_TETISUPREMO = 1500;
+const VALOR_COMPRA_SILVIOFURRY = 10000;
+const VALOR_COMPRA_SILVIO =  5000;
+const VALOR_COMPRA_SILVIOFURRYSHINY = 100000;
 
 const BONUS_TETIMULHER = 2;
 const BONUS_TETIANAO = 3;
 const BONUS_TETISUPREMO = 6;
+const BONUS_SILVIOGOAT = 9;
+const BONUS_SILVIOFURRY = 14;
+const BONUS_SILVIOFURRYSHINY = 21;
 
 let tetimulher_comprado = false;
 let tetianao_comprado = false;
 let tetisupremo_comprado = false;
+let silviofurry_comprado = false;
+let silviogoat_comprado = false;
+let silviofurryshiny_comprado = false;
 
 let bonus = 1;
 let i = 0;
+
+const hackAtivo = true;
+
+function hack() {
+    bonus = 1000;
+    i = 1000000000000;
+}
+
+if(hackAtivo) {
+    hack();
+}
 
 function load() {
     score.textContent = i;
@@ -49,6 +72,24 @@ function checarAnimacoes() {
         tetisupremo.classList.add("compravel");
     } else {
         tetisupremo.classList.remove("compravel");
+    }
+
+    if (!silviofurry_comprado && i >= VALOR_COMPRA_SILVIOFURRY) {
+        silviofurry.classList.add("compravel");
+    } else {
+        silviofurry.classList.remove("compravel");
+    }
+
+    if (!silviogoat_comprado && i >= VALOR_COMPRA_SILVIO) {
+        silviogoat.classList.add("compravel");
+    } else {
+        silviogoat.classList.remove("compravel");
+    }
+
+    if (!silviofurryshiny_comprado && i >= VALOR_COMPRA_SILVIOFURRYSHINY) {
+        silviofurryshiny.classList.add("compravel");
+    } else {
+        silviofurryshiny.classList.remove("compravel");
     }
 }
 
@@ -118,6 +159,76 @@ function compra3() {
     }
 }
 
+function compra4() {
+    if (!silviofurry_comprado) {
+        if (i >= VALOR_COMPRA_SILVIOFURRY) {
+            i -= VALOR_COMPRA_SILVIOFURRY;
+            load();
+            cabibara.src = "../assets/silviogoatfurry.png";
+            document.body.style.backgroundImage = "url(../assets/academia.jpg)";
+            bonus = BONUS_SILVIOFURRY;
+            silviofurry_comprado = true;
+            notify('Voce comprou SILVIO GOAT versão furry ✅');
+       alert("VOCÊ COMPROU SILVO GOAT VERSÃO FURRY")
+            silviofurry.classList.remove("compravel");
+            silviofurry.classList.add("comprado");
+        } else {
+            notify('Erro: saldo insuficiente ❌');
+        }
+    } else {
+        cabibara.src = "../assets/silviogoatfurry.png";
+        document.body.style.backgroundImage = "url(../assets/academia.jpg)";
+        bonus = BONUS_SILVIOFURRY;
+    }
+}
+
+
+function compra5() {
+    if (!silviogoat_comprado) {
+        if (i >= VALOR_COMPRA_SILVIO) {
+            i -= VALOR_COMPRA_SILVIO;
+            load();
+            cabibara.src = "../assets/Silviogoat.jpeg";
+            document.body.style.backgroundImage = "url(../assets/ibura.jpg)";
+            bonus = BONUS_SILVIOGOAT;
+            silviogoat_comprado = true;
+            notify('Voce comprou SILVIO GOAT ✅');
+            alert("VOCÊ COMPROU SILVO GOAT")
+            silviogoat.classList.remove("compravel");
+            silviogoat.classList.add("comprado");
+        } else {
+            notify('Erro: saldo insuficiente ❌');
+        }
+    } else {
+        cabibara.src = "../assets/Silviogoat.jpeg";
+        document.body.style.backgroundImage = "url(../assets/ibura.jpg)";
+        bonus = BONUS_SILVIOGOAT;
+    }
+}
+
+function compra6() {
+    if (!silviofurryshiny_comprado) {
+        if (i >= VALOR_COMPRA_SILVIOFURRYSHINY) {
+            i -= VALOR_COMPRA_SILVIOFURRYSHINY;
+            load();
+            cabibara.src = "../assets/silviofurryshiny.png";
+            document.body.style.backgroundImage = "url(../assets/silviofurryshiny.png)";
+            bonus = BONUS_SILVIOFURRYSHINY;
+            silviofurryshiny_comprado = true;
+            notify('Voce comprou SILVIO GOAT VERSÃO SHINY ✅');
+            alert("VOCÊ COMPROU SILVO GOAT VERSÃO SHINY");
+            silviofurryshiny.classList.remove("compravel");
+            silviofurryshiny.classList.add("comprado");
+        } else {
+            notify('Erro: saldo insuficiente ❌');
+        }
+    } else {
+        cabibara.src = "../assets/silviofurryshiny.png";
+        document.body.style.backgroundImage = "url(../assets/silviofurryshiny.png)";
+        bonus = BONUS_SILVIOFURRYSHINY;
+    }
+}
+
 function notify(message, type = "normal") {
     const container = document.getElementById("notification-container");
     const notification = document.createElement("div");
@@ -166,4 +277,3 @@ menuToggle.addEventListener("click", () => {
 //         bonus = BONUS;
 //     }
 // }
-
