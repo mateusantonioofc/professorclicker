@@ -17,7 +17,7 @@ let tetianao_comprado = false;
 let tetisupremo_comprado = false;
 
 let bonus = 1;
-let i = 10000;
+let i = 0;
 
 function load() {
     score.textContent = i;
@@ -166,3 +166,4 @@ menuToggle.addEventListener("click", () => {
 //         bonus = BONUS;
 //     }
 // }
+
