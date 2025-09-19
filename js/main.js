@@ -1,11 +1,11 @@
 const score = document.getElementById("score");
 const cabibara = document.getElementById("cabibara_img");
-const tetimulher = document.getElementById("cabibara_1");
-const tetianao = document.getElementById("cabibara_2");
-const tetisupremo = document.getElementById("cabibara_3");
-const silviofurry = document.getElementById("cabibara_4");
-const silviogoat = document.getElementById("cabibara_5")
-const silviofurryshiny = document.getElementById("cabibara_6");
+const tetimulher = document.getElementById("tetimulher");
+const tetianao = document.getElementById("tetianao");
+const tetisupremo = document.getElementById("tetisupremo");
+const silviofurry = document.getElementById("silviofurry");
+const silviogoat = document.getElementById("silviogoat");
+const silviofurryshiny = document.getElementById("silviofurryshiny");
 
 const VALOR_COMPRA_TETIMULHER = 50;
 const VALOR_COMPRA_TETIANAO = 300;
@@ -28,7 +28,7 @@ let silviofurry_comprado = false;
 let silviogoat_comprado = false;
 let silviofurryshiny_comprado = false;
 
-let bonus = 1;
+let bonus = 10000;
 let i = 0;
 
 function load() {
@@ -38,6 +38,7 @@ function load() {
 
 function count() {
     i += bonus;
+
     load();
     score.classList.remove("pop");
     void score.offsetWidth;
@@ -82,7 +83,7 @@ function checarAnimacoes() {
     }
 }
 
-function compra1() {
+function processarTetiMulher() {
     if (!tetimulher_comprado) {
         if (i >= VALOR_COMPRA_TETIMULHER) {
             i -= VALOR_COMPRA_TETIMULHER;
@@ -104,7 +105,7 @@ function compra1() {
     }
 }
 
-function compra2() {
+function processarTetiAnao() {
     if (!tetianao_comprado) {
         if (i >= VALOR_COMPRA_TETIANAO) {
             i -= VALOR_COMPRA_TETIANAO;
@@ -126,7 +127,7 @@ function compra2() {
     }
 }
 
-function compra3() {
+function processarTetiSupremo() {
     if (!tetisupremo_comprado) {
         if (i >= VALOR_COMPRA_TETISUPREMO) {
             i -= VALOR_COMPRA_TETISUPREMO;
@@ -148,33 +149,7 @@ function compra3() {
     }
 }
 
-const hackAtivo = false;
-
-function compra4() {
-    if (!silviofurry_comprado) {
-        if (i >= VALOR_COMPRA_SILVIOFURRY) {
-            i -= VALOR_COMPRA_SILVIOFURRY;
-            load();
-            cabibara.src = "../assets/silviogoatfurry.png";
-            document.body.style.backgroundImage = "url(../assets/academia.jpg)";
-            bonus = BONUS_SILVIOFURRY;
-            silviofurry_comprado = true;
-            notify('Voce comprou SILVIO GOAT versão furry ✅');
-       alert("VOCÊ COMPROU SILVO GOAT VERSÃO FURRY")
-            silviofurry.classList.remove("compravel");
-            silviofurry.classList.add("comprado");
-        } else {
-            notify('Erro: saldo insuficiente ❌');
-        }
-    } else {
-        cabibara.src = "../assets/silviogoatfurry.png";
-        document.body.style.backgroundImage = "url(../assets/academia.jpg)";
-        bonus = BONUS_SILVIOFURRY;
-    }
-}
-
-
-function compra5() {
+function processarSilvioGoat() {
     if (!silviogoat_comprado) {
         if (i >= VALOR_COMPRA_SILVIO) {
             i -= VALOR_COMPRA_SILVIO;
@@ -197,12 +172,30 @@ function compra5() {
     }
 }
 
-function hack() {
-    bonus = 1000;
-    i = 1000000000000;
+function processarSilvioFurry() {
+    if (!silviofurry_comprado) {
+        if (i >= VALOR_COMPRA_SILVIOFURRY) {
+            i -= VALOR_COMPRA_SILVIOFURRY;
+            load();
+            cabibara.src = "../assets/silviogoatfurry.png";
+            document.body.style.backgroundImage = "url(../assets/academia.jpg)";
+            bonus = BONUS_SILVIOFURRY;
+            silviofurry_comprado = true;
+            notify('Voce comprou SILVIO GOAT versão furry ✅');
+       alert("VOCÊ COMPROU SILVO GOAT VERSÃO FURRY")
+            silviofurry.classList.remove("compravel");
+            silviofurry.classList.add("comprado");
+        } else {
+            notify('Erro: saldo insuficiente ❌');
+        }
+    } else {
+        cabibara.src = "../assets/silviogoatfurry.png";
+        document.body.style.backgroundImage = "url(../assets/academia.jpg)";
+        bonus = BONUS_SILVIOFURRY;
+    }
 }
 
-function compra6() {
+function processarSilvioFurryShiny() {
     if (!silviofurryshiny_comprado) {
         if (i >= VALOR_COMPRA_SILVIOFURRYSHINY) {
             i -= VALOR_COMPRA_SILVIOFURRYSHINY;
@@ -223,10 +216,6 @@ function compra6() {
         document.body.style.backgroundImage = "url(../assets/silviofurryshiny.png)";
         bonus = BONUS_SILVIOFURRYSHINY;
     }
-}
-
-if(hackAtivo) {
-    hack();
 }
 
 function notify(message, type = "normal") {
