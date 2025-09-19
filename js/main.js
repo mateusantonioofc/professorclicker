@@ -10,50 +10,58 @@ const VALOR_COMPRA_3 = 1500;
 
 let tetimulher_comprado = false;
 let tetianao_comprado = false;
-let tetisupremo_comprado = false
+let tetisupremo_comprado = false;
 
 let bonus = 1;
-let i = 0;
+let i = 10000;
 
 function load() {
-    score.innerHTML = i;
+    score.textContent = i;
     checarAnimacoes();
 }
 
 function count() {
     i += bonus;
     load();
+    score.classList.remove("pop");
+    void score.offsetWidth;
+    score.classList.add("pop");
 }
 
 function checarAnimacoes() {
-
-    if (i >= VALOR_COMPRA_1) {
-        tetimulher.style.animation = "pulse 2s infinite ease-in-out";
+    if (!tetimulher_comprado && i >= VALOR_COMPRA_1) {
+        tetimulher.classList.add("compravel");
+    } else {
+        tetimulher.classList.remove("compravel");
     }
 
-
-    if (i >= VALOR_COMPRA_2) {
-        tetianao.style.animation = "pulse 2s infinite ease-in-out";
+    if (!tetianao_comprado && i >= VALOR_COMPRA_2) {
+        tetianao.classList.add("compravel");
+    } else {
+        tetianao.classList.remove("compravel");
     }
 
-
-    if (i >= VALOR_COMPRA_3) {
-        tetisupremo.style.animation = "pulse 2s infinite ease-in-out";
+    if (!tetisupremo_comprado && i >= VALOR_COMPRA_3) {
+        tetisupremo.classList.add("compravel");
+    } else {
+        tetisupremo.classList.remove("compravel");
     }
 }
 
 function compra1() {
-    if (tetimulher_comprado == false) {
+    if (!tetimulher_comprado) {
         if (i >= VALOR_COMPRA_1) {
             i -= VALOR_COMPRA_1;
             load();
             document.body.style.backgroundImage = "url(../assets/cozinha.webp)";
             cabibara.src = "../assets/cabibara_1.png";
             bonus = 2;
-            notify('Voce comprou TeTa Mulher ✅')
+            notify('Voce comprou TeTa Mulher ✅');
             tetimulher_comprado = true;
+            tetimulher.classList.remove("compravel");
+            tetimulher.classList.add("comprado");
         } else {
-            notify('Erro: saldo insuficiente ❌')
+            notify('Erro: saldo insuficiente ❌');
         }
     } else {
         document.body.style.backgroundImage = "url(../assets/cozinha.webp)";
@@ -63,30 +71,29 @@ function compra1() {
 }
 
 function compra2() {
-
-    if (tetianao_comprado == false) {
+    if (!tetianao_comprado) {
         if (i >= VALOR_COMPRA_2) {
             i -= VALOR_COMPRA_2;
             load();
             cabibara.src = "../assets/cabibara_2.png";
             document.body.style.backgroundImage = "url(../assets/anao.webp)";
             bonus = 3;
-            notify('Voce comprou TeTi Anao ✅')
+            notify('Voce comprou TeTi Anao ✅');
             tetianao_comprado = true;
+            tetianao.classList.remove("compravel");
+            tetianao.classList.add("comprado");
         } else {
-            notify('Erro: saldo insuficiente ❌')
+            notify('Erro: saldo insuficiente ❌');
         }
     } else {
         cabibara.src = "../assets/cabibara_2.png";
         document.body.style.backgroundImage = "url(../assets/anao.webp)";
         bonus = 3;
     }
-
 }
 
 function compra3() {
-
-    if (tetisupremo_comprado == false) {
+    if (!tetisupremo_comprado) {
         if (i >= VALOR_COMPRA_3) {
             i -= VALOR_COMPRA_3;
             load();
@@ -94,9 +101,11 @@ function compra3() {
             document.body.style.backgroundImage = "url(../assets/sala.jpg)";
             bonus = 1000 * 10;
             tetisupremo_comprado = true;
-            notify('Voce comprou TETI SUPREMOOOO ✅')
+            notify('Voce comprou TETI SUPREMOOOO ✅');
+            tetisupremo.classList.remove("compravel");
+            tetisupremo.classList.add("comprado");
         } else {
-            notify('Erro: saldo insuficiente ❌')
+            notify('Erro: saldo insuficiente ❌');
         }
     } else {
         cabibara.src = "../assets/cabibara_3.jpg";
@@ -107,18 +116,14 @@ function compra3() {
 
 function notify(message, type = "normal") {
     const container = document.getElementById("notification-container");
-
     const notification = document.createElement("div");
     notification.classList.add("notification");
     if (type === "error") notification.classList.add("error");
-
     notification.innerText = message;
     container.appendChild(notification);
-
     setTimeout(() => {
         notification.classList.add("show");
     }, 10);
-
     setTimeout(() => {
         notification.classList.remove("show");
         setTimeout(() => {
@@ -126,3 +131,9 @@ function notify(message, type = "normal") {
         }, 1000);
     }, 3000);
 }
+
+const menuToggle = document.getElementById("menu-toggle");
+const store = document.querySelector(".store");
+menuToggle.addEventListener("click", () => {
+    store.classList.toggle("active");
+});
