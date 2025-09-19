@@ -28,22 +28,30 @@ let silviofurry_comprado = false;
 let silviogoat_comprado = false;
 let silviofurryshiny_comprado = false;
 
-let bonus = 10000;
-let i = 0;
+let i = Number(localStorage.getItem('score')) || 0;
+let bonus = 1;
 
 function load() {
     score.textContent = i;
     checarAnimacoes();
 }
 
+function saveScore() {
+    localStorage.setItem('score', i);
+}
+
+setInterval(saveScore, 5000); // 5000 = 5 seconds
+
 function count() {
     i += bonus;
-
     load();
+    saveScore();
     score.classList.remove("pop");
     void score.offsetWidth;
     score.classList.add("pop");
 }
+
+load();
 
 function checarAnimacoes() {
     if (!tetimulher_comprado && i >= VALOR_COMPRA_TETIMULHER) {
