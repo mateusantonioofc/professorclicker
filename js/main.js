@@ -28,21 +28,8 @@ let silviofurry_comprado = false;
 let silviogoat_comprado = false;
 let silviofurryshiny_comprado = false;
 
-let i = Number(localStorage.getItem('score')) || 0;
+let i = 0;
 let bonus = 1;
-
-let user = "Lucas";
-
-function saveUserScore(user, score) {
-  fetch("http://localhost:3000/scores", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user, score })
-  })
-  .then(res => res.json())
-  .then(data => console.log("Score salvo:", data))
-  .catch(err => console.error("Erro:", err));
-}
 
 function load() {
     score.textContent = i;
@@ -55,7 +42,6 @@ function saveScore() {
 
 setInterval(() => {
     saveScore();
-    saveUserScore(user, i);
 }, 5000);
 
 function count() {
@@ -68,13 +54,6 @@ function count() {
 }
 
 load();
-
-function loadScores() {
-  fetch("http://localhost:3000/scores")
-    .then(res => res.json())
-    .then(data => console.log("Scores atuais:", data))
-    .catch(err => console.error("Erro:", err));
-}
 
 function checarAnimacoes() {
     if (!tetimulher_comprado && i >= VALOR_COMPRA_TETIMULHER) {
