@@ -28,7 +28,7 @@ let silviofurry_comprado = false;
 let silviogoat_comprado = false;
 let silviofurryshiny_comprado = false;
 
-let i = 0;
+let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 
 function load() {
@@ -40,9 +40,7 @@ function saveScore() {
     localStorage.setItem('score', i);
 }
 
-setInterval(() => {
-    saveScore();
-}, 5000);
+setInterval(saveScore(), 5000);
 
 function count() {
     i += bonus;
