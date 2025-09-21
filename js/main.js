@@ -49,7 +49,18 @@ function saveScore() {
     localStorage.setItem('score', i);
 }
 
-setInterval(saveScore(), 5000);
+function saveScoreInDB() {
+    fetch(`https://professorclicker-api.vercel.app/api/${session}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ score: i })
+    })
+}
+
+setInterval(() => {
+    saveScore();
+    saveScoreInDB();
+}, 3000);
 
 function count() {
     i += bonus;
