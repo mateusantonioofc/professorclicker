@@ -7,7 +7,7 @@ function saveNickname() {
     const display = document.getElementById("nicknameDisplay");
 
     if (nickname === "") {
-        alert("Digite um nickname antes de continuar!");
+        alert("Digite um nome antes de continuar!");
         return;
     }
 
@@ -16,7 +16,7 @@ function saveNickname() {
         .then(response => response.json())
         .then(data => {
             if (data.error && data.error.includes("já existe")) {
-                display.innerText = "Este nome já está em uso. Escolha outro nickname.";
+                display.innerText = "Este nome já está em uso. Escolha outro nome.";
                 display.style.display = "block";
             } else if (data.user) {
                 localStorage.setItem("nickname", nickname);

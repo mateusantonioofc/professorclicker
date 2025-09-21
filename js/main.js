@@ -114,7 +114,7 @@ function resetGame() {
     localStorage.clear();
     load();
     saveScore();
-    alert("Jogo reiniciado! Você será redirecionado para a tela de login.");
+    alert("Jogo reiniciado! Você será redirecionado para a tela de entrada.");
     window.location.href = "index.html";
 }
 
