@@ -86,7 +86,7 @@ color: white;
       top: 50%;
       transform: translateY(-40%);
       font-size: 1.3rem;
-animation: swing 1s infinite;
+animation: swing 0.7s infinite;
     }
     .leaderboard li:nth-child(1)::before { left: -25px; }
     .leaderboard li:nth-child(1)::after { right: -25px; }
@@ -97,8 +97,10 @@ animation: swing 1s infinite;
 @keyframes swing {
     0% { transform: rotate(-20deg); }
     50% { transform: rotate(20deg); }
-    75%{ transform: rotate(-20deg); }
-    100% { transform: rotate(20deg); }}
+    70%{ transform: rotate(-20deg); }
+    90% { transform: rotate(20deg); }
+100%{ transform: rotate(-20deg); }
+}
 
     .btn-leaderboard {
       position: fixed;
