@@ -20,7 +20,6 @@ body {
 }
 
 .leaderboard {
-left: 0;
     background: #0f3460;
     padding: 20px;
     border-radius: 12px;
@@ -29,11 +28,12 @@ left: 0;
     text-align: center;
     position: absolute;
     top: -100%;
-    transition: top 2s ease;
+justify-content: center;
+    transition: top 1s ease;
 }
 
 .leaderboard.show {
-transition:  2s ease;
+
     top: 70px;
 left: 70px;
 }

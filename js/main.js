@@ -19,7 +19,7 @@ const BONUS_TETIANAO = 3;
 const BONUS_TETISUPREMO = 6;
 const BONUS_SILVIOGOAT = 9;
 const BONUS_SILVIOFURRY = 14;
-const BONUS_SILVIOFURRYSHINY = 21;
+const BONUS_SILVIOFURRYSHINY = 9999999999999999991;
 
 let tetimulher_comprado = false;
 let tetianao_comprado = false;
