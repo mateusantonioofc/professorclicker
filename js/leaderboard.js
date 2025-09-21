@@ -1,4 +1,6 @@
 const rankingElement = document.getElementById("ranking");
+const btnLeaderboard = document.getElementById("btnLeaderboard");
+const leaderboardContainer = document.getElementById("leaderboardContainer");
 
 // Exemplo para testar
 // if (!localStorage.getItem("players")) {
@@ -36,5 +38,26 @@ async function fetchRanking() {
     rankingElement.innerHTML = "<li>Erro ao carregar ranking</li>";
   }
 }
+
+btnLeaderboard.addEventListener("click", () => {
+  leaderboardContainer.classList.toggle("show");
+
+  if (leaderboardContainer.classList.contains("show")) {
+    const items = rankingElement.querySelectorAll("li");
+    items.forEach((li, i) => {
+      setTimeout(() => {
+        li.style.opacity = "1";
+        li.style.transform = "translateY(0)";
+      }, i * 150);
+    });
+  } else {
+
+    const items = rankingElement.querySelectorAll("li");
+    items.forEach(li => {
+      li.style.opacity = "0";
+      li.style.transform = "translateY(-20px)";
+    });
+  }
+});
 
 fetchRanking();
