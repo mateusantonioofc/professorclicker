@@ -15,7 +15,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-justify-content: center;
+
     overflow: hidden;
 }
 
@@ -33,6 +33,7 @@ justify-content: center;
 
 .leaderboard.show {
     top: 70px;
+left: 70px;
 }
 
 .leaderboard h2 {
