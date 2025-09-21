@@ -1,9 +1,9 @@
 const rankingElement = document.getElementById("ranking");
 
-//testinho
+// Exemplo para testar
 if (!localStorage.getItem("players")) {
   localStorage.setItem("players", JSON.stringify([
-    { name: "Bruno", money: 500 },
+    { name: "Bruno", money: 5000 },
     { name: "Caio", money: 1200 },
     { name: "Ana", money: 950 },
     { name: "Maria", money: 2000 },
