@@ -198,6 +198,34 @@ header h1 {
     animation: neonPulse 1s alternate infinite;
 }
 
+.leaderboard li:nth-child(2) {
+    background: silver;
+    color: black;
+    position: relative;
+    box-shadow: 0 0 10px silver, 0 0 20px #aaa;
+    animation: neonPulseSilver 1.5s alternate infinite;
+}
+
+.leaderboard li:nth-child(3) {
+    background: #cd7f32;
+    color: black;
+    position: relative;
+    box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d;
+    animation: neonPulseBronze 1.5s alternate infinite;
+}
+
+@keyframes neonPulseSilver {
+    0% { box-shadow: 0 0 10px silver, 0 0 20px #aaa; }
+    50% { box-shadow: 0 0 20px silver, 0 0 30px #ccc; }
+    100% { box-shadow: 0 0 10px silver, 0 0 20px #aaa; }
+}
+
+@keyframes neonPulseBronze {
+    0% { box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d; }
+    50% { box-shadow: 0 0 20px #cd7f32, 0 0 30px #d2691e; }
+    100% { box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d; }
+}
+
 @keyframes neonPulse {
 
     0%,
