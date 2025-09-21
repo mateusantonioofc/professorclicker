@@ -4,12 +4,12 @@ const title = document.querySelector(".h1");
 const storeContainer = document.getElementById("store-items");
 
 const professores = {
-    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 132321, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 1, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     tetisupremo: { nome: "Teti Supremo", preco: 1500, bonus: 6, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     silviogoat: { nome: "Silvio Goat", preco: 5000, bonus: 9, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     silviofurry: { nome: "Silvio Furry", preco: 10000, bonus: 14, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 1000000000000, bonus: 9999999999999999991, img: "assets/silviofurryshiny.png", background: "url('assets/silviofurryshiny.png')" }
+    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 100000000000000, bonus: 99999, img: "assets/silviofurryshiny.png", background: "url('assets/silviofurryshiny.png')" }
 };
 
 let i = Number(localStorage.getItem('score')) || 0;
