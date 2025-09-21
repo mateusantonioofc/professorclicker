@@ -278,7 +278,34 @@ menuToggle.addEventListener("click", () => {
 //     }
 // }
 
+<<<<<<< HEAD
     
+=======
+    const rankingElement = document.getElementById("ranking");
+    const btnLeaderboard = document.getElementById("btnLeaderboard");
+    const leaderboardContainer = document.getElementById("leaderboardContainer");
+
+    // Teste 
+    if (!localStorage.getItem("players")) {
+      localStorage.setItem("players", JSON.stringify([
+        { name: "Admin ultra secreto Bruno", money: 999999999 },
+        { name: "Caio", money: 2200 },
+        { name: "Ana", money: 950 },
+        { name: "Maria", money: 2000 },
+        { name: "João", money: 1500 },
+        { name: "Lara", money: 1700 },
+        { name: "Leo", money: 400 },
+        { name: "Pedro", money: 800 },
+        { name: "Sofia", money: 1000 },
+        { name: "Clara", money: 600 },
+        { name: "Rafa", money: 3000 }
+      ]));
+    }
+
+    let players = JSON.parse(localStorage.getItem("players")) || [];
+    players.sort((a, b) => b.money - a.money);
+    let top10 = players.slice(0, 10);
+>>>>>>> 520a3d6f7b8f0e5382d49fc64a32ebe46254438d
 
 
     
