@@ -31,6 +31,13 @@ let silviofurryshiny_comprado = false;
 let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 
+const session = localStorage.getItem("nickname");
+
+if (!session) {
+    window.location.href = "index.html";
+    throw new Error("Usuário não logado / Nao tente burlar");
+}
+
 function load() {
     score.textContent = i;
     checarAnimacoes();
