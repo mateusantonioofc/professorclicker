@@ -84,7 +84,7 @@ color: white;
       content: "🏆";
       position: absolute;
       top: 50%;
-      transform: translateY(-40%);
+      transform: translateY(-20%);
       font-size: 1.3rem;
 animation: swing 0.7s infinite;
     }
