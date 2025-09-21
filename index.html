@@ -1,64 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor Clicker - NAVE</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Nickname</title>
+    <link rel="stylesheet" href="css/form.css">
 </head>
-
 <body>
-    <header>
-        <h1 class="h1">Professor Clicker</h1>
-    </header>
 
-    <div class="container">
-        <div id="notification-container"></div>
-        <button id="click" onclick="count()">
-            <img id="cabibara_img" src="assets/cabibara.png" alt="">
-        </button>
-        <div class="score">
-            <p class="score-label">Dinheiro nave:</p>
-            <p id="score" class="score-value">0</p>
-        </div>
+    <div class="glass-container">
+        <h1>Escolha seu Nickname</h1>
+        <input type="text" id="nicknameInput" placeholder="Digite seu nickname">
+        <button onclick="saveNickname()">Confirmar</button>
+        <div class="nickname-display" id="nicknameDisplay"></div>
     </div>
 
-    <button class="menu-toggle" id="menu-toggle">
-    </button>
-
-    <aside class="store">
-        <h2>Loja</h2>
-        <button id="tetimulher" onclick="processarTetiMulher()">
-            <img class="icon" src="assets/cabibara_1.png" alt="">
-            <span>50</span>
-        </button>
-        <button id="tetianao" onclick="processarTetiAnao()">
-            <img class="icon" src="assets/cabibara_2.png" alt="">
-            <span>300</span>
-        </button>
-        <button id="tetisupremo" onclick="processarTetiSupremo()">
-            <img class="icon" src="assets/cabibara_3.jpg" alt="">
-            <span>1500</span>
-        </button>
-        </button>
-        <button id="silviogoat" onclick="processarSilvioGoat()">
-            <img class="icon" src="assets/Silviogoat.jpeg" alt="">
-            <span>5000</span>
-        </button>
-        <button id="silviofurry" onclick="processarSilvioFurry()">
-            <img class="icon" src="assets/silviogoatfurry.png" alt="">
-            <span>10000</span>
-        </button>
-        <button id="silviofurryshiny" onclick="processarSilvioFurryShiny()">
-            <img class="icon" src="assets/silviofurryshiny.png" alt="">
-            <span>100000</span>
-        </button>
-    </aside>
-
-    <script src="js/main.js"></script>
+    <script src="js/form.js"></script>
 </body>
-
 </html>
-
-

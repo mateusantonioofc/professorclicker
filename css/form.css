@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzkPBFDWuMUiQh4arYH_1BIURpjHeX5YmZKn0gXqhdKg&s=10") no-repeat center center/cover;
+    overflow: hidden;
+
+}
+
+.glass-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 60px 40px;
+    width: 380px;
+    max-width: 90%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 1.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 2;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 28px;
+    letter-spacing: 1px;
+    animation: glow 0.7s infinite ease-in-out;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc;
+    }
+
+    50% {
+        text-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc;
+    }
+
+    100% {
+        text-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc;
+    }
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #ccc;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(37, 117, 252, 0.7);
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(106, 17, 203, 0.9);
+}
+
+.nickname-display {
+    margin-top: 25px;
+    font-size: 20px;
+    color: #fff;
+    display: none;
+    animation: fadeIn 1s ease;
+}
+
+
+@media (max-width: 480px) {
+    .glass-container {
+        padding: 40px 20px;
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    input,
+    button {
+        font-size: 16px;
+    }
+}
