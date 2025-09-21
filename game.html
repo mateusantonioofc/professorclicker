@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,7 @@
         <h2>💸🤑 Os Mais Ricos 🤑💸</h2>
         <ol id="ranking"></ol>
     </div>
+
     <header>
         <h1 class="h1"></h1>
     </header>
@@ -30,36 +31,13 @@
         </div>
     </div>
 
-    <button class="menu-toggle" id="menu-toggle">
-    </button>
+    <button class="btn-reset" id="btnReset" onclick="resetGame()">♻️ Resetar Jogo</button>
+
+    <button class="menu-toggle" id="menu-toggle"></button>
 
     <aside class="store">
         <h2>Loja</h2>
-        <button id="tetimulher" onclick="processarTetiMulher()">
-            <img class="icon" src="assets/cabibara_1.png" alt="">
-            <span>50</span>
-        </button>
-        <button id="tetianao" onclick="processarTetiAnao()">
-            <img class="icon" src="assets/cabibara_2.png" alt="">
-            <span>300</span>
-        </button>
-        <button id="tetisupremo" onclick="processarTetiSupremo()">
-            <img class="icon" src="assets/cabibara_3.jpg" alt="">
-            <span>1500</span>
-        </button>
-        </button>
-        <button id="silviogoat" onclick="processarSilvioGoat()">
-            <img class="icon" src="assets/Silviogoat.jpeg" alt="">
-            <span>5000</span>
-        </button>
-        <button id="silviofurry" onclick="processarSilvioFurry()">
-            <img class="icon" src="assets/silviogoatfurry.png" alt="">
-            <span>10000</span>
-        </button>
-        <button id="silviofurryshiny" onclick="processarSilvioFurryShiny()">
-            <img class="icon" src="assets/silviofurryshiny.png" alt="">
-            <span>1000000000000</span>
-        </button>
+        <div id="store-items"></div>
     </aside>
 
     <script src="js/main.js"></script>
