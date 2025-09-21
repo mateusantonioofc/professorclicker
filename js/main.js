@@ -6,7 +6,7 @@ const tetisupremo = document.getElementById("tetisupremo");
 const silviofurry = document.getElementById("silviofurry");
 const silviogoat = document.getElementById("silviogoat");
 const silviofurryshiny = document.getElementById("silviofurryshiny");
-
+const title = document.querySelector(".h1");
 const VALOR_COMPRA_TETIMULHER = 50;
 const VALOR_COMPRA_TETIANAO = 300;
 const VALOR_COMPRA_TETISUPREMO = 1500;
@@ -36,6 +36,8 @@ const session = localStorage.getItem("nickname");
 if (!session) {
     window.location.href = "index.html";
     throw new Error("Usuário não logado / Nao tente burlar");
+} else {
+    title.innerText = `Professor Clicker - ${session}`;
 }
 
 function load() {
