@@ -101,7 +101,7 @@ function comprarProfessor(id) {
 
 function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
-    if (!confirmReset) return;
+    if (!confirmReset);
     i = 0;
     bonus = 1;
     for (let id in professores) {
