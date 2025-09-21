@@ -285,7 +285,7 @@ menuToggle.addEventListener("click", () => {
     // Teste 
     if (!localStorage.getItem("players")) {
       localStorage.setItem("players", JSON.stringify([
-        { name: "Admin", money: 999999999 },
+        { name: "Admin ultra secreto que não é Bruno", money: 999999999 },
         { name: "Caio", money: 1200 },
         { name: "Ana", money: 950 },
         { name: "Maria", money: 2000 },
