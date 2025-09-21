@@ -33,6 +33,7 @@ left: 0;
 }
 
 .leaderboard.show {
+transition: left 2s ease;
     top: 70px;
 left: 70px;
 }
