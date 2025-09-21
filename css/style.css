@@ -195,7 +195,25 @@ header h1 {
     color: black;
     position: relative;
     box-shadow: 0 0 10px gold, 0 0 20px orange;
-    animation: neonPulse 1s alternate infinite;
+    animation: neonPulseGold 1s alternate infinite;
+}
+
+.leaderboard li:nth-child(1)::before,
+.leaderboard li:nth-child(1)::after {
+    content: "🏆";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-40%);
+    font-size: 1.3rem;
+    animation: swing 1s infinite;
+}
+
+.leaderboard li:nth-child(1)::before {
+    left: -25px;
+}
+
+.leaderboard li:nth-child(1)::after {
+    right: -25px;
 }
 
 .leaderboard li:nth-child(2) {
@@ -206,6 +224,24 @@ header h1 {
     animation: neonPulseSilver 1.5s alternate infinite;
 }
 
+.leaderboard li:nth-child(2)::before,
+.leaderboard li:nth-child(2)::after {
+    content: "🥈";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-40%);
+    font-size: 1.2rem;
+    animation: swing 1s infinite;
+}
+
+.leaderboard li:nth-child(2)::before {
+    left: -25px;
+}
+
+.leaderboard li:nth-child(2)::after {
+    right: -25px;
+}
+
 .leaderboard li:nth-child(3) {
     background: #cd7f32;
     color: black;
@@ -214,19 +250,17 @@ header h1 {
     animation: neonPulseBronze 1.5s alternate infinite;
 }
 
-@keyframes neonPulseSilver {
-    0% { box-shadow: 0 0 10px silver, 0 0 20px #aaa; }
-    50% { box-shadow: 0 0 20px silver, 0 0 30px #ccc; }
-    100% { box-shadow: 0 0 10px silver, 0 0 20px #aaa; }
+.leaderboard li:nth-child(3)::before,
+.leaderboard li:nth-child(3)::after {
+    content: "🥉";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-40%);
+    font-size: 1.2rem;
+    animation: swing 1s infinite;
 }
 
-@keyframes neonPulseBronze {
-    0% { box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d; }
-    50% { box-shadow: 0 0 20px #cd7f32, 0 0 30px #d2691e; }
-    100% { box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d; }
-}
-
-@keyframes neonPulse {
+@keyframes neonPulseGold {
 
     0%,
     100% {
@@ -235,6 +269,30 @@ header h1 {
 
     50% {
         box-shadow: 0 0 20px gold, 0 0 30px orange;
+    }
+}
+
+@keyframes neonPulseSilver {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px silver, 0 0 20px #aaa;
+    }
+
+    50% {
+        box-shadow: 0 0 20px silver, 0 0 30px #ccc;
+    }
+}
+
+@keyframes neonPulseBronze {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px #cd7f32, 0 0 20px #a0522d;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #cd7f32, 0 0 30px #d2691e;
     }
 }
 
