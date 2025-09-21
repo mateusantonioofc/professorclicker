@@ -39,7 +39,6 @@ async function fetchRanking() {
   }
 }
 
-<<<<<<< HEAD
 btnLeaderboard.addEventListener("click", () => {
   leaderboardContainer.classList.toggle("show");
 
@@ -62,6 +61,3 @@ btnLeaderboard.addEventListener("click", () => {
 });
 
 fetchRanking();
-=======
-fetchRanking();
->>>>>>> 520a3d6f7b8f0e5382d49fc64a32ebe46254438d
