@@ -57,10 +57,36 @@ function saveScoreInDB() {
     })
 }
 
+function saveProfessoresComprados() {
+    const professores = {
+        tetimulher_comprado,
+        tetianao_comprado,
+        tetisupremo_comprado,
+        silviofurry_comprado,
+        silviogoat_comprado,
+        silviofurryshiny_comprado
+    };
+    localStorage.setItem('professores_comprados', JSON.stringify(professores));
+}
+
+function loadProfessoresComprados() {
+    const professores = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
+    tetimulher_comprado = !!professores.tetimulher_comprado;
+    tetianao_comprado = !!professores.tetianao_comprado;
+    tetisupremo_comprado = !!professores.tetisupremo_comprado;
+    silviofurry_comprado = !!professores.silviofurry_comprado;
+    silviogoat_comprado = !!professores.silviogoat_comprado;
+    silviofurryshiny_comprado = !!professores.silviofurryshiny_comprado;
+}
+
+loadProfessoresComprados();
+
 setInterval(() => {
     saveScore();
     saveScoreInDB();
+    saveProfessoresComprados();
 }, 3000);
+
 
 function count() {
     i += bonus;
@@ -125,7 +151,7 @@ function processarTetiMulher() {
             tetimulher_comprado = true;
             tetimulher.classList.remove("compravel");
             tetimulher.classList.add("comprado");
-            loadScores();
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
@@ -148,6 +174,7 @@ function processarTetiAnao() {
             tetianao_comprado = true;
             tetianao.classList.remove("compravel");
             tetianao.classList.add("comprado");
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
@@ -170,6 +197,7 @@ function processarTetiSupremo() {
             notify('Voce comprou TETI SUPREMOOOO ✅');
             tetisupremo.classList.remove("compravel");
             tetisupremo.classList.add("comprado");
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
@@ -193,6 +221,7 @@ function processarSilvioGoat() {
             alert("VOCÊ COMPROU SILVO GOAT")
             silviogoat.classList.remove("compravel");
             silviogoat.classList.add("comprado");
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
@@ -213,9 +242,10 @@ function processarSilvioFurry() {
             bonus = BONUS_SILVIOFURRY;
             silviofurry_comprado = true;
             notify('Voce comprou SILVIO GOAT versão furry ✅');
-       alert("VOCÊ COMPROU SILVO GOAT VERSÃO FURRY")
+            alert("VOCÊ COMPROU SILVO GOAT VERSÃO FURRY")
             silviofurry.classList.remove("compravel");
             silviofurry.classList.add("comprado");
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
@@ -239,6 +269,7 @@ function processarSilvioFurryShiny() {
             alert("VOCÊ COMPROU SILVO GOAT VERSÃO SHINY");
             silviofurryshiny.classList.remove("compravel");
             silviofurryshiny.classList.add("comprado");
+            saveProfessoresComprados();
         } else {
             notify('Erro: saldo insuficiente ❌');
         }
