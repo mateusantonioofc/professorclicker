@@ -19,7 +19,7 @@ const rankingElement = document.getElementById("ranking");
 
 async function fetchRanking() {
   try {
-    const response = await fetch("https://professorclicker-api.vercel.app/ranking"); // Troque SEU_ENDPOINT pela URL da sua API
+    const response = await fetch("https://professorclicker-api.vercel.app/ranking");
     const data = await response.json();
     const ranking = data.ranking || [];
 
