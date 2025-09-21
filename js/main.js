@@ -115,7 +115,7 @@ function resetGame() {
     load();
     saveScore();
     alert("Jogo reiniciado!");
-    window.location.href = "game.html";
+   
 }
 
 function notify(message, type = "normal") {
