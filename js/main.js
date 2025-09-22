@@ -17,6 +17,7 @@ const professores = {
     silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 100000000000000, bonus: 99999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
 
+
 let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
