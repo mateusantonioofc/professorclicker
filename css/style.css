@@ -158,7 +158,7 @@ header h1 {
 }
 
 .leaderboard.show {
-    top: 80%;
+    top: 1%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -203,7 +203,7 @@ header h1 {
 .leaderboard li:nth-child(1)::after {
     content: "🏆";
     position: absolute;
-    top: 80%;
+    top: 40%;
     transform: translateY(-40%);
     font-size: 1.3rem;
     animation: swing 1s infinite;
@@ -255,10 +255,18 @@ header h1 {
 .leaderboard li:nth-child(3)::after {
     content: "🥉";
     position: absolute;
-    top: 50%;
+    top: 40%;
     transform: translateY(-40%);
     font-size: 1.2rem;
     animation: swing 1s infinite;
+}
+
+.leaderboard li:nth-child(3)::before {
+    left: -25px;
+}
+
+.leaderboard li:nth-child(3)::after {
+    right: -25px;
 }
 
 @keyframes neonPulseGold {
