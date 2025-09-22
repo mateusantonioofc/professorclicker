@@ -159,7 +159,8 @@ header h1 {
 
 .leaderboard.show {
     top: 70px;
-    left: 70px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .leaderboard h2 {
