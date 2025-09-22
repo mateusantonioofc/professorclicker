@@ -1,10 +1,12 @@
 const score = document.getElementById("score");
 const cabibara = document.getElementById("cabibara_img");
 const title = document.querySelector(".h1");
+const namee = document.querySelector(".hh");
+const click = document.querySelector("#click")
 const storeContainer = document.getElementById("store-items");
 
 const professores = {
-    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 7, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     tetisupremo: { nome: "Teti Supremo", preco: 1500, bonus: 6, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe", preco: 2500, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/cozinha.webp')" },
@@ -24,7 +26,8 @@ if (!session) {
     window.location.href = "index.html";
     throw new Error("Usuário não logado / Não tente burlar");
 } else {
-    title.innerText = `Professor Clicker - ${session}`;
+    title.innerText = `Professor Clicker`;
+    namee.innerText = ` ${session}`;
 }
 
 function load() {
@@ -58,11 +61,12 @@ function count() {
     i += bonus;
     load();
     saveScore();
+    click.classList.remove("popp");
     score.classList.remove("pop");
-    cabibara.classList.remove("pop");
     void score.offsetWidth;
     score.classList.add("pop");
-    cabibara.classList.add("pop");
+    click.classList.add("popp");
+ 
 }
 
 function checarAnimacoes() {
