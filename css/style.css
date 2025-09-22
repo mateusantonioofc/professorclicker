@@ -416,6 +416,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+z-index: 10;
     background: #334155;
     border: none;
     border-radius: 12px;
@@ -549,7 +550,7 @@ header h1 {
   }
 
   .store {
-    z-index: 9; 
+    z-index: 11; 
 }
 
   
