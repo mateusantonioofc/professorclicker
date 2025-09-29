@@ -10,13 +10,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzkPBFDWuMUiQh4arYH_1BIURpjHeX5YmZKn0gXqhdKg&s=10") no-repeat center center/cover;
+    background: url("/assets/Form.png") no-repeat center center/cover;
     overflow: hidden;
 
 }
 
 .glass-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 60px 40px;
     width: 380px;
@@ -30,15 +30,16 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
 
-    to {
-        opacity: 2;
-        transform: translateY(0);
-    }
+0%{opacity: 0.5;
+    transform: translateY(-800px);
+    scale: 3;}
+
+100%{opacity: 2;
+    transform: translateY(0);
+scale: 1;}
+
+
 }
 
 h1 {
@@ -46,20 +47,20 @@ h1 {
     margin-bottom: 25px;
     font-size: 28px;
     letter-spacing: 1px;
-    animation: glow 0.7s infinite ease-in-out;
+    animation: glow 800ms infinite linear;
 }
 
 @keyframes glow {
     0% {
-        text-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc;
+        text-shadow: 0 0 5px #00b646, 0 0 10px #017937;
     }
 
     50% {
-        text-shadow: 0 0 20px #6a11cb, 0 0 40px #2575fc;
+        text-shadow: 0 0 10px #00b646, 0 0 20px #017937;
     }
 
     100% {
-        text-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc;
+        text-shadow: 0 0 5px #00b646, 0 0 10px #017937;
     }
 }
 
@@ -73,12 +74,12 @@ input {
     font-size: 18px;
     outline: none;
     background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    color: #ffffff;
     transition: 0.3s;
 }
 
 input::placeholder {
-    color: #ccc;
+    color: #ffffff;
 }
 
 input:focus {
@@ -87,11 +88,11 @@ input:focus {
 }
 
 button {
-    width: 100%;
+    width: 80%;
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #004d0a, #00a53f);
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -102,7 +103,7 @@ button {
 
 button:hover {
     transform: scale(1.08);
-    box-shadow: 0 0 25px rgba(106, 17, 203, 0.9);
+    box-shadow: 0 0 20px #00b646, 0 0 40px #017937;
 }
 
 .nickname-display {
