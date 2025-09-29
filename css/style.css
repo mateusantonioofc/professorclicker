@@ -59,8 +59,7 @@ header h1 {
 }
 
 #click {
-    box-shadow: rgb(0, 136, 255) 3px 3px 6px 0px inset,
-        rgba(255, 0, 0, 0.5) -3px -3px 6px 1px inset;
+
     border-radius: 30px;
 }
 
@@ -104,11 +103,11 @@ header h1 {
 }
 
 .score-value.pop {
-    animation: scorePop 0.1s ease forwards;
+    animation: scorePop 0.19s ease-in-out forwards;
 }
 
 #click.popp {
-    animation: scorePopp 0.3s ease forwards;
+    animation: scorePopp 0.35s ease forwards;
 }
 
 @keyframes scorePopp {
@@ -440,6 +439,7 @@ z-index: 2001;
 }
 
 .store button.comprado {
+    transition: 0.7s;
     background: #14532d;
     color: #bbf7d0;
     border: 2px solid #22c55e;
