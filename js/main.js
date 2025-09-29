@@ -9,12 +9,14 @@ const store = document.getElementById("store");
 const professores = {
     tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
-    tetisupremo: { nome: "Teti Supremo", preco: 1500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
-    FelipeBase: { nome: "Felipe O Físico", preco: 2500, bonus: 9, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
- Richardson: { nome: "Master Rick", preco: 7500, bonus: 11, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
-    silviogoat: { nome: "Silvio Goat", preco: 10000, bonus: 13, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
-    silviofurry: { nome: "Silvio Furry", preco: 50000, bonus: 17, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 100000000000000, bonus: 99999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
+    tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
+    FelipeBase: { nome: "Felipe O Físico", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
+    Sheyla: { nome: "Sheyla", preco: 10000, bonus: 9, img: "assets/Sheyla.jpeg", background: "url('assets/CD.jpg')" },
+    Glauco: { nome: "艶っぽい", preco: 20000, bonus: 11, img: "assets/New.webp", background: "url('assets/The End.webp')" },
+    Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
+    silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
+    silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
+    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 100000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
 
 
@@ -95,6 +97,7 @@ function comprarProfessor(id) {
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
             load();
+           
         } else {
             notify('Erro: saldo insuficiente ❌', "error");
         }
@@ -146,9 +149,9 @@ menuToggle.addEventListener("click", () => {
 
     const icon = menuToggle.querySelector("i");
 
-   
-    icon.style.transition = "transform 0.4s ease";
-    icon.style.transform = "rotate(180deg)";
+
+    icon.style.transition = "transform 0.3s ease";
+    icon.style.transform = "rotate(90deg)";
 
     setTimeout(() => {
         if (store.classList.contains("active")) {
@@ -158,7 +161,7 @@ menuToggle.addEventListener("click", () => {
             icon.classList.remove("fa-xmark");
             icon.classList.add("fa-store");
         }
-   
+
         icon.style.transform = "rotate(0deg)";
     }, 200);
 });
