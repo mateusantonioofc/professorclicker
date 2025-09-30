@@ -16,7 +16,7 @@ const professores = {
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
     silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 100, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
+    silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 10000000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
 
 
