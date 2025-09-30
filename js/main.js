@@ -7,7 +7,7 @@ const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
 
 const professores = {
-    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 20000, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Físico", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
