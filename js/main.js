@@ -20,7 +20,7 @@ const professores = {
     Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
     Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/ibura.jpg')" },
-    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/New.webp", background: "url('assets/ibura.jpg')" },
+    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url('assets/ibura.jpg')" },
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url('assets/ibura.jpg')" },
     // silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 10000000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
