@@ -5,6 +5,8 @@ const click = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
+const clickSound = new Audio("assets/click.mp3");
+
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
@@ -85,10 +87,14 @@ function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
 }
 
+
+
 function count() {
     i += bonus;
     load();
     saveScore();
+    clickSound.currentTime = 0;
+    clickSound.play();
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
