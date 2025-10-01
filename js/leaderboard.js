@@ -72,4 +72,6 @@ fetchRanking();
 
 setInterval(() => {
   fetchRanking();
+  leaderboardContainer.classList.remove("show");
+
 }, 15000);
