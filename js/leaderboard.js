@@ -19,10 +19,10 @@ const leaderboardContainer = document.getElementById("leaderboardContainer");
 //   ]));
 // }
 function formatScore(score) {
-  if (score >= 10000000) {
+  if (score >= 1000000) {
     return (score / 1000000).toFixed(2) + "m";
   }
-  return score.toLocaleString("pt-BR"); // formata com separador de milhar
+  return score.toLocaleString("pt-BR");
 }
 
 async function fetchRanking() {
