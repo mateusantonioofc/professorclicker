@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor Clicker Login</title>
-    <script>
-        function convidado() {
-            localStorage.clear();
-            localStorage.setItem("tipo_usuario", "convidado");
-            window.location.href = "game.html";
-        }
-        function login() {
-            localStorage.clear();
-            localStorage.setItem("tipo_usuario", "login");
-            window.location.href = "login.html";
-        }
-    </script>
+    <title>Professor Clicker - Seleção de Modo</title>
+    <link rel="stylesheet" href="css/modo.css">
 </head>
 <body>
-    <button onclick="convidado()">CONVIDADO</button>
-    <button onclick="login()">LOGIN</button>
+    <div class="mode-container">
+        <h1>Como deseja jogar?</h1>
+        <button class="mode-btn" onclick="convidado()">Entrar como Convidado</button>
+        <button class="mode-btn" onclick="login()">Login</button>
+    </div>
+
+    <script src="js/modo.js"></script>
 </body>
 </html>
