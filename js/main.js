@@ -5,8 +5,6 @@ const click = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
-const clickSound = new Audio("assets/click.mp3");
-
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
@@ -17,42 +15,33 @@ const professores = {
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
     Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpg')" },
-    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/fenda.webp')" },
+    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
     Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
     Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
     luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
-    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" },
-    // silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 10000000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
 };
 
-let i = Number(localStorage.getItem('score')) || 0;
 
+const sounds = {
+    click: "assets/click.mp3",
+    buy: "assets/buy.mp3",
+    reset: "assets/reset.mp3",
+    ranking: "assets/ranking.mp3",
+    menu: "assets/menu.mp3"
+};
+
+function playSound(type) {
+    if (!sounds[type]) return;
+    const audio = new Audio(sounds[type]);
+    audio.play().catch(() => {});
+}
+
+let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
-
-// Carregar dados do login
-if (session === "login" && username) {
-    fetch(`https://professorclicker-api.vercel.app/api/${username}`)
-        .then(res => res.json())
-        .then(data => {
-            if (typeof data.score === "number") {
-                i = data.score;
-                localStorage.setItem('score', i);
-            }
-            if (data.professores_comprados && typeof data.professores_comprados === "object") {
-                professoresComprados = data.professores_comprados;
-                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
-            }
-            load();
-        })
-        .catch(() => {
-            load();
-        });
-} else {
-    load();
-}
 
 if (!session || 
     (session === "login" && !username)) {
@@ -90,33 +79,16 @@ function saveScoreInDB() {
 
 function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
-    if (session === "login" && username) {
-        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ professores_comprados: professoresComprados })
-        });
-    }
 }
 
-async function playClickSound() {
-    try {
-        await clickSound.play();
-    } catch (error) {
-        console.error("Erro ao reproduzir o som de clique:", error);
-    }
-}
 
 function count() {
     i += bonus;
     load();
     saveScore();
-<<<<<<< HEAD
-    playClickSound();
-=======
-    clickSound.currentTime = 0.5;
-    clickSound.play();
->>>>>>> db6a9b7090e7395fecff2fc909e6f8979fe0c133
+
+    playSound("click");
+
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
@@ -135,6 +107,7 @@ function checarAnimacoes() {
     }
 }
 
+
 function comprarProfessor(id) {
     const prof = professores[id];
     if (!prof) return;
@@ -150,7 +123,8 @@ function comprarProfessor(id) {
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
             load();
-           
+
+            playSound("buy");
         } else {
             notify('Erro: saldo insuficiente ❌', "error");
         }
@@ -161,9 +135,12 @@ function comprarProfessor(id) {
     }
 }
 
+
 function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
     if (!confirmReset) return;
+
+    playSound("reset");
 
     i = 0;
     bonus = 1;
@@ -195,7 +172,18 @@ function notify(message, type = "normal") {
     }, 3000);
 }
 
+
+const rankingBtn = document.getElementById("btnLeaderboard");
+if (rankingBtn) {
+    rankingBtn.addEventListener("click", () => {
+        playSound("ranking");
+    });
+}
+
+
 menuToggle.addEventListener("click", () => {
+    playSound("menu");
+
     store.classList.toggle("active");
     menuToggle.classList.toggle("active");
 
@@ -217,6 +205,7 @@ menuToggle.addEventListener("click", () => {
     }, 200);
 });
 
+
 for (let id in professores) {
     const prof = professores[id];
     const btn = document.createElement("button");
@@ -230,6 +219,7 @@ for (let id in professores) {
     storeContainer.appendChild(btn);
 }
 
+
 setInterval(() => {
     saveScore();
     saveScoreInDB();
@@ -237,8 +227,3 @@ setInterval(() => {
 }, 3000);
 
 load();
-
-document.getElementById("btnLogout").onclick = function() {
-    localStorage.clear();
-    window.location.href = "index.html";
-};
