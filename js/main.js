@@ -17,14 +17,14 @@ const professores = {
     Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpg')" },
     Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
-    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
+    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Glauco.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 21, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
-    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 23, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
-    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 25, img: "assets/New.webp", background: "url()" }
+    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
+    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
 };
 
-// sons (apenas adicionados — resto do código mantido igual)
+
 const sounds = {
     click: "assets/click.mp3",
     buy: "assets/buy.mp3",
@@ -36,11 +36,10 @@ const sounds = {
 function playSound(type) {
     if (!sounds[type]) return;
     const audio = new Audio(sounds[type]);
-    audio.play().catch(() => {}); // evita erro se bloqueado pelo browser sem interação
+    audio.play().catch(() => {});
 }
 
 let i = Number(localStorage.getItem('score')) || 0;
-
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
@@ -82,12 +81,32 @@ function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
 }
 
+
+const musicas = [
+   musica1: "assets/musica1.mp3",
+   musica2: "assets/musica2.mp3"
+];
+
+let audioPlayer = new Audio();
+audioPlayer.volume = 0.4;
+let musicaIniciada = false;
+
+function tocarMusicaAleatoria() {
+    const aleatoria = Math.floor(Math.random() * musicas.length);
+    audioPlayer.src = musicas[aleatoria];
+    audioPlayer.play().catch(err => console.log("Erro ao tocar música:", err));
+}
+
+audioPlayer.addEventListener("ended", () => {
+    tocarMusicaAleatoria();
+});
+
+
 function count() {
     i += bonus;
     load();
     saveScore();
 
-    
     playSound("click");
 
     click.classList.remove("popp");
@@ -95,6 +114,12 @@ function count() {
     void score.offsetWidth;
     score.classList.add("pop");
     click.classList.add("popp");
+
+    
+    if (!musicaIniciada) {
+        musicaIniciada = true;
+        tocarMusicaAleatoria();
+    }
 }
 
 function checarAnimacoes() {
@@ -123,6 +148,7 @@ function comprarProfessor(id) {
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
             load();
+
             playSound("buy");
         } else {
             notify('Erro: saldo insuficiente ❌', "error");
@@ -138,7 +164,6 @@ function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
     if (!confirmReset) return;
 
-   
     playSound("reset");
 
     i = 0;
@@ -171,10 +196,7 @@ function notify(message, type = "normal") {
     }, 3000);
 }
 
-
-
 menuToggle.addEventListener("click", () => {
-  
     playSound("menu");
 
     store.classList.toggle("active");
