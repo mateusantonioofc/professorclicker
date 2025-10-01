@@ -105,7 +105,7 @@ function count() {
     i += bonus;
     load();
     saveScore();
-    clickSound.currentTime = 0;
+    clickSound.currentTime = 0.5;
     clickSound.play();
     click.classList.remove("popp");
     score.classList.remove("pop");
