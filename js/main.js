@@ -68,12 +68,6 @@ function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
 }
 
-setInterval(() => {
-    saveScore();
-    saveScoreInDB();
-    saveProfessoresComprados();
-}, 3000);
-
 function count() {
     i += bonus;
     load();
@@ -192,5 +186,11 @@ for (let id in professores) {
     `;
     storeContainer.appendChild(btn);
 }
+
+setInterval(() => {
+    saveScore();
+    saveScoreInDB();
+    saveProfessoresComprados();
+}, 3000);
 
 load();
