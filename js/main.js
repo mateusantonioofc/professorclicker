@@ -14,7 +14,7 @@ const professores = {
     Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
-    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jfif')" },
+    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpeg')" },
     Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
     Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
