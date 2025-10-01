@@ -18,12 +18,12 @@ const leaderboardContainer = document.getElementById("leaderboardContainer");
 //     { name: "Rafa", money: 3000 }
 //   ]));
 // }
-
 async function fetchRanking() {
   try {
     const response = await fetch("https://professorclicker-api.vercel.app/ranking");
     const data = await response.json();
-    const ranking = data.ranking || [];
+
+    const ranking = (data.ranking || []).filter(player => player.username !== "ADM");
 
     let top10 = ranking.slice(0, 10);
 
@@ -61,3 +61,8 @@ btnLeaderboard.addEventListener("click", () => {
 });
 
 fetchRanking();
+
+setInterval(() => {
+  fetchRanking();
+  leaderboardContainer.classList.remove("show");
+}, 15000);
