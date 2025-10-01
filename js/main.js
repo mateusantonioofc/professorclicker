@@ -24,7 +24,7 @@ const professores = {
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
 };
 
-
+// sons (apenas adicionados — resto do código mantido igual)
 const sounds = {
     click: "assets/click.mp3",
     buy: "assets/buy.mp3",
@@ -36,10 +36,11 @@ const sounds = {
 function playSound(type) {
     if (!sounds[type]) return;
     const audio = new Audio(sounds[type]);
-    audio.play().catch(() => {});
+    audio.play().catch(() => {}); // evita erro se bloqueado pelo browser sem interação
 }
 
 let i = Number(localStorage.getItem('score')) || 0;
+
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
@@ -85,8 +86,10 @@ function count() {
     i += bonus;
     load();
     saveScore();
-    clickSound.currentTime = 0.5;
-    clickSound.play();
+
+    
+    playSound("click");
+
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
@@ -105,7 +108,6 @@ function checarAnimacoes() {
     }
 }
 
-
 function comprarProfessor(id) {
     const prof = professores[id];
     if (!prof) return;
@@ -121,7 +123,6 @@ function comprarProfessor(id) {
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
             load();
-
             playSound("buy");
         } else {
             notify('Erro: saldo insuficiente ❌', "error");
@@ -133,11 +134,11 @@ function comprarProfessor(id) {
     }
 }
 
-
 function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
     if (!confirmReset) return;
 
+   
     playSound("reset");
 
     i = 0;
@@ -171,15 +172,9 @@ function notify(message, type = "normal") {
 }
 
 
-const rankingBtn = document.getElementById("btnLeaderboard");
-if (rankingBtn) {
-    rankingBtn.addEventListener("click", () => {
-        playSound("ranking");
-    });
-}
-
 
 menuToggle.addEventListener("click", () => {
+  
     playSound("menu");
 
     store.classList.toggle("active");
@@ -203,7 +198,6 @@ menuToggle.addEventListener("click", () => {
     }, 200);
 });
 
-
 for (let id in professores) {
     const prof = professores[id];
     const btn = document.createElement("button");
@@ -217,6 +211,13 @@ for (let id in professores) {
     storeContainer.appendChild(btn);
 }
 
+
+const rankingBtn = document.getElementById("btnLeaderboard");
+if (rankingBtn) {
+    rankingBtn.addEventListener("click", () => {
+        playSound("ranking");
+    });
+}
 
 setInterval(() => {
     saveScore();
