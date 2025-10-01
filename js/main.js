@@ -15,7 +15,7 @@ const professores = {
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
     Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpg')" },
-    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
+    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/fenda.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
     Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
@@ -30,6 +30,7 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
+// Carregar dados do login
 if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`)
         .then(res => res.json())
@@ -37,8 +38,12 @@ if (session === "login" && username) {
             if (typeof data.score === "number") {
                 i = data.score;
                 localStorage.setItem('score', i);
-                load();
             }
+            if (data.professores_comprados && typeof data.professores_comprados === "object") {
+                professoresComprados = data.professores_comprados;
+                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+            }
+            load();
         })
         .catch(() => {
             load();
@@ -83,6 +88,13 @@ function saveScoreInDB() {
 
 function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+    if (session === "login" && username) {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ professores_comprados: professoresComprados })
+        });
+    }
 }
 
 function count() {
