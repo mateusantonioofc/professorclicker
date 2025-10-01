@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Professor Clicker</title>
-    <link rel="stylesheet" href="css/form.css">
+    <title>Professor Clicker Login</title>
+    <script>
+        function convidado() {
+            localStorage.clear();
+            localStorage.setItem("tipo_usuario", "convidado");
+            window.location.href = "game.html";
+        }
+        function login() {
+            localStorage.clear();
+            localStorage.setItem("tipo_usuario", "login");
+            window.location.href = "login.html";
+        }
+    </script>
 </head>
 <body>
-
-    <div class="glass-container">
-        <h1>Escolha seu Nome</h1>
-        <input type="text" id="nicknameInput" placeholder="Digite seu Nome">
-        <button onclick="saveNickname()">Entrar</button>
-        <div class="nickname-display" id="nicknameDisplay"></div>
-    </div>
-
-    <script src="js/form.js"></script>
+    <button onclick="convidado()">CONVIDADO</button>
+    <button onclick="login()">LOGIN</button>
 </body>
 </html>

@@ -6,8 +6,11 @@ const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
 
+const session = localStorage.getItem("tipo_usuario");
+const username = localStorage.getItem("nickname");
+
 const professores = {
-    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 999999999, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
@@ -19,18 +22,24 @@ const professores = {
     // silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 10000000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
 
-
 let i = Number(localStorage.getItem('score')) || 0;
+
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
-const session = localStorage.getItem("nickname");
 
-
-if (!session) {
+if (!session || 
+    (session === "login" && !username)) {
+    alert("Acesso negado! Faça login ou entre como convidado.");
     window.location.href = "index.html";
-    throw new Error("Usuário não logado / Não tente burlar");
+    throw new Error("Redirecionado para login");
+}
+
+if (session === "convidado") {
+    const rankingBtn = document.getElementById("btnLeaderboard");
+    if (rankingBtn) rankingBtn.style.display = "none";
+    title.textContent = "Convidado";
 } else {
-    title.innerText = `${session}`;
+    title.textContent = localStorage.getItem("nickname") || "Nome";
 }
 
 function load() {
@@ -43,11 +52,13 @@ function saveScore() {
 }
 
 function saveScoreInDB() {
-    fetch(`https://professorclicker-api.vercel.app/api/${session}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ score: i })
-    });
+    if (session === "login") {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ score: i })
+        });
+    }
 }
 
 function saveProfessoresComprados() {
@@ -124,6 +135,7 @@ function resetGame() {
     localStorage.clear();
     load();
     saveScore();
+    window.location.href = "index.html";
     alert("Jogo reiniciado!");
 }
 
@@ -149,7 +161,6 @@ menuToggle.addEventListener("click", () => {
 
     const icon = menuToggle.querySelector("i");
 
-
     icon.style.transition = "transform 0.3s ease";
     icon.style.transform = "rotate(90deg)";
 
@@ -165,8 +176,6 @@ menuToggle.addEventListener("click", () => {
         icon.style.transform = "rotate(0deg)";
     }, 200);
 });
-
-
 
 for (let id in professores) {
     const prof = professores[id];

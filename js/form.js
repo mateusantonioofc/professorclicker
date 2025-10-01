@@ -1,10 +1,5 @@
 const session = localStorage.getItem('score');
 
-if(session) {
-    localStorage.setItem("score", 0);
-    localStorage.setItem("professores_comprados", false);
-    localStorage.clear();
-}
 
 function redirectToGame() {
     window.location.href = "game.html";
@@ -19,7 +14,11 @@ function saveNickname() {
         return;
     }
 
+    localStorage.clear(); // apaga cache
+    
     localStorage.setItem("nickname", nickname);
+    localStorage.setItem("tipo_usuario", "login");
+
     saveUser(nickname)
         .then(response => response.json())
         .then(data => {
