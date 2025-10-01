@@ -18,6 +18,15 @@ body {
   text-align: center;
 }
 
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #ccc;
+}
+
 .leaderboard h2 {
   margin-bottom: 15px;
   background: #e94560;
