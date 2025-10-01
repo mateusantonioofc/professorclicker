@@ -10,7 +10,7 @@ const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
 const professores = {
-    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 999999999999, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
@@ -19,9 +19,9 @@ const professores = {
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
     Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
-    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
-    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
+    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 21, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
+    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 23, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 25, img: "assets/New.webp", background: "url()" }
 };
 
 // sons (apenas adicionados — resto do código mantido igual)
