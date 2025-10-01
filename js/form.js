@@ -1,49 +1,62 @@
-const session = localStorage.getItem('score');
-
 function redirectToGame() {
     window.location.href = "game.html";
 }
 
-function loginOrCreateUser() {
+async function loginOrRegister() {
     const nickname = document.getElementById("nicknameInput").value.trim();
     const password = document.getElementById("passwordInput").value.trim();
     const display = document.getElementById("nicknameDisplay");
 
     if (!nickname || !password) {
-        display.innerText = "Preencha todos os campos!";
-        display.style.display = "block";
+        alert("Digite seu nome e senha antes de continuar!");
         return;
     }
 
-    fetch("https://professorclicker-api.vercel.app/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: nickname, password })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.error) {
-            display.innerText = data.error;
-            display.style.display = "block";
-        } else {
+    display.style.display = "none";
+
+    try {
+        let response = await fetch("https://professorclicker-api.vercel.app/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: nickname, password })
+        });
+
+        let data = await response.json();
+
+        if (data.error && data.error === "Usuário não encontrado") {
+            response = await fetch("https://professorclicker-api.vercel.app/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: nickname, password })
+            });
+            data = await response.json();
+
+            if (data.user) {
+                localStorage.setItem("nickname", nickname);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("tipo_usuario", "login");
+                display.innerText = `Bem-vindo, ${nickname}!`;
+                display.style.display = "block";
+                redirectToGame();
+            } else {
+                display.innerText = "Erro ao criar usuário!";
+                display.style.display = "block";
+            }
+        } else if (data.token) {
             localStorage.setItem("nickname", nickname);
-            localStorage.setItem("tipo_usuario", "login");
             localStorage.setItem("token", data.token);
-            display.innerText = "Bem-vindo, " + nickname + "!";
+            localStorage.setItem("tipo_usuario", "login");
+            display.innerText = `Bem-vindo, ${nickname}!`;
             display.style.display = "block";
-            setTimeout(redirectToGame, 1000);
+            redirectToGame();
+        } else {
+            display.innerText = "Senha incorreta!";
+            display.style.display = "block";
         }
-    })
-    .catch(() => {
+
+    } catch (err) {
         display.innerText = "Erro de conexão com a API!";
         display.style.display = "block";
-    });
-}
-
-function saveUser(nickname, password) {
-    return fetch("https://professorclicker-api.vercel.app/api/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: nickname, password })
-    });
+        console.error(err);
+    }
 }
