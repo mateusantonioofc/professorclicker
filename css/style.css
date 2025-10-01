@@ -554,4 +554,16 @@ z-index: 2001;
     z-index: 1; 
 }
 
-  
+.btn-logout {
+    background: transparent !important;
+    border: none;
+    color: #e94560;
+    cursor: pointer;
+    padding: 0 8px;
+    font-size: 1.8rem;
+    transition: color 0.2s;
+}
+.btn-logout:hover {
+    color: #b8263a;
+    transform: scale(1.08);
+}

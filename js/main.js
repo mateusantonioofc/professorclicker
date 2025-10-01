@@ -30,6 +30,23 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
+if (session === "login" && username) {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`)
+        .then(res => res.json())
+        .then(data => {
+            if (typeof data.score === "number") {
+                i = data.score;
+                localStorage.setItem('score', i);
+                load();
+            }
+        })
+        .catch(() => {
+            load();
+        });
+} else {
+    load();
+}
+
 if (!session || 
     (session === "login" && !username)) {
     alert("Acesso negado! Faça login ou entre como convidado.");
@@ -194,3 +211,8 @@ setInterval(() => {
 }, 3000);
 
 load();
+
+document.getElementById("btnLogout").onclick = function() {
+    localStorage.clear();
+    window.location.href = "index.html";
+};
