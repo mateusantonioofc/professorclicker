@@ -2,7 +2,7 @@ function redirectToGame() {
     window.location.href = "game.html";
 }
 
-async function loginOrRegister() {
+async function login() {
     const nickname = document.getElementById("nicknameInput").value.trim();
     const password = document.getElementById("passwordInput").value.trim();
     const display = document.getElementById("nicknameDisplay");
