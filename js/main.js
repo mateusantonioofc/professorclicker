@@ -99,14 +99,19 @@ function saveProfessoresComprados() {
     }
 }
 
-
+async function playClickSound() {
+    try {
+        await clickSound.play();
+    } catch (error) {
+        console.error("Erro ao reproduzir o som de clique:", error);
+    }
+}
 
 function count() {
     i += bonus;
     load();
     saveScore();
-    clickSound.currentTime = 0;
-    clickSound.play();
+    playClickSound();
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
@@ -184,8 +189,6 @@ function notify(message, type = "normal") {
         setTimeout(() => notification.remove(), 1000);
     }, 3000);
 }
-
-
 
 menuToggle.addEventListener("click", () => {
     store.classList.toggle("active");
