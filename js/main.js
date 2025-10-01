@@ -37,9 +37,9 @@ if (!session ||
 if (session === "convidado") {
     const rankingBtn = document.getElementById("btnLeaderboard");
     if (rankingBtn) rankingBtn.style.display = "none";
-    title.textContent = "Convidado";
+    title.textContent = "Turista";
 } else {
-    title.textContent = localStorage.getItem("nickname") || "Nome";
+    title.textContent = localStorage.getItem("nickname") || "Ghost";
 }
 
 function load() {
