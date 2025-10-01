@@ -24,7 +24,6 @@ const professores = {
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
 };
 
-
 const sounds = {
     click: "assets/click.mp3",
     buy: "assets/buy.mp3",
@@ -43,8 +42,7 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
-if (!session || 
-    (session === "login" && !username)) {
+if (!session || (session === "login" && !username)) {
     alert("Acesso negado! Faça login ou entre como convidado.");
     window.location.href = "index.html";
     throw new Error("Redirecionado para login");
@@ -81,10 +79,9 @@ function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
 }
 
-
 const musicas = [
-   musica1: "assets/musica1.mp3",
-   musica2: "assets/musica2.mp3"
+   "assets/musica1.mp3",
+   "assets/musica2.mp3"
 ];
 
 let audioPlayer = new Audio();
@@ -101,21 +98,16 @@ audioPlayer.addEventListener("ended", () => {
     tocarMusicaAleatoria();
 });
 
-
 function count() {
     i += bonus;
     load();
     saveScore();
-
     playSound("click");
-
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
     score.classList.add("pop");
     click.classList.add("popp");
-
-    
     if (!musicaIniciada) {
         musicaIniciada = true;
         tocarMusicaAleatoria();
@@ -148,7 +140,6 @@ function comprarProfessor(id) {
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
             load();
-
             playSound("buy");
         } else {
             notify('Erro: saldo insuficiente ❌', "error");
@@ -163,9 +154,7 @@ function comprarProfessor(id) {
 function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
     if (!confirmReset) return;
-
     playSound("reset");
-
     i = 0;
     bonus = 1;
     for (let id in professores) {
@@ -198,15 +187,11 @@ function notify(message, type = "normal") {
 
 menuToggle.addEventListener("click", () => {
     playSound("menu");
-
     store.classList.toggle("active");
     menuToggle.classList.toggle("active");
-
     const icon = menuToggle.querySelector("i");
-
     icon.style.transition = "transform 0.3s ease";
     icon.style.transform = "rotate(90deg)";
-
     setTimeout(() => {
         if (store.classList.contains("active")) {
             icon.classList.remove("fa-store");
@@ -215,7 +200,6 @@ menuToggle.addEventListener("click", () => {
             icon.classList.remove("fa-xmark");
             icon.classList.add("fa-store");
         }
-
         icon.style.transform = "rotate(0deg)";
     }, 200);
 });
@@ -232,7 +216,6 @@ for (let id in professores) {
     `;
     storeContainer.appendChild(btn);
 }
-
 
 const rankingBtn = document.getElementById("btnLeaderboard");
 if (rankingBtn) {
