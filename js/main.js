@@ -111,7 +111,12 @@ function count() {
     i += bonus;
     load();
     saveScore();
+<<<<<<< HEAD
     playClickSound();
+=======
+    clickSound.currentTime = 0.5;
+    clickSound.play();
+>>>>>>> db6a9b7090e7395fecff2fc909e6f8979fe0c133
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
