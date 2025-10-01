@@ -10,15 +10,18 @@ const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
 const professores = {
-    tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
-    tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
-    tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
+    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
+    Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
-    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.jpeg", background: "url('assets/CD.jfif')" },
+    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jfif')" },
     Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
-    silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
-    silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
+    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
+    Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
+    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/ibura.jpg')" },
+    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/New.webp", background: "url('assets/ibura.jpg')" },
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url('assets/ibura.jpg')" },
     // silviofurryshiny: { nome: "Silvio Furry Shiny", preco: 10000000000000000, bonus: 99999999, img: "assets/silviofurryshiny.png", background: "url('assets/City.jpg')" }
 };
 
