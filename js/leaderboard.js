@@ -18,6 +18,13 @@ const leaderboardContainer = document.getElementById("leaderboardContainer");
 //     { name: "Rafa", money: 3000 }
 //   ]));
 // }
+function formatScore(score) {
+  if (score >= 10000000) {
+    return (score / 1000000).toFixed(2) + "m";
+  }
+  return score.toLocaleString("pt-BR"); // formata com separador de milhar
+}
+
 async function fetchRanking() {
   try {
     const response = await fetch("https://professorclicker-api.vercel.app/ranking");
@@ -30,7 +37,7 @@ async function fetchRanking() {
     rankingElement.innerHTML = top10.map((player, index) => `
       <li>
         <span>${index + 1}. ${player.username}</span>
-        <span>💰 ${player.score}</span>
+        <span>💰 ${formatScore(player.score)}</span>
       </li>
     `).join("");
   } catch (err) {
@@ -38,6 +45,7 @@ async function fetchRanking() {
     rankingElement.innerHTML = "<li>Erro ao carregar ranking</li>";
   }
 }
+
 
 btnLeaderboard.addEventListener("click", () => {
   leaderboardContainer.classList.toggle("show");
