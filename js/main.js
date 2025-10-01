@@ -10,7 +10,7 @@ const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
 const professores = {
-    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: -20000000, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
+    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
     Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
