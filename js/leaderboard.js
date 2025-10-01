@@ -37,7 +37,7 @@ async function fetchRanking() {
     rankingElement.innerHTML = top10.map((player, index) => `
       <li>
         <span>${index + 1}. ${player.username}</span>
-        <span>💰 ${formatScore(player.score)}</span>
+        <span>👉 ${formatScore(player.score)}</span>
       </li>
     `).join("");
   } catch (err) {
