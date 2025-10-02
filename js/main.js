@@ -5,24 +5,24 @@ const click = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
-const clickSound = new Audio("assets/click.mp3");
+const clickSound = new Audio("assets/sfx/click.mp3");
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
 const professores = {
-    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/cabibara_1.png", background: "url('assets/cozinha.webp')" },
-    Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/cabibara_2.png", background: "url('assets/anao.webp')" },
-    Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
-    FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
-    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpg')" },
-    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/fenda.webp')" },
-    Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
-    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
-    Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
-    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
-    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
-    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
+    Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/professores/teti_mulher.png", background: "url('assets/backgrounds/cozinha.jpg')" },
+    Tetianao: { nome: "Teti Anão", preco: 300, bonus: 3, img: "assets/professores/teti_anao.png", background: "url('assets/backgrounds/montanha.jpg')" },
+    Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/professores/teti.png", background: "url('assets/backgrounds/sala.jpg')" },
+    FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/professores/felipe.png", background: "url('assets/backgrounds/fisica.jpg')" },
+    Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/professores/sheyla.png", background: "url('assets/backgrounds/surrubanco.jpg')" },
+    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/professores/glauco.png", background: "url('assets/backgrounds/fenda.jpg')" },
+    Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/professores/richardson.png", background: "url('assets/backgrounds/programa.jpg')" },
+    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/professores/silvio.png", background: "url('assets/backgrounds/ibura.jpg')" },
+    Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/professores/silvio_furry.png", background: "url('assets/backgrounds/academia.jpg')" },
+    Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/professores/rejane.png", background: "url('assets/backgrounds/biblioteca.jpg')" },
+    luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/professores/luana.png", background: "url('assets/background')" },
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/guest.png", background: "url('assets/background')" }
 };
 
 let i = Number(localStorage.getItem('score')) || 0;
@@ -98,11 +98,11 @@ function saveProfessoresComprados() {
 }
 
 const sounds = {
-    click: "assets/click.mp3",
-    buy: "assets/buy.mp3",
-    reset: "assets/reset.mp3",
-    ranking: "assets/ranking.mp3",
-    menu: "assets/menu.mp3"
+    click: "assets/sfx/click.mp3",
+    buy: "assets/sfx/buy.mp3",
+    reset: "assets/sfx/reset.mp3",
+    ranking: "assets/sfx/ranking.mp3",
+    menu: "assets/sfx/menu.mp3"
 };
 
 function playSound(type) {
@@ -118,16 +118,16 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 const musicas = [
-    "assets/musica1.mp3",
-    "assets/musica2.mp3",
-    "assets/musica3.mp3",
-    "assets/musica4.mp3",
-    "assets/musica5.mp3",
-    "assets/musica6.mp3",
-    "assets/musica7.mp3",
-    "assets/musica8.mp3",
-    "assets/musica10.mp3",
-    "assets/musica11.mp3",
+    "assets/sfx/musica1.mp3",
+    "assets/sfx/musica2.mp3",
+    "assets/sfx/musica3.mp3",
+    "assets/sfx/musica4.mp3",
+    "assets/sfx/musica5.mp3",
+    "assets/sfx/musica6.mp3",
+    "assets/sfx/musica7.mp3",
+    "assets/sfx/musica8.mp3",
+    "assets/sfx/musica10.mp3",
+    "assets/sfx/musica11.mp3",
 ];
 
 let audioPlayer = new Audio();
@@ -219,7 +219,7 @@ function resetGame() {
         professoresComprados[id] = false;
         document.getElementById(id)?.classList.remove("comprado", "compravel");
     }
-    cabibara.src = "assets/cabibara.png";
+    cabibara.src = "assets/nave.png";
     document.body.style.backgroundImage = "none";
     document.getElementById("notification-container").innerHTML = "";
     localStorage.clear();
