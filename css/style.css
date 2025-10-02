@@ -517,13 +517,7 @@ z-index: 2001;
 }
 
 
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-    width: auto;
-    border-radius: 20px;
-  }
+
   
   .profile-user {
     font-size: 20px;
@@ -554,11 +548,16 @@ z-index: 2001;
     z-index: 1; 
 }
 
-.btn-logout {
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+    border-radius: 20px;
     position: relative;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+}
+
+.btn-logout {
     background: transparent !important;
     border: none;
     color: #e94560;
@@ -566,8 +565,12 @@ z-index: 2001;
     padding: 0 8px;
     font-size: 1.8rem;
     transition: color 0.2s, transform 0.2s;
-    z-index: 1500;
+    z-index: 2000; 
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
+
 .btn-logout:hover {
     color: #b8263a;
     transform: scale(1.08);
