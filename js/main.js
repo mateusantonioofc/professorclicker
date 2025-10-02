@@ -238,4 +238,10 @@ setInterval(() => {
     saveProfessoresComprados();
 }, 3000);
 
+document.getElementById('btnLogout').addEventListener('click', function() {
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+    window.location.href = "login.html";
+});
+
 load();
