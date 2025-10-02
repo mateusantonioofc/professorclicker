@@ -5,6 +5,7 @@ const click = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const store = document.getElementById("store");
+const clickSound = new Audio("assets/click.mp3");
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
@@ -137,6 +138,7 @@ audioPlayer.addEventListener("ended", () => {
     tocarMusicaAleatoria();
 });
 
+// CORREÇÃO: verifica se score/click não são null antes da animação
 function count() {
     i += bonus;
     load();
@@ -144,11 +146,16 @@ function count() {
     playSound("click");
     clickSound.currentTime = 0.5;
     clickSound.play();
-    click.classList.remove("popp");
-    score.classList.remove("pop");
-    void score.offsetWidth;
-    score.classList.add("pop");
-    click.classList.add("popp");
+    if (click) {
+        click.classList.remove("popp");
+        void click.offsetWidth;
+        click.classList.add("popp");
+    }
+    if (score) {
+        score.classList.remove("pop");
+        void score.offsetWidth;
+        score.classList.add("pop");
+    }
     if (!musicaIniciada) {
         musicaIniciada = true;
         tocarMusicaAleatoria();
