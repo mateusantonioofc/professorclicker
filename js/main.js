@@ -1,5 +1,5 @@
 const score = document.getElementById("score");
-const cabibara = document.getElementById("cabibara_img");
+const pointsButton = document.getElementById("points_button");
 const title = document.querySelector(".h1");
 const click = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
@@ -189,7 +189,7 @@ function comprarProfessor(id) {
             i -= prof.preco;
             bonus = prof.bonus;
             professoresComprados[id] = true;
-            cabibara.src = prof.img;
+            pointsButton.src = prof.img;
             document.body.style.backgroundImage = prof.background;
             document.getElementById(id)?.classList.remove("compravel");
             document.getElementById(id)?.classList.add("comprado");
@@ -201,7 +201,7 @@ function comprarProfessor(id) {
             notify('Erro: saldo insuficiente ❌', "error");
         }
     } else {
-        cabibara.src = prof.img;
+        pointsButton.src = prof.img;
         document.body.style.backgroundImage = prof.background;
         bonus = prof.bonus;
     }
@@ -219,7 +219,7 @@ function resetGame() {
         professoresComprados[id] = false;
         document.getElementById(id)?.classList.remove("comprado", "compravel");
     }
-    cabibara.src = "assets/nave.png";
+    pointsButton.src = "assets/nave.png";
     document.body.style.backgroundImage = "none";
     document.getElementById("notification-container").innerHTML = "";
     localStorage.clear();
