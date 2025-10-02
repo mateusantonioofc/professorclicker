@@ -28,7 +28,7 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
-// Carregar dados do login
+
 if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`)
         .then(res => res.json())
