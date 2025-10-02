@@ -15,34 +15,43 @@ const professores = {
     Tetisupremo: { nome: "Teti Supremo", preco: 2500, bonus: 5, img: "assets/cabibara_3.jpg", background: "url('assets/sala.jpg')" },
     FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/FelipeBase.jpeg", background: "url('assets/Fisica.jpg')" },
     Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/Sheyla.png", background: "url('assets/CD.jpg')" },
-    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/The End.webp')" },
+    Glauco: { nome: "Mr.Glauco", preco: 20000, bonus: 11, img: "assets/Glauco.jpeg", background: "url('assets/fenda.webp')" },
     Richardson: { nome: "Master Rick", preco: 50000, bonus: 13, img: "assets/Richardson.png", background: "url('assets/Program.jpeg')" },
-    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Glauco.jpeg", background: "url('assets/ibura.jpg')" },
+    Silviogoat: { nome: "Silvio Goat", preco: 75000, bonus: 16, img: "assets/Silviogoat.jpeg", background: "url('assets/ibura.jpg')" },
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/silviogoatfurry.png", background: "url('assets/academia.jpg')" },
     Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/Rejane.png", background: "url('assets/biblioteca.webp')" },
     luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/IMG-20251001-WA0007.jpg", background: "url()" },
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/New.webp", background: "url()" }
 };
 
-const sounds = {
-    click: "assets/click.mp3",
-    buy: "assets/buy.mp3",
-    reset: "assets/reset.mp3",
-    ranking: "assets/ranking.mp3",
-    menu: "assets/menu.mp3"
-};
-
-function playSound(type) {
-    if (!sounds[type]) return;
-    const audio = new Audio(sounds[type]);
-    audio.play().catch(() => {});
-}
-
 let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
-if (!session || (session === "login" && !username)) {
+// Carregar dados do login
+if (session === "login" && username) {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`)
+        .then(res => res.json())
+        .then(data => {
+            if (typeof data.score === "number") {
+                i = data.score;
+                localStorage.setItem('score', i);
+            }
+            if (data.professores_comprados && typeof data.professores_comprados === "object") {
+                professoresComprados = data.professores_comprados;
+                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+            }
+            load();
+        })
+        .catch(() => {
+            load();
+        });
+} else {
+    load();
+}
+
+if (!session ||
+    (session === "login" && !username)) {
     alert("Acesso negado! Faça login ou entre como convidado.");
     window.location.href = "index.html";
     throw new Error("Redirecionado para login");
@@ -77,19 +86,41 @@ function saveScoreInDB() {
 
 function saveProfessoresComprados() {
     localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+
+    if (session === "login" && username) {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ professores_comprados: professoresComprados })
+        });
+    }
+}
+
+const sounds = {
+    click: "assets/click.mp3",
+    buy: "assets/buy.mp3",
+    reset: "assets/reset.mp3",
+    ranking: "assets/ranking.mp3",
+    menu: "assets/menu.mp3"
+};
+
+function playSound(type) {
+    if (!sounds[type]) return;
+    const audio = new Audio(sounds[type]);
+    audio.play().catch(() => { });
 }
 
 const musicas = [
-   "assets/musica1.mp3",
-   "assets/musica2.mp3",
- "assets/musica3.mp3",
-   "assets/musica4.mp3",
- "assets/musica5.mp3",
-   "assets/musica6.mp3",
- "assets/musica7.mp3",
-   "assets/musica8.mp3",
- "assets/musica10.mp3",
-   "assets/musica11.mp3",
+    "assets/musica1.mp3",
+    "assets/musica2.mp3",
+    "assets/musica3.mp3",
+    "assets/musica4.mp3",
+    "assets/musica5.mp3",
+    "assets/musica6.mp3",
+    "assets/musica7.mp3",
+    "assets/musica8.mp3",
+    "assets/musica10.mp3",
+    "assets/musica11.mp3",
 ];
 
 let audioPlayer = new Audio();
@@ -111,6 +142,8 @@ function count() {
     load();
     saveScore();
     playSound("click");
+    clickSound.currentTime = 0.5;
+    clickSound.play();
     click.classList.remove("popp");
     score.classList.remove("pop");
     void score.offsetWidth;
@@ -162,7 +195,9 @@ function comprarProfessor(id) {
 function resetGame() {
     const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
     if (!confirmReset) return;
+
     playSound("reset");
+
     i = 0;
     bonus = 1;
     for (let id in professores) {
@@ -193,13 +228,24 @@ function notify(message, type = "normal") {
     }, 3000);
 }
 
+const rankingBtn = document.getElementById("btnLeaderboard");
+if (rankingBtn) {
+    rankingBtn.addEventListener("click", () => {
+        playSound("ranking");
+    });
+}
+
 menuToggle.addEventListener("click", () => {
     playSound("menu");
+
     store.classList.toggle("active");
     menuToggle.classList.toggle("active");
+
     const icon = menuToggle.querySelector("i");
+
     icon.style.transition = "transform 0.3s ease";
     icon.style.transform = "rotate(90deg)";
+
     setTimeout(() => {
         if (store.classList.contains("active")) {
             icon.classList.remove("fa-store");
@@ -208,6 +254,7 @@ menuToggle.addEventListener("click", () => {
             icon.classList.remove("fa-xmark");
             icon.classList.add("fa-store");
         }
+
         icon.style.transform = "rotate(0deg)";
     }, 200);
 });
@@ -225,24 +272,17 @@ for (let id in professores) {
     storeContainer.appendChild(btn);
 }
 
-const rankingBtn = document.getElementById("btnLeaderboard");
-if (rankingBtn) {
-    rankingBtn.addEventListener("click", () => {
-        playSound("ranking");
-    });
-}
-
 setInterval(() => {
     saveScore();
     saveScoreInDB();
     saveProfessoresComprados();
 }, 3000);
 
-document.getElementById('btnLogout').addEventListener('click', function() {
-    localStorage.removeItem('user');
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.href = "login.html";
-});
-
 load();
+
+document.getElementById("btnLogout").onclick = function () {
+    saveScoreInDB();
+    saveProfessoresComprados();
+    localStorage.clear();
+    window.location.href = "index.html";
+};
