@@ -240,6 +240,7 @@ setInterval(() => {
 
 document.getElementById('btnLogout').addEventListener('click', function() {
     localStorage.removeItem('user');
+    localStorage.clear();
     sessionStorage.clear();
     window.location.href = "login.html";
 });
