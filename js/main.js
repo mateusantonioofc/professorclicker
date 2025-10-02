@@ -126,19 +126,21 @@ const musicas = [
 
 let audioPlayer = new Audio();
 audioPlayer.volume = 0.4;
-let musicaIniciada = false;
 
 function tocarMusicaAleatoria() {
     const aleatoria = Math.floor(Math.random() * musicas.length);
     audioPlayer.src = musicas[aleatoria];
     audioPlayer.play().catch(err => console.log("Erro ao tocar música:", err));
 }
-
 audioPlayer.addEventListener("ended", () => {
     tocarMusicaAleatoria();
 });
 
-// CORREÇÃO: verifica se score/click não são null antes da animação
+
+window.addEventListener("load", () => {
+    tocarMusicaAleatoria();
+});
+
 function count() {
     i += bonus;
     load();
