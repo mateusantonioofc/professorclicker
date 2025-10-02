@@ -111,6 +111,12 @@ function playSound(type) {
     audio.play().catch(() => { });
 }
 
+document.addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        tocarMusicaAleatoria();
+    }
+}, { once: true });
+
 const musicas = [
     "assets/musica1.mp3",
     "assets/musica2.mp3",
