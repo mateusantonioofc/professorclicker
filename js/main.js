@@ -81,7 +81,15 @@ function saveProfessoresComprados() {
 
 const musicas = [
    "assets/musica1.mp3",
-   "assets/musica2.mp3"
+   "assets/musica2.mp3",
+ "assets/musica3.mp3",
+   "assets/musica4.mp3",
+ "assets/musica5.mp3",
+   "assets/musica6.mp3",
+ "assets/musica7.mp3",
+   "assets/musica8.mp3",
+ "assets/musica10.mp3",
+   "assets/musica11.mp3",
 ];
 
 let audioPlayer = new Audio();
