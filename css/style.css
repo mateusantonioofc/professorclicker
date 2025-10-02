@@ -555,13 +555,18 @@ z-index: 2001;
 }
 
 .btn-logout {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
     background: transparent !important;
     border: none;
     color: #e94560;
     cursor: pointer;
     padding: 0 8px;
     font-size: 1.8rem;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 1500;
 }
 .btn-logout:hover {
     color: #b8263a;
