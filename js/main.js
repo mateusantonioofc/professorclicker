@@ -102,7 +102,7 @@ condicao: (game) => game.score >= 1
     nome: "Lenda do Clicker",
     descricao: "Você alcançou 1.000.000 pontos!",
     condicao: (game) => game.score >= 1000000
-  }
+  },
 {
     id: "silvio_fan",
     nome: "Fã Número 1",
