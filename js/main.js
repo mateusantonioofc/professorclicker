@@ -1,5 +1,3 @@
-import { conquistas, checarConquistas } from "./achievements.js";
-
 const score = document.getElementById("score");
 const pointsButton = document.getElementById("points_button");
 const title = document.querySelector(".h1");
@@ -11,6 +9,8 @@ const clickSound = new Audio("assets/sfx/click.mp3");
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
+
+let musicaIniciada = false;
 
 const professores = {
     Tetimulher: { nome: "Teti Mulher", preco: 50, bonus: 2, img: "assets/professores/teti_mulher.png", background: "url('assets/backgrounds/cozinha.jpg')" },
@@ -31,12 +31,44 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
+let conquistasDesbloqueadas = JSON.parse(localStorage.getItem("conquistas") || "[]");
+
 const game = {
     score: i,
     bonus: bonus,
     professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 }
 
+const conquistas = [
+  {
+    id: "primeiro_clique",
+    nome: "Primeiro Clique",
+    descricao: "Welcome to Cicero!",
+    condicao: (game) => game.score >= 1
+  },
+  {
+    id: "cem_pontos",
+    nome: "Clique Viciado",
+    descricao: "Você chegou em 100 pontos!",
+    condicao: (game) => game.score >= 100
+  },
+  {
+    id: "dezmilhoes_pontos",
+    nome: "Rumo ao topo",
+    descricao: "Você chegou em 10.000.000 de pontos!",
+    condicao: (game) => game.score >= 10000000
+  }
+];
+
+function checarConquistas(game) {
+  conquistas.forEach(c => {
+    if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
+      conquistasDesbloqueadas.push(c.id);
+      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
+      notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
+    }
+  });
+}
 
 if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`)
@@ -77,6 +109,7 @@ if (session === "convidado") {
 function load() {
     score.textContent = i;
     checarAnimacoes();
+    checarConquistas(game);
 }
 
 function saveScore() {
@@ -159,7 +192,7 @@ function count() {
     i += bonus;
     load();
     saveScore();
-    // checarConquistas(game, notify);
+    checarConquistas(game);
     playSound("click");
     
     clickSound.currentTime = 0.5;
@@ -205,7 +238,7 @@ function comprarProfessor(id) {
             document.getElementById(id)?.classList.add("comprado");
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
-            checarConquistas(game, notify);
+            checarConquistas(game);
             
             load();
             playSound("buy");
@@ -231,12 +264,11 @@ function resetGame() {
         professoresComprados[id] = false;
         document.getElementById(id)?.classList.remove("comprado", "compravel");
     }
+    saveScoreInDB();
     pointsButton.src = "assets/nave.png";
     document.body.style.backgroundImage = "none";
     document.getElementById("notification-container").innerHTML = "";
     localStorage.clear();
-    load();
-    saveScore();
     window.location.href = "index.html";
     alert("Jogo reiniciado!");
 }
