@@ -137,6 +137,18 @@ function saveProfessoresComprados() {
     }
 }
 
+function saveConquistas() {
+    localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+
+    if (session === "login" && username) {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ conquistas: conquistasDesbloqueadas })
+        });
+    }
+}
+
 const sounds = {
     click: "assets/sfx/click.mp3",
     buy: "assets/sfx/buy.mp3",
@@ -268,6 +280,7 @@ function resetGame() {
         document.getElementById(id)?.classList.remove("comprado", "compravel");
     }
     saveScoreInDB();
+    
     pointsButton.src = "assets/nave.png";
     document.body.style.backgroundImage = "none";
     document.getElementById("notification-container").innerHTML = "";
@@ -338,6 +351,7 @@ setInterval(() => {
     saveScore();
     saveScoreInDB();
     saveProfessoresComprados();
+    saveConquistas();
 }, 3000);
 
 load();
