@@ -32,7 +32,7 @@ let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
 const game = {
-    score: Number(localStorage.getItem("score")) || 0,
+    score: i,
     bonus: bonus,
     professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 }
