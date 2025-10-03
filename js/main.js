@@ -27,185 +27,139 @@ const professores = {
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/professores/luanasocio.jpeg", background: "url('assets/backgrounds/pontanegra.webp')" }
 };
 
-
-let i = 0;
+let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
-let professoresComprados = {};
-let conquistasDesbloqueadas = [];
+let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
+let conquistasDesbloqueadas = JSON.parse(localStorage.getItem("conquistas") || "[]");
 
 const game = {
     score: i,
     bonus: bonus,
-    professores: {}
+    professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 };
 
-function carregarScore() {
-    if (session === "login" && username) {
-        fetch(`https://professorclicker-api.vercel.app/api/${username}`)
-            .then(res => res.json())
-            .then(data => {
-                if (typeof data.score === "number") i = data.score;
-                if (data.professores_comprados && typeof data.professores_comprados === "object") {
-                    professoresComprados = data.professores_comprados;
-                }
-                if (data.conquistas) conquistasDesbloqueadas = data.conquistas;
-
-                game.score = i;
-                game.bonus = bonus;
-                game.professores = professoresComprados;
-
-                localStorage.setItem('score', i);
-                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
-                localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
-
-                load();
-            })
-            .catch(() => {
-                i = Number(localStorage.getItem('score')) || 0;
-                professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
-                conquistasDesbloqueadas = JSON.parse(localStorage.getItem('conquistas') || '[]');
-
-                game.score = i;
-                game.bonus = bonus;
-                game.professores = professoresComprados;
-
-                load();
-            });
-    } else {
-        i = Number(localStorage.getItem('score')) || 0;
-        professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
-        conquistasDesbloqueadas = JSON.parse(localStorage.getItem('conquistas') || '[]');
-
-        game.score = i;
-        game.bonus = bonus;
-        game.professores = professoresComprados;
-
-        load();
-    }
-}
-
-//  CONQUISTAS 
 const conquistas = [
-  {
-    id: "primeiro_professor",
-    nome: "Primeira Compra",
-    descricao: "Você comprou seu primeiro professor!",
-    condicao: (game) => game.bonus >= 2,
-    recompensa: 100
-  },
-  {
-    id: "super_clique",
-    nome: "Clique Frenético",
-    descricao: "Você clicou 100 vezes!",
-    condicao: (game) => game.score >= 100
-  },
-  {
-    id: "primeiro_clique",
-    nome: "Primeiro Clique",
-    descricao: "Welcome to Cicero!",
-    condicao: (game) => game.score >= 1
-  },
-  {
-    id: "mega_clique",
-    nome: "Clique Supremo",
-    descricao: "Você chegou em 1.000 pontos!",
-    condicao: (game) => game.score >= 1000
-  },
-  {
-    id: "colecionador",
-    nome: "Colecionador de Professores",
-    descricao: "Você comprou 5 professores diferentes!",
-    condicao: (game) =>
-      Object.values(game.professores).filter(v => v).length >= 5
-  },
-  {
-    id: "fanatico",
-    nome: "Viciado em Pontos",
-    descricao: "Você chegou em 50.000 pontos!",
-    condicao: (game) => game.score >= 50000
-  },
-  {
-    id: "background_mestre",
-    nome: "Mestre das Salas",
-    descricao: "Você trocou o background 3 vezes!",
-    condicao: (game) => game.bonus >= 7
-  },
-  {
-    id: "resetador",
-    nome: "Reinício Estratégico",
-    descricao: "Você reiniciou o jogo 1 vez!",
-    condicao: (game) => Number(localStorage.getItem("resets")) >= 1
-  },
-  {
-    id: "todo_poderoso",
-    nome: "Bônus Máximo",
-    descricao: "Você atingiu o maior bônus disponível!",
-    condicao: (game) => game.bonus >= 37
-  },
-  {
-    id: "lenda",
-    nome: "Lenda do Clicker",
-    descricao: "Você alcançou 1.000.000 pontos!",
-    condicao: (game) => game.score >= 1000000
-  },
-  {
-    id: "silvio_fan",
-    nome: "Fã Número 1",
-    descricao: "Você comprou Silvio Goat ou Silvio Furry!",
-    condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
-  },
-  {
-    id: "reset_mestre",
-    nome: "Recomeço Infinito",
-    descricao: "Você reiniciou o jogo 5 vezes!",
-    condicao: (game) => Number(localStorage.getItem("resets")) >= 5
-  },
-  {
-    id: "background_lover",
-    nome: "Amante do Visual",
-    descricao: "Você trocou o background 7 vezes!",
-    condicao: (game) => game.bonus >= 16
-  },
-  {
-    id: "click_666",
-    nome: "Cuidado com o Click",
-    descricao: "Você clicou exatamente 666 vezes!",
-    condicao: (game) => game.score === 666
-  },
-  {
-    id: "score_51",
-    nome: "A Resposta",
-    descricao: "Você chegou exatamente em 51 pontos!",
-    condicao: (game) => game.score === 51
-  },
-  {
-    id: "todos_os_professores",
-    nome: "Colecionador Lendário",
-    descricao: "Você comprou todos os professores!",
-    condicao: (game) => game.bonus >= 37
-  },
-  {
-    id: "minotauro",
-    nome: "Amigo do Minotauro",
-    descricao: "Você clicou mais de 1000 vezes sem comprar nenhum professor!",
-    condicao: (game) => game.score >= 1000 && Object.values(game.professores).every(v => !v)
-  },
-  {
-    id: "musica_perfeita",
-    nome: "DJ Cicero",
-    descricao: "Você ouviu todas as músicas pelo menos uma vez!",
-    condicao: (game) => {
-      const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
-      return musicPlayed.length === 10;
+    {
+        id: "primeiro_professor",
+        nome: "Primeira Compra",
+        descricao: "Você comprou seu primeiro professor!",
+        condicao: (game) => game.bonus >= 2,
+        recompensa: 100
+    },
+    {
+        id: "super_clique",
+        nome: "Clique Frenético",
+        descricao: "Você clicou 100 vezes!",
+        condicao: (game) => game.score >= 100
+    },
+    {
+        id: "primeiro_clique",
+        nome: "Primeiro Clique",
+        descricao: "Welcome to Cicero!",
+        condicao: (game) => game.score >= 1
+    },
+    {
+        id: "mega_clique",
+        nome: "Clique Supremo",
+        descricao: "Você chegou em 1.000 pontos!",
+        condicao: (game) => game.score >= 1000
+    },
+    {
+        id: "colecionador",
+        nome: "Colecionador de Professores",
+        descricao: "Você comprou 5 professores diferentes!",
+        condicao: (game) =>
+            Object.values(game.professores).filter(v => v).length >= 5
+    },
+    {
+        id: "fanatico",
+        nome: "Viciado em Pontos",
+        descricao: "Você chegou em 50.000 pontos!",
+        condicao: (game) => game.score >= 50000
+    },
+    {
+        id: "background_mestre",
+        nome: "Mestre das Salas",
+        descricao: "Você trocou o background 3 vezes!",
+        condicao: (game) => game.bonus >= 7
+    },
+    {
+        id: "resetador",
+        nome: "Reinício Estratégico",
+        descricao: "Você reiniciou o jogo 1 vez!",
+        condicao: (game) => Number(localStorage.getItem("resets")) >= 1
+    },
+    {
+        id: "todo_poderoso",
+        nome: "Bônus Máximo",
+        descricao: "Você atingiu o maior bônus disponível!",
+        condicao: (game) => game.bonus >= 37
+    },
+    {
+        id: "lenda",
+        nome: "Lenda do Clicker",
+        descricao: "Você alcançou 1.000.000 pontos!",
+        condicao: (game) => game.score >= 1000000
+    },
+    {
+        id: "silvio_fan",
+        nome: "Fã Número 1",
+        descricao: "Você comprou Silvio Goat ou Silvio Furry!",
+        condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
+    },
+    {
+        id: "reset_mestre",
+        nome: "Recomeço Infinito",
+        descricao: "Você reiniciou o jogo 5 vezes!",
+        condicao: (game) => Number(localStorage.getItem("resets")) >= 5
+    },
+    {
+        id: "background_lover",
+        nome: "Amante do Visual",
+        descricao: "Você trocou o background 7 vezes!",
+        condicao: (game) => game.bonus >= 16
+    },
+    {
+        id: "click_666",
+        nome: "Cuidado com o Click",
+        descricao: "Você clicou exatamente 666 vezes!",
+        condicao: (game) => game.score === 666
+    },
+    {
+        id: "score_42",
+        nome: "A Resposta",
+        descricao: "Você chegou exatamente em 42 pontos!",
+        condicao: (game) => game.score === 42
+    },
+    {
+        id: "todos_os_professores",
+        nome: "Colecionador Lendário",
+        descricao: "Você comprou todos os professores!",
+        condicao: (game) => game.bonus >= 37
+    },
+    {
+        id: "minotauro",
+        nome: "Amigo do Minotauro",
+        descricao: "Você clicou mais de 1000 vezes sem comprar nenhum professor!",
+        condicao: (game) => game.score >= 1000 && Object.values(game.professores).every(v => !v)
+    },
+    {
+        id: "musica_perfeita",
+        nome: "DJ Cicero",
+        descricao: "Você ouviu todas as músicas pelo menos uma vez!",
+        condicao: (game) => {
+            const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+            return musicPlayed.length === 10;
+        }
+    },
+    {
+        id: "ghost_mode",
+        nome: "Fantasma",
+        descricao: "Entrou como convidado e alcançou 1000 pontos!",
+        condicao: (game) => session === "convidado" && game.score >= 1000
     }
-  },
-  {
-    id: "ghost_mode",
-    nome: "Fantasma",
-    descricao: "Entrou como convidado e alcançou 1000 pontos!",
-    condicao: (game) => session === "convidado" && game.score >= 1000
-  }
 ];
+
 
 function checarConquistas(game) {
     conquistas.forEach(c => {
@@ -214,32 +168,61 @@ function checarConquistas(game) {
             localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
             notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
 
-            let bonusPontos = c.recompensa || 0; 
-            if (bonusPontos > 0) {
-                i += bonusPontos;
-                game.score = i;
-                saveScore();
-                load();
-                notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
-            }
-        }
+            let bonusPontos = c.recompensa || 0;   
+            if (bonusPontos > 0) {  
+                i += bonusPontos;  
+                game.score = i;  
+                saveScore();  
+                load(); 
+                notify(`Você ganhou ${bonusPontos} pontos! 🎉`);  
+            }  
+        }  
     });
 }
 
-
-if (!session || (session === "login" && !username)) {
-    alert("Acesso negado! Faça login ou entre como convidado.");
-    window.location.href = "index.html";
-    throw new Error("Redirecionado para login");
+function load() {
+    score.textContent = i;
+    checarAnimacoes();
 }
 
-if (session === "convidado") {
-    const rankingBtn = document.getElementById("btnLeaderboard");
-    if (rankingBtn) rankingBtn.style.display = "none";
-    title.textContent = "Turista";
+function saveScore() {
+    localStorage.setItem('score', i);
+}
+
+function saveScoreInDB() {
+    if (session === "login") {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ score: i })
+        });
+    }
+}
+
+
+if (session === "login" && username) {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`)
+    .then(res => res.json())
+    .then(data => {
+        if (typeof data.score === "number") {
+            i = data.score;
+            game.score = i;
+            localStorage.setItem('score', i);
+        }
+        if (data.professores_comprados && typeof data.professores_comprados === "object") {
+            professoresComprados = data.professores_comprados;
+            game.professores = professoresComprados;
+            localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+        }
+        if (data.conquistas) {
+            conquistasDesbloqueadas = data.conquistas;
+            localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+        }
+        load();
+    })
+    .catch(() => {
+        load();
+    });
 } else {
-    title.textContent = localStorage.getItem("nickname") || "Ghost";
+    load();
 }
-
-carregarScore();
-
