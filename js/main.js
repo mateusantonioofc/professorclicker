@@ -138,7 +138,8 @@ condicao: (game) => game.score >= 1
     id: "todos_os_professores",
     nome: "Colecionador Lendário",
     descricao: "Você comprou todos os professores!",
-    condicao: (game) => Object.values(game.professores).every(v => v)
+    condicao: (game) => game.bonus >= 37
+  
   },
   {
     id: "minotauro",
