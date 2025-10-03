@@ -31,6 +31,12 @@ let i = Number(localStorage.getItem('score')) || 0;
 let bonus = 1;
 let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
 
+const game = {
+    score: Number(localStorage.getItem("score")) || 0,
+    bonus: bonus,
+    professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
+}
+
 
 if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`)
@@ -153,7 +159,9 @@ function count() {
     i += bonus;
     load();
     saveScore();
+    checarConquistas(game, notify);
     playSound("click");
+    
     clickSound.currentTime = 0.5;
     clickSound.play();
     if (click) {
@@ -197,6 +205,8 @@ function comprarProfessor(id) {
             document.getElementById(id)?.classList.add("comprado");
             notify(`Você comprou ${prof.nome} ✅`);
             saveProfessoresComprados();
+            checarConquistas(game, notify);
+            
             load();
             playSound("buy");
         } else {
