@@ -45,7 +45,7 @@ const conquistas = [
     descricao: "Você comprou seu primeiro professor!",
     condicao: (game) =>
       Object.keys(game.professores).length > 0 &&
-      Object.values(game.professores).some(v => v)
+      Object.values(game.professores).some(v => v),
 recompensa: 100
   },
   {
@@ -170,8 +170,8 @@ function checarConquistas(game) {
             localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
             notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
 
-            // Aqui você adiciona os pontos de recompensa
-            let bonusPontos = c.recompensa || 0; // cada conquista pode ter "recompensa"
+            
+            let bonusPontos = c.recompensa || 0; 
             if (bonusPontos > 0) {
                 i += bonusPontos;
                 game.score = i;
