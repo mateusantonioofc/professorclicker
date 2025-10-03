@@ -38,12 +38,14 @@ const game = {
     professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 };
 
-const conquistas = 
+const conquistas = [
   {
     id: "primeiro_professor",
     nome: "Primeira Compra",
     descricao: "Você comprou seu primeiro professor!",
-    condicao: (game) => Object.keys(game.professores).length > 0 && Object.values(game.professores).some(v => v)
+    condicao: (game) =>
+      Object.keys(game.professores).length > 0 &&
+      Object.values(game.professores).some(v => v)
   },
   {
     id: "super_clique",
@@ -61,7 +63,8 @@ const conquistas =
     id: "colecionador",
     nome: "Colecionador de Professores",
     descricao: "Você comprou 5 professores diferentes!",
-    condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5
+    condicao: (game) =>
+      Object.values(game.professores).filter(v => v).length >= 5
   },
   {
     id: "fanatico",
@@ -73,13 +76,13 @@ const conquistas =
     id: "background_mestre",
     nome: "Mestre das Salas",
     descricao: "Você trocou o background 3 vezes!",
-    condicao: (game) => game.bonus >= 7 // Considerando que bônus alto significa novos backgrounds
+    condicao: (game) => game.bonus >= 7 // Bônus alto = novos backgrounds
   },
   {
     id: "resetador",
     nome: "Reinício Estratégico",
     descricao: "Você reiniciou o jogo 1 vez!",
-    condicao: (game) => localStorage.getItem("resets") >= 1
+    condicao: (game) => Number(localStorage.getItem("resets")) >= 1
   },
   {
     id: "todo_poderoso",
@@ -94,16 +97,20 @@ const conquistas =
     condicao: (game) => game.score >= 1000000
   }
 ];
-    
 
 function checarConquistas(game) {
-    conquistas.forEach(c => {
-        if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
-            conquistasDesbloqueadas.push(c.id);
-            localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
-            notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
-        }
-    });
+  game.score = i;
+  game.bonus = bonus;
+  game.professores = {...professoresComprados};
+  
+  conquistas.forEach(c => {
+    if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
+      conquistasDesbloqueadas.push(c.id);
+      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
+      saveConquistas();
+      notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
+    }
+  });
 }
 
 if (session === "login" && username) {
