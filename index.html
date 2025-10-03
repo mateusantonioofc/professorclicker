@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<!-- LINKS -->
+	
 	<link rel="icon" href="assets/nave.png">
-	<link rel="stylesheet" href="css/modo.css">
+	<link rel="stylesheet" href="css/login.css">
 
-	<title>Professor Clicker - SELEÇÃO</title>
+	<title>Professor Clicker - LOGIN</title>
 
 	<meta charset="UTF-8">
 	<meta name="google-site-verification" content="gKeyCOrmDR3am1GD4nv1DDVOZXyhbXZtbEZf3Q5jDS4" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- SEO -->
 	<meta name="description" content="Desafie seus colegas no Professor Clicker! Escolha seu professor favorito, clique sem parar, evolua seu personagem e prove quem merece estar no topo do ranking da escola.">
 	<meta name="keywords" content="clicker, professor clicker, aprendizado, turista, login, professor clicker nave, nave">
 	<meta name="author" content="EQUIPE BEST">
@@ -24,14 +23,20 @@
 
 </head>
 <body>
-	<div class="mode-container">
-		<h1>Como deseja jogar?</h1>
-		<button class="mode-btn" onclick="convidado()">Entrar como Turista</button>
-		<button class="mode-btn" onclick="login()">Login</button>
-	</div>
 
+    <div class="glass-container">
+        <h1>Login/Cadastro</h1>
+        <input type="text" id="nicknameInput" placeholder="Nome">
+        <input type="password" id="passwordInput" placeholder="Senha" required>
+
+        <button onclick="login()">Entrar</button>
+        <div class="nickname-display" id="nicknameDisplay"></div>
+	<br><br>
+		<button class="mode-btn" onclick="convidado()">Entrar como Turista</button>
+	
+    </div>
+
+    <script src="js/form.js"></script>
 	<script src="js/modo.js"></script>
 </body>
-
 </html>
-
