@@ -102,6 +102,64 @@ condicao: (game) => game.score >= 1
     descricao: "Você alcançou 1.000.000 pontos!",
     condicao: (game) => game.score >= 1000000
   }
+{
+    id: "silvio_fan",
+    nome: "Fã Número 1",
+    descricao: "Você comprou Silvio Goat ou Silvio Furry!",
+    condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
+  },
+  // Conquista "secretas" 
+  {
+    id: "reset_mestre",
+    nome: "Recomeço Infinito",
+    descricao: "Você reiniciou o jogo 5 vezes!",
+    condicao: (game) => Number(localStorage.getItem("resets")) >= 5
+  },
+  {
+    id: "background_lover",
+    nome: "Amante do Visual",
+    descricao: "Você trocou o background 7 vezes!",
+    condicao: (game) => game.bonus >= 16
+  },
+  {
+    id: "click_666",
+    nome: "Cuidado com o Click",
+    descricao: "Você clicou exatamente 666 vezes!",
+    condicao: (game) => game.score === 666
+  },
+  {
+    id: "score_42",
+    nome: "A Resposta",
+    descricao: "Você chegou exatamente em 42 pontos!",
+    condicao: (game) => game.score === 42
+  },
+  {
+    id: "todos_os_professores",
+    nome: "Colecionador Lendário",
+    descricao: "Você comprou todos os professores!",
+    condicao: (game) => Object.values(game.professores).every(v => v)
+  },
+  {
+    id: "minotauro",
+    nome: "Amigo do Minotauro",
+    descricao: "Você clicou mais de 1000 vezes sem comprar nenhum professor!",
+    condicao: (game) => game.score >= 1000 && Object.values(game.professores).every(v => !v)
+  },
+  {
+    id: "musica_perfeita",
+    nome: "DJ Cicero",
+    descricao: "Você ouviu todas as músicas pelo menos uma vez!",
+    condicao: (game) => {
+      const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+      return musicPlayed.length === 10;
+    }
+  },
+  {
+    id: "ghost_mode",
+    nome: "Fantasma",
+    descricao: "Entrou como convidado e alcançou 1000 pontos!",
+    condicao: (game) => session === "convidado" && game.score >= 1000
+  }
 ];
 
 function checarConquistas(game) {
@@ -408,4 +466,10 @@ document.getElementById("btnLogout").onclick = function () {
     window.location.href = "index.html";
 };
 
+audioPlayer.addEventListener("ended", () => {
+    const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+    if (!musicPlayed.includes(audioPlayer.src)) musicPlayed.push(audioPlayer.src);
+    localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
+    tocarMusicaAleatoria();
+});
 load();
