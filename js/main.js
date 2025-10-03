@@ -159,7 +159,7 @@ function count() {
     i += bonus;
     load();
     saveScore();
-    checarConquistas(game, notify);
+    // checarConquistas(game, notify);
     playSound("click");
     
     clickSound.currentTime = 0.5;
