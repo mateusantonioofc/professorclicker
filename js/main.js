@@ -318,6 +318,7 @@ menuToggle.addEventListener("click", () => {
     }, 200);
 });
 
+
 for (let id in professores) {
     const prof = professores[id];
     const btn = document.createElement("button");
