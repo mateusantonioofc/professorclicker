@@ -39,7 +39,7 @@ const game = {
     professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 }
 
-const conquistas = [
+let conquistas = [
   {
     id: "primeiro_clique",
     nome: "Primeiro Clique",
@@ -109,7 +109,6 @@ if (session === "convidado") {
 function load() {
     score.textContent = i;
     checarAnimacoes();
-    checarConquistas(game);
 }
 
 function saveScore() {
@@ -190,11 +189,14 @@ window.addEventListener("load", () => {
 
 function count() {
     i += bonus;
-    load();
     saveScore();
+
+    game.score = i;
+    game.bonus = bonus;
+
     checarConquistas(game);
     playSound("click");
-    
+
     clickSound.currentTime = 0.5;
     clickSound.play();
     if (click) {
@@ -211,6 +213,7 @@ function count() {
         musicaIniciada = true;
         tocarMusicaAleatoria();
     }
+    load();
 }
 
 function checarAnimacoes() {
@@ -317,7 +320,6 @@ menuToggle.addEventListener("click", () => {
         icon.style.transform = "rotate(0deg)";
     }, 200);
 });
-
 
 for (let id in professores) {
     const prof = professores[id];
