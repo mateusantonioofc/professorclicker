@@ -76,7 +76,7 @@ const conquistas = [
     id: "background_mestre",
     nome: "Mestre das Salas",
     descricao: "Você trocou o background 3 vezes!",
-    condicao: (game) => game.bonus >= 7 // Bônus alto = novos backgrounds
+    condicao: (game) => game.bonus >= 7
   },
   {
     id: "resetador",
