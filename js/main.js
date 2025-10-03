@@ -358,11 +358,11 @@ setInterval(() => {
     saveConquistas();
 }, 3000);
 
-load();
-
 document.getElementById("btnLogout").onclick = function () {
     saveScoreInDB();
     saveProfessoresComprados();
     localStorage.clear();
     window.location.href = "index.html";
 };
+
+load();
