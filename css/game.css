@@ -583,3 +583,37 @@ textarea {
   -webkit-tap-highlight-color: transparent; 
   outline: none;
 }
+
+.notification.conquista {
+  background: #e94560; /* cor principal da conquista */
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+}
+
+.notification.conquista.show {
+  transform: translateX(0);
+  opacity: 1;
+  animation: neonPulse 1.2s infinite alternate;
+}
+
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
+  }
+  50% {
+    box-shadow: 0 0 20px #e94560, 0 0 30px #f87171;
+  }
+  100% {
+    box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
+  }
+}
