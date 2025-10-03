@@ -46,6 +46,7 @@ const conquistas = [
     condicao: (game) =>
       Object.keys(game.professores).length > 0 &&
       Object.values(game.professores).some(v => v)
+recompensa: 100
   },
   {
     id: "super_clique",
@@ -163,18 +164,23 @@ condicao: (game) => game.score >= 1
 ];
 
 function checarConquistas(game) {
-  game.score = i;
-  game.bonus = bonus;
-  game.professores = {...professoresComprados};
-  
-  conquistas.forEach(c => {
-    if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
-      conquistasDesbloqueadas.push(c.id);
-      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
-      saveConquistas();
-      notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
-    }
-  });
+    conquistas.forEach(c => {
+        if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
+            conquistasDesbloqueadas.push(c.id);
+            localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
+            notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
+
+            // Aqui você adiciona os pontos de recompensa
+            let bonusPontos = c.recompensa || 0; // cada conquista pode ter "recompensa"
+            if (bonusPontos > 0) {
+                i += bonusPontos;
+                game.score = i;
+                saveScore();
+                load(); // atualiza a tela
+                notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
+            }
+        }
+    });
 }
 
 if (session === "login" && username) {
