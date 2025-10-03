@@ -82,6 +82,10 @@ if (session === "login" && username) {
                 professoresComprados = data.professores_comprados;
                 localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
             }
+            if (data.conquistas) {
+                conquistasDesbloqueadas = data.conquistas;
+                localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+            }
             load();
         })
         .catch(() => {
