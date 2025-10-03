@@ -360,32 +360,42 @@ function checarAnimacoes() {
 }
 
 function comprarProfessor(id) {
-  const prof = professores[id];
-  if (!prof) return;
-  if (!professoresComprados[id]) {
-    if (i >= prof.preco) {
-      i -= prof.preco;
-      bonus = prof.bonus;
-      professoresComprados[id] = true;
-      pointsButton.src = prof.img;
-      document.body.style.backgroundImage = prof.background;
-      document.getElementById(id)?.classList.remove("compravel");
-      document.getElementById(id)?.classList.add("comprado");
-      notify(`Você comprou ${prof.nome} ✅`);
-      saveProfessoresComprados();
-      checarConquistas(game);
-      load();
-      playSound("buy");
-    } else {
-      notify('Erro: saldo insuficiente ❌', "error");
-    }
-  } else {
-    pointsButton.src = prof.img;
-    document.body.style.backgroundImage = prof.background;
-    bonus = prof.bonus;
-  }
-}
+    const prof = professores[id];
+    if (!prof) return;
 
+    if (!professoresComprados[id]) {
+        if (i >= prof.preco) {
+            i -= prof.preco;
+            bonus = prof.bonus;
+            game.bonus = bonus; 
+            professoresComprados[id] = true;
+
+            
+            pointsButton.src = prof.img;
+            document.body.style.backgroundImage = prof.background;
+            document.getElementById(id)?.classList.remove("compravel");
+            document.getElementById(id)?.classList.add("comprado");
+
+            notify(`Você comprou ${prof.nome} ✅`);
+            saveProfessoresComprados();
+
+          
+            checarConquistas(game);
+
+          
+            load();
+            playSound("buy");
+        } else {
+            notify('Erro: saldo insuficiente ❌', "error");
+        }
+    } else {
+ 
+        pointsButton.src = prof.img;
+        document.body.style.backgroundImage = prof.background;
+        bonus = prof.bonus;
+        game.bonus = bonus;
+    }
+}
 function resetGame() {
   const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
   if (!confirmReset) return;
