@@ -53,6 +53,12 @@ const conquistas = [
     descricao: "Você clicou 100 vezes!",
     condicao: (game) => game.score >= 100
   },
+{
+id: "primeiro_clique",
+nome: "Primeiro Clique",
+descricao: "Welcome to Cicero!",
+condicao: (game) => game.score >= 1
+},
   {
     id: "mega_clique",
     nome: "Clique Supremo",
