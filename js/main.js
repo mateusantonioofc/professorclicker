@@ -43,14 +43,14 @@ const conquistas = [
     id: "primeiro_professor",
     nome: "Primeira Compra",
     descricao: "Você comprou seu primeiro professor!",
-    condicao: (game) => game.bonus >= 2,
-    recompensa: 100
+    condicao: (game) => game.bonus >= 2
   },
   {
     id: "super_clique",
     nome: "Clique Frenético",
     descricao: "Você clicou 100 vezes!",
-    condicao: (game) => game.score >= 100
+    condicao: (game) => game.score >= 100,
+ recompensa: 100
   },
   {
     id: "primeiro_clique",
@@ -63,24 +63,28 @@ const conquistas = [
     nome: "Clique Supremo",
     descricao: "Você chegou em 1.000 pontos!",
     condicao: (game) => game.score >= 1000
+
   },
   {
     id: "colecionador",
     nome: "Colecionador de Professores",
     descricao: "Você comprou 5 professores diferentes!",
-    condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5
+    condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5,
+ recompensa: 5000
   },
   {
     id: "fanatico",
     nome: "Viciado em Pontos",
     descricao: "Você chegou em 50.000 pontos!",
     condicao: (game) => game.score >= 50000
+ recompensa: 100000
   },
   {
     id: "background_mestre",
     nome: "Mestre das Salas",
     descricao: "Você trocou o background 3 vezes!",
-    condicao: (game) => game.bonus >= 7
+    condicao: (game) => game.bonus >= 7,
+ recompensa: 50
   },
   {
     id: "resetador",
@@ -117,19 +121,22 @@ const conquistas = [
     id: "background_lover",
     nome: "Amante do Visual",
     descricao: "Você trocou o background 7 vezes!",
-    condicao: (game) => game.bonus >= 16
+    condicao: (game) => game.bonus >= 16,
+ recompensa: 1
   },
   {
     id: "click_666",
     nome: "Cuidado com o Click",
     descricao: "Você clicou exatamente 666 vezes!",
-    condicao: (game) => game.score === 666
+    condicao: (game) => game.score === 666,
+ recompensa: 666
   },
   {
-    id: "score_42",
+    id: "score_51",
     nome: "A Resposta",
-    descricao: "Você chegou exatamente em 42 pontos!",
-    condicao: (game) => game.score === 42
+    descricao: "Você chegou exatamente em 51 pontos!",
+    condicao: (game) => game.score === 51,
+ recompensa: 51
   },
   {
     id: "todos_os_professores",
