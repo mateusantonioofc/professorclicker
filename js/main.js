@@ -24,7 +24,7 @@ const professores = {
     Silviofurry: { nome: "Silvio Furry", preco: 100000, bonus: 19, img: "assets/professores/silvio_furry.png", background: "url('assets/backgrounds/academia.jpg')" },
     Rejane: { nome: "Rejane Latin", preco: 130000, bonus: 24, img: "assets/professores/rejane.png", background: "url('assets/backgrounds/biblioteca.jpg')" },
     luanafilosofa: { nome: "Luana Filosofa", preco: 155000, bonus: 32, img: "assets/professores/luana.jpeg", background: "url('assets/background')" },
-    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/luanasocio.jpeg", background: "url('assets/background')" }
+    luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/professores/luanasocio.jpeg", background: "url('assets/background')" }
 };
 
 let i = Number(localStorage.getItem('score')) || 0;
