@@ -27,24 +27,71 @@ const professores = {
     luanasociologa: { nome: "Luana Sociologa", preco: 200000, bonus: 37, img: "assets/professores/luanasocio.jpeg", background: "url('assets/backgrounds/pontanegra.webp')" }
 };
 
-let i = Number(localStorage.getItem('score')) || 0;
+
+let i = 0;
 let bonus = 1;
-let professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
-let conquistasDesbloqueadas = JSON.parse(localStorage.getItem("conquistas") || "[]");
+let professoresComprados = {};
+let conquistasDesbloqueadas = [];
 
 const game = {
     score: i,
     bonus: bonus,
-    professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
+    professores: {}
 };
 
+function carregarScore() {
+    if (session === "login" && username) {
+        fetch(`https://professorclicker-api.vercel.app/api/${username}`)
+            .then(res => res.json())
+            .then(data => {
+                if (typeof data.score === "number") i = data.score;
+                if (data.professores_comprados && typeof data.professores_comprados === "object") {
+                    professoresComprados = data.professores_comprados;
+                }
+                if (data.conquistas) conquistasDesbloqueadas = data.conquistas;
+
+                game.score = i;
+                game.bonus = bonus;
+                game.professores = professoresComprados;
+
+                localStorage.setItem('score', i);
+                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+                localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+
+                load();
+            })
+            .catch(() => {
+                i = Number(localStorage.getItem('score')) || 0;
+                professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
+                conquistasDesbloqueadas = JSON.parse(localStorage.getItem('conquistas') || '[]');
+
+                game.score = i;
+                game.bonus = bonus;
+                game.professores = professoresComprados;
+
+                load();
+            });
+    } else {
+        i = Number(localStorage.getItem('score')) || 0;
+        professoresComprados = JSON.parse(localStorage.getItem('professores_comprados') || '{}');
+        conquistasDesbloqueadas = JSON.parse(localStorage.getItem('conquistas') || '[]');
+
+        game.score = i;
+        game.bonus = bonus;
+        game.professores = professoresComprados;
+
+        load();
+    }
+}
+
+//  CONQUISTAS 
 const conquistas = [
   {
     id: "primeiro_professor",
     nome: "Primeira Compra",
     descricao: "Você comprou seu primeiro professor!",
-    condicao: (game) => game.bonus >= 2
-recompensa: 100
+    condicao: (game) => game.bonus >= 2,
+    recompensa: 100
   },
   {
     id: "super_clique",
@@ -52,12 +99,12 @@ recompensa: 100
     descricao: "Você clicou 100 vezes!",
     condicao: (game) => game.score >= 100
   },
-{
-id: "primeiro_clique",
-nome: "Primeiro Clique",
-descricao: "Welcome to Cicero!",
-condicao: (game) => game.score >= 1
-},
+  {
+    id: "primeiro_clique",
+    nome: "Primeiro Clique",
+    descricao: "Welcome to Cicero!",
+    condicao: (game) => game.score >= 1
+  },
   {
     id: "mega_clique",
     nome: "Clique Supremo",
@@ -101,13 +148,12 @@ condicao: (game) => game.score >= 1
     descricao: "Você alcançou 1.000.000 pontos!",
     condicao: (game) => game.score >= 1000000
   },
-{
+  {
     id: "silvio_fan",
     nome: "Fã Número 1",
     descricao: "Você comprou Silvio Goat ou Silvio Furry!",
     condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
   },
-  // Conquista "secretas" 
   {
     id: "reset_mestre",
     nome: "Recomeço Infinito",
@@ -127,17 +173,16 @@ condicao: (game) => game.score >= 1
     condicao: (game) => game.score === 666
   },
   {
-    id: "score_42",
+    id: "score_51",
     nome: "A Resposta",
-    descricao: "Você chegou exatamente em 42 pontos!",
-    condicao: (game) => game.score === 42
+    descricao: "Você chegou exatamente em 51 pontos!",
+    condicao: (game) => game.score === 51
   },
   {
     id: "todos_os_professores",
     nome: "Colecionador Lendário",
     descricao: "Você comprou todos os professores!",
     condicao: (game) => game.bonus >= 37
-  
   },
   {
     id: "minotauro",
@@ -169,43 +214,18 @@ function checarConquistas(game) {
             localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
             notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
 
-            
             let bonusPontos = c.recompensa || 0; 
             if (bonusPontos > 0) {
                 i += bonusPontos;
                 game.score = i;
                 saveScore();
-                load(); // atualiza a tela
+                load();
                 notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
             }
         }
     });
 }
 
-if (session === "login" && username) {
-    fetch(`https://professorclicker-api.vercel.app/api/${username}`)
-        .then(res => res.json())
-        .then(data => {
-            if (typeof data.score === "number") {
-                i = data.score;
-                localStorage.setItem('score', i);
-            }
-            if (data.professores_comprados && typeof data.professores_comprados === "object") {
-                professoresComprados = data.professores_comprados;
-                localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
-            }
-            if (data.conquistas) {
-                conquistasDesbloqueadas = data.conquistas;
-                localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
-            }
-            load();
-        })
-        .catch(() => {
-            load();
-        });
-} else {
-    load();
-}
 
 if (!session || (session === "login" && !username)) {
     alert("Acesso negado! Faça login ou entre como convidado.");
@@ -221,260 +241,5 @@ if (session === "convidado") {
     title.textContent = localStorage.getItem("nickname") || "Ghost";
 }
 
-function load() {
-    score.textContent = i;
-    checarAnimacoes();
-}
+carregarScore();
 
-function saveScore() {
-    localStorage.setItem('score', i);
-}
-
-function saveScoreInDB() {
-    if (session === "login") {
-        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ score: i })
-        });
-    }
-}
-
-function saveProfessoresComprados() {
-    localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
-    if (session === "login" && username) {
-        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ professores_comprados: professoresComprados })
-        });
-    }
-}
-
-function saveConquistas() {
-    localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
-    if (session === "login" && username) {
-        fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ conquistas: conquistasDesbloqueadas })
-        });
-    }
-}
-
-const sounds = {
-    click: "assets/sfx/click.mp3",
-    buy: "assets/sfx/buy.mp3",
-    reset: "assets/sfx/reset.mp3",
-    ranking: "assets/sfx/ranking.mp3",
-    menu: "assets/sfx/menu.mp3"
-};
-
-function playSound(type) {
-    if (!sounds[type]) return;
-    const audio = new Audio(sounds[type]);
-    audio.play().catch(() => { });
-}
-
-let audioPlayer = new Audio();
-audioPlayer.volume = 0.4;
-
-const musicas = [
-    "assets/sfx/musica1.mp3",
-    "assets/sfx/musica2.mp3",
-    "assets/sfx/musica3.mp3",
-    "assets/sfx/musica4.mp3",
-    "assets/sfx/musica5.mp3",
-    "assets/sfx/musica6.mp3",
-    "assets/sfx/musica7.mp3",
-    "assets/sfx/musica8.mp3",
-    "assets/sfx/musica10.mp3",
-    "assets/sfx/musica11.mp3",
-];
-
-function tocarMusicaAleatoria() {
-    const aleatoria = Math.floor(Math.random() * musicas.length);
-    audioPlayer.src = musicas[aleatoria];
-    audioPlayer.play().catch(err => console.log("Erro ao tocar música:", err));
-}
-audioPlayer.addEventListener("ended", () => {
-    tocarMusicaAleatoria();
-});
-
-window.addEventListener("load", () => {
-    tocarMusicaAleatoria();
-});
-
-document.addEventListener("click", () => {
-    if (audioPlayer.paused) {
-        tocarMusicaAleatoria();
-    }
-}, { once: true });
-
-function count() {
-    i += bonus;
-    saveScore();
-
-    game.score = i;
-    game.bonus = bonus;
-
-    checarConquistas(game);
-    playSound("click");
-
-    clickSound.currentTime = 0.5;
-    clickSound.play();
-    if (click) {
-        click.classList.remove("popp");
-        void click.offsetWidth;
-        click.classList.add("popp");
-    }
-    if (score) {
-        score.classList.remove("pop");
-        void score.offsetWidth;
-        score.classList.add("pop");
-    }
-    if (!musicaIniciada) {
-        musicaIniciada = true;
-        tocarMusicaAleatoria();
-    }
-    load();
-}
-
-function checarAnimacoes() {
-    for (let id in professores) {
-        const btn = document.getElementById(id);
-        if (!professoresComprados[id] && i >= professores[id].preco) {
-            btn?.classList.add("compravel");
-        } else {
-            btn?.classList.remove("compravel");
-        }
-    }
-}
-
-function comprarProfessor(id) {
-    const prof = professores[id];
-    if (!prof) return;
-    if (!professoresComprados[id]) {
-        if (i >= prof.preco) {
-            i -= prof.preco;
-            bonus = prof.bonus;
-            professoresComprados[id] = true;
-            pointsButton.src = prof.img;
-            document.body.style.backgroundImage = prof.background;
-            document.getElementById(id)?.classList.remove("compravel");
-            document.getElementById(id)?.classList.add("comprado");
-            notify(`Você comprou ${prof.nome} ✅`);
-            saveProfessoresComprados();
-            checarConquistas(game);
-
-            load();
-            playSound("buy");
-        } else {
-            notify('Erro: saldo insuficiente ❌', "error");
-        }
-    } else {
-        pointsButton.src = prof.img;
-        document.body.style.backgroundImage = prof.background;
-        bonus = prof.bonus;
-    }
-}
-
-function resetGame() {
-    const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
-    if (!confirmReset) return;
-
-    playSound("reset");
-
-    i = 0;
-    bonus = 1;
-    for (let id in professores) {
-        professoresComprados[id] = false;
-        document.getElementById(id)?.classList.remove("comprado", "compravel");
-    }
-    saveScoreInDB();
-
-    pointsButton.src = "assets/nave.png";
-    document.body.style.backgroundImage = "none";
-    document.getElementById("notification-container").innerHTML = "";
-    localStorage.clear();
-    window.location.href = "index.html";
-    alert("Jogo reiniciado!");
-}
-
-function notify(message, type = "normal") {
-    const container = document.getElementById("notification-container");
-    const notification = document.createElement("div");
-    notification.classList.add("notification");
-    if (type === "error") notification.classList.add("error");
-    notification.innerText = message;
-    container.appendChild(notification);
-    setTimeout(() => notification.classList.add("show"), 10);
-    setTimeout(() => {
-        notification.classList.remove("show");
-        setTimeout(() => notification.remove(), 1000);
-    }, 3000);
-}
-
-const rankingBtn = document.getElementById("btnLeaderboard");
-if (rankingBtn) {
-    rankingBtn.addEventListener("click", () => {
-        playSound("ranking");
-    });
-}
-
-if (menuToggle && store) {
-    menuToggle.addEventListener("click", () => {
-        playSound("menu");
-
-        store.classList.toggle("active");
-        menuToggle.classList.toggle("active");
-
-        const icon = menuToggle.querySelector("i");
-        if (icon) {
-            icon.style.transition = "transform 0.3s ease";
-            icon.style.transform = "rotate(90deg)";
-
-            setTimeout(() => {
-                if (store.classList.contains("active")) {
-                    icon.classList.remove("fa-store");
-                    icon.classList.add("fa-xmark");
-                } else {
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-store");
-                }
-                icon.style.transform = "rotate(0deg)";
-            }, 200);
-        }
-    });
-}
-
-for (let id in professores) {
-    const prof = professores[id];
-    const btn = document.createElement("button");
-    btn.id = id;
-    btn.onclick = () => comprarProfessor(id);
-    btn.innerHTML = `<div class="prof-name">${prof.nome}</div><img class="icon" src="${prof.img}" alt="${prof.nome}"><span>${prof.preco}</span>`;
-    storeContainer.appendChild(btn);
-}
-
-setInterval(() => {
-    saveScore();
-    saveScoreInDB();
-    saveProfessoresComprados();
-    saveConquistas();
-}, 3000);
-
-document.getElementById("btnLogout").onclick = function () {
-    saveScoreInDB();
-    saveProfessoresComprados();
-    localStorage.clear();
-    window.location.href = "index.html";
-};
-
-audioPlayer.addEventListener("ended", () => {
-    const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
-    if (!musicPlayed.includes(audioPlayer.src)) musicPlayed.push(audioPlayer.src);
-    localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
-    tocarMusicaAleatoria();
-});
-load();
