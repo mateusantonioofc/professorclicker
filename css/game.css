@@ -575,3 +575,11 @@ z-index: 2001;
     color: #b8263a;
     transform: scale(1.08);
 }
+
+button, 
+a, 
+input, 
+textarea {
+  -webkit-tap-highlight-color: transparent; 
+  outline: none;
+}
