@@ -43,7 +43,7 @@ const conquistas = [
 id: "primeiro_professor",
 nome: "Primeira Compra",
 descricao: "Você comprou seu primeiro professor!",
-condicao: (game) => game.bonus >= 2
+condicao: (game) => game.bonus >= 2,
 recompensa: 100
 },
 {
