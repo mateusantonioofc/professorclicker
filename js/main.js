@@ -76,7 +76,7 @@ const conquistas = [
     id: "fanatico",
     nome: "Viciado em Pontos",
     descricao: "Você chegou em 50.000 pontos!",
-    condicao: (game) => game.score >= 50000
+    condicao: (game) => game.score >= 50000,
  recompensa: 100000
   },
   {
