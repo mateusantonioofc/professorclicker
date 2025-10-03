@@ -179,7 +179,7 @@ function checarConquistas(game) {
         i += bonusPontos;
         game.score = i;
         saveScore();
-        load(); // atualiza a tela
+        load();
         notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
       }
     }
