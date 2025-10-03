@@ -38,26 +38,63 @@ const game = {
     professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 };
 
-const conquistas = [
-    {
-        id: "primeiro_clique",
-        nome: "Primeiro Clique",
-        descricao: "Welcome to Cicero!",
-        condicao: (game) => game.score >= 1
-    },
-    {
-        id: "cem_pontos",
-        nome: "Clique Viciado",
-        descricao: "Você chegou em 100 pontos!",
-        condicao: (game) => game.score >= 100
-    },
-    {
-        id: "dezmilhoes_pontos",
-        nome: "Rumo ao topo",
-        descricao: "Você chegou em 10.000.000 de pontos!",
-        condicao: (game) => game.score >= 10000000
-    }
+const conquistas = 
+  {
+    id: "primeiro_professor",
+    nome: "Primeira Compra",
+    descricao: "Você comprou seu primeiro professor!",
+    condicao: (game) => Object.keys(game.professores).length > 0 && Object.values(game.professores).some(v => v)
+  },
+  {
+    id: "super_clique",
+    nome: "Clique Frenético",
+    descricao: "Você clicou 100 vezes!",
+    condicao: (game) => game.score >= 100
+  },
+  {
+    id: "mega_clique",
+    nome: "Clique Supremo",
+    descricao: "Você chegou em 1.000 pontos!",
+    condicao: (game) => game.score >= 1000
+  },
+  {
+    id: "colecionador",
+    nome: "Colecionador de Professores",
+    descricao: "Você comprou 5 professores diferentes!",
+    condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5
+  },
+  {
+    id: "fanatico",
+    nome: "Viciado em Pontos",
+    descricao: "Você chegou em 50.000 pontos!",
+    condicao: (game) => game.score >= 50000
+  },
+  {
+    id: "background_mestre",
+    nome: "Mestre das Salas",
+    descricao: "Você trocou o background 3 vezes!",
+    condicao: (game) => game.bonus >= 7 // Considerando que bônus alto significa novos backgrounds
+  },
+  {
+    id: "resetador",
+    nome: "Reinício Estratégico",
+    descricao: "Você reiniciou o jogo 1 vez!",
+    condicao: (game) => localStorage.getItem("resets") >= 1
+  },
+  {
+    id: "todo_poderoso",
+    nome: "Bônus Máximo",
+    descricao: "Você atingiu o maior bônus disponível!",
+    condicao: (game) => game.bonus >= 37
+  },
+  {
+    id: "lenda",
+    nome: "Lenda do Clicker",
+    descricao: "Você alcançou 1.000.000 pontos!",
+    condicao: (game) => game.score >= 1000000
+  }
 ];
+    
 
 function checarConquistas(game) {
     conquistas.forEach(c => {
