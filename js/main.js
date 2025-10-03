@@ -43,9 +43,7 @@ const conquistas = [
     id: "primeiro_professor",
     nome: "Primeira Compra",
     descricao: "Você comprou seu primeiro professor!",
-    condicao: (game) =>
-      Object.keys(game.professores).length > 0 &&
-      Object.values(game.professores).some(v => v),
+    condicao: (game) => game.bonus >= 2
 recompensa: 100
   },
   {
