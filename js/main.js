@@ -1,3 +1,5 @@
+import { conquistas, checarConquistas } from "./achievements.js";
+
 const score = document.getElementById("score");
 const pointsButton = document.getElementById("points_button");
 const title = document.querySelector(".h1");
