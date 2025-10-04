@@ -661,6 +661,7 @@ hamburgerBtn.addEventListener('click', () => {
     hamburgerBtn.classList.toggle('active');
 });
 
+
 document.getElementById('openStore').onclick = () => {
     document.getElementById('store').style.display = 'block';
     navMenu.classList.remove('active');
