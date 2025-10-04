@@ -50,7 +50,7 @@ const conquistas = [
     nome: "Clique Frenético",
     descricao: "Você clicou 100 vezes!",
     condicao: (game) => game.score >= 100,
- recompensa: 100
+    recompensa: 100
   },
   {
     id: "primeiro_clique",
@@ -63,28 +63,27 @@ const conquistas = [
     nome: "Clique Supremo",
     descricao: "Você chegou em 1.000 pontos!",
     condicao: (game) => game.score >= 1000
-
   },
   {
     id: "colecionador",
     nome: "Colecionador de Professores",
     descricao: "Você comprou 5 professores diferentes!",
     condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5,
- recompensa: 5000
+    recompensa: 5000
   },
   {
     id: "fanatico",
     nome: "Viciado em Pontos",
     descricao: "Você chegou em 50.000 pontos!",
     condicao: (game) => game.score >= 50000,
- recompensa: 100000
+    recompensa: 100000
   },
   {
     id: "background_mestre",
     nome: "Mestre das Salas",
     descricao: "Você trocou o background 3 vezes!",
     condicao: (game) => game.bonus >= 7,
- recompensa: 50
+    recompensa: 50
   },
   {
     id: "resetador",
@@ -110,7 +109,7 @@ const conquistas = [
     descricao: "Você comprou Silvio Goat ou Silvio Furry!",
     condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
   },
-  // Conquista "secretas"
+  // Conquistas secretas
   {
     id: "reset_mestre",
     nome: "Recomeço Infinito",
@@ -122,21 +121,21 @@ const conquistas = [
     nome: "Amante do Visual",
     descricao: "Você trocou o background 7 vezes!",
     condicao: (game) => game.bonus >= 16,
- recompensa: 1
+    recompensa: 1
   },
   {
     id: "click_666",
     nome: "Cuidado com o Click",
     descricao: "Você clicou exatamente 666 vezes!",
     condicao: (game) => game.score === 666,
- recompensa: 666
+    recompensa: 666
   },
   {
     id: "score_51",
     nome: "A Resposta",
     descricao: "Você chegou exatamente em 51 pontos!",
     condicao: (game) => game.score === 51,
- recompensa: 51
+    recompensa: 51
   },
   {
     id: "todos_os_professores",
@@ -144,8 +143,6 @@ const conquistas = [
     descricao: "Você comprou todos os professores!",
     condicao: (game) => game.bonus >= 37
   },
-  {
-  
   {
     id: "musica_perfeita",
     nome: "DJ Cicero",
@@ -155,13 +152,13 @@ const conquistas = [
       return musicPlayed.length === 10;
     }
   },
-{
+  {
     id: "auto_click_5s",
     nome: "Mão Robótica",
-    descricao: "Clique automático por 5 segundos desbloqueado / teste pra kbummmm",
+    descricao: "Clique automático por 5 segundos desbloqueado!",
     condicao: (game) => game.score >= 500,
-    recompensa: () => ativarAutoClick(5, 300)
-},
+    recompensa: () => ativarAutoClick(5, 300) // agora vai funcionar
+  },
   {
     id: "ghost_mode",
     nome: "Fantasma",
@@ -170,24 +167,25 @@ const conquistas = [
   }
 ];
 
+
 function checarConquistas(game) {
   conquistas.forEach(c => {
     if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
-  conquistasDesbloqueadas.push(c.id);
-  localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
+      conquistasDesbloqueadas.push(c.id);
+      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
 
-  
-  notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+      notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
 
-  let bonusPontos = c.recompensa || 0;
-  if (bonusPontos > 0) {
-    i += bonusPontos;
-    game.score = i;
-    saveScore();
-    load();
-    notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
-  }
-}
+      if (typeof c.recompensa === "number" && c.recompensa > 0) {
+        i += c.recompensa;
+        game.score = i;
+        saveScore();
+        load();
+        notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
+      } else if (typeof c.recompensa === "function") {
+        c.recompensa(); // executa a função de recompensa
+      }
+    }
   });
 }
 let conquistaQueue = [];
