@@ -583,9 +583,8 @@ textarea {
   -webkit-tap-highlight-color: transparent; 
   outline: none;
 }
-
 .notification.conquista {
-  background: #e94560; /* cor principal da conquista */
+  background: #e94560;
   color: #fff;
   font-weight: bold;
   padding: 12px 20px;
