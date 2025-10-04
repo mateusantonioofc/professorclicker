@@ -225,9 +225,12 @@ function ativarAutoClick(intervaloMs = 500) {
     autoClickInterval = setInterval(() => {
         count(); 
     }, intervaloMs);
-
-    notify(`VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE `);
+if(game.bonus === 5){
+ notify(`VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE `);
+}else if(game.bonus >5){`AUTO CLICK UPADO`);
+}}
 }
+   
 
 //segurança 
 function desativarAutoClick() {
