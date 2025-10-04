@@ -653,9 +653,25 @@ audioPlayer.addEventListener("ended", () => {
   }
   tocarMusicaAleatoria();
 });
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+    hamburgerBtn.onclick = () => {
+        navMenu.classList.toggle('active');
+    };
 
-document.getElementById('hamburgerBtn').addEventListener('click', function() {
-    document.getElementById('menuNav').classList.toggle('hidden');
-});
+ 
+    document.getElementById('openStore').onclick = () => {
+        document.getElementById('store').style.display = 'block';
+        navMenu.classList.remove('active');
+    };
+   
+    document.getElementById('openRanking').onclick = () => {
+        document.getElementById('leaderboardContainer').style.display = 'block';
+        navMenu.classList.remove('active');
+    };
+    document.getElementById('btnLogoutMenu').onclick = () => {
+        document.getElementById('btnLogout').click();
+        navMenu.classList.remove('active');
+    };
 
 load();
