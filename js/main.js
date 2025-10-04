@@ -185,6 +185,23 @@ function checarConquistas(game) {
     }
   });
 }
+function notifyConquista(message) {
+  const container = document.getElementById("notification-container");
+  const notification = document.createElement("div");
+  notification.classList.add("notification", "conquista");
+  notification.innerText = message;
+  container.appendChild(notification);
+
+  // delay para ativar animação
+  setTimeout(() => notification.classList.add("show"), 10);
+
+  // remover após 4 segundos
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => notification.remove(), 500);
+  }, 4000);
+}
+
 if (session === "login" && username) {
   fetch(`https://professorclicker-api.vercel.app/api/${username}`)
     .then(res => res.json())
