@@ -218,18 +218,20 @@ function processConquistaQueue() {
 let autoClickInterval = null;
 
 
-function ativarAutoClick(intervaloMs = 500) {
-  if (autoClickInterval) clearInterval(autoClickInterval);
+function ativarAutoClick(intervaloMs = 500, mostrarNotificacao = true) {
+    if (autoClickInterval) clearInterval(autoClickInterval);
 
-  autoClickInterval = setInterval(() => {
-      count(); 
-  }, intervaloMs);
+    autoClickInterval = setInterval(() => {
+        count(); 
+    }, intervaloMs);
 
-  if(game.bonus === 5){
-    notify("VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE");
-  } else if(game.bonus > 5){
-    notify("AUTO CLICK UPADO ✅");
-  }
+    if (mostrarNotificacao) {
+        if(game.bonus === 5){
+            notify("VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE");
+        } else if(game.bonus > 5){
+            notify("AUTO CLICK UPADO ✅");
+        }
+    }
 }
    
 
@@ -426,8 +428,10 @@ function comprarProfessor(id) {
     const prof = professores[id];
     if (!prof) return;
 
-    if (!professoresComprados[id]) {
-       
+    const jaComprado = professoresComprados[id];
+
+    if (!jaComprado) {
+      
         if (i >= prof.preco) {
             i -= prof.preco;
             bonus = prof.bonus;
@@ -444,9 +448,9 @@ function comprarProfessor(id) {
 
             checarConquistas(game);
 
-          
+           
             if (prof.autoClickIntervalo) {
-                ativarAutoClick(prof.autoClickIntervalo);
+                ativarAutoClick(prof.autoClickIntervalo, true);
             }
 
             load();
@@ -461,9 +465,8 @@ function comprarProfessor(id) {
         bonus = prof.bonus;
         game.bonus = bonus;
 
-      
         if (prof.autoClickIntervalo) {
-            ativarAutoClick(prof.autoClickIntervalo);
+            ativarAutoClick(prof.autoClickIntervalo, false);
         }
     }
 }
