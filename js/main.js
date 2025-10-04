@@ -654,4 +654,8 @@ audioPlayer.addEventListener("ended", () => {
   tocarMusicaAleatoria();
 });
 
+document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('menuNav').classList.toggle('hidden');
+});
+
 load();
