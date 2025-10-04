@@ -541,24 +541,36 @@ function comprarProfessor(id) {
         }
     }
 }
-function resetGame() {
+fufunction resetGame() {
   const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
   if (!confirmReset) return;
 
   playSound("reset");
 
+  
+  let resets = Number(localStorage.getItem("resets")) || 0;
+  resets++;
+  localStorage.setItem("resets", resets);
+
   i = 0;
   bonus = 1;
+
   for (let id in professores) {
     professoresComprados[id] = false;
     document.getElementById(id)?.classList.remove("comprado", "compravel");
   }
+
   saveScoreInDB();
 
   pointsButton.src = "assets/nave.png";
   document.body.style.backgroundImage = "none";
   document.getElementById("notification-container").innerHTML = "";
+
+  // 🔥 salva resets, limpa o resto
+  const tempResets = resets;
   localStorage.clear();
+  localStorage.setItem("resets", tempResets);
+
   window.location.href = "index.html";
   alert("Jogo reiniciado!");
 }
