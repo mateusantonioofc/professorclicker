@@ -229,7 +229,7 @@ function ativarAutoClick(intervaloMs = 500) {
     notify(`esse professor tem auto clicker, parabéns `);
 }
 
-// Função para desativar o auto-click
+//segurança 
 function desativarAutoClick() {
     if (autoClickInterval) {
         clearInterval(autoClickInterval);
@@ -422,12 +422,8 @@ function comprarProfessor(id) {
     const prof = professores[id];
     if (!prof) return;
 
-    
-    const autoClickDuracao = prof.autoClickDuracao || 0;
-    const autoClickIntervalo = prof.autoClickIntervalo || 500;
-
     if (!professoresComprados[id]) {
-      
+       
         if (i >= prof.preco) {
             i -= prof.preco;
             bonus = prof.bonus;
@@ -445,8 +441,8 @@ function comprarProfessor(id) {
             checarConquistas(game);
 
           
-            if (autoClickDuracao > 0) {
-                ativarAutoClick(autoClickDuracao, autoClickIntervalo);
+            if (prof.autoClickIntervalo) {
+                ativarAutoClick(prof.autoClickIntervalo);
             }
 
             load();
@@ -455,17 +451,16 @@ function comprarProfessor(id) {
             notify('Erro: saldo insuficiente ❌', "error");
         }
     } else {
-        
+       
         pointsButton.src = prof.img;
         document.body.style.backgroundImage = prof.background;
         bonus = prof.bonus;
         game.bonus = bonus;
 
       
-        
-if (prof.autoClickIntervalo) {
-    ativarAutoClick(prof.autoClickIntervalo);
-}
+        if (prof.autoClickIntervalo) {
+            ativarAutoClick(prof.autoClickIntervalo);
+        }
     }
 }
 function resetGame() {
