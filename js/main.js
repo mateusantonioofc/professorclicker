@@ -170,46 +170,54 @@ const conquistas = [
 function checarConquistas(game) {
   conquistas.forEach(c => {
     if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
-      conquistasDesbloqueadas.push(c.id);
-      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
-      notify(`🏆 Conquista desbloqueada: ${c.nome} - ${c.descricao}`);
+  conquistasDesbloqueadas.push(c.id);
+  localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
 
-      let bonusPontos = c.recompensa || 0;
-      if (bonusPontos > 0) {
-        i += bonusPontos;
-        game.score = i;
-        saveScore();
-        load();
-        notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
-      }
-    }
+  
+  notifyConquista(`🏆 Conquista desbloqueada: ${c.nome}`);
+
+  let bonusPontos = c.recompensa || 0;
+  if (bonusPontos > 0) {
+    i += bonusPontos;
+    game.score = i;
+    saveScore();
+    load();
+    notify(`Você ganhou ${bonusPontos} pontos! 🎉`);
+  }
+}
   });
 }
 let conquistaQueue = [];
+let processingConquista = false;
 
 function notifyConquista(message) {
+  conquistaQueue.push(message);
+  processConquistaQueue();
+}
+
+function processConquistaQueue() {
+  if (processingConquista || conquistaQueue.length === 0) return;
+  processingConquista = true;
+
+  const message = conquistaQueue.shift();
   const container = document.getElementById("notification-container");
   const notification = document.createElement("div");
   notification.classList.add("notification", "conquista");
   notification.innerText = message;
-
-  
-  const delay = conquistaQueue.length * 1000; 
-  notification.style.transitionDelay = delay + "ms";
-
   container.appendChild(notification);
-  conquistaQueue.push(notification);
 
-  setTimeout(() => notification.classList.add("show"), 500);
+
+  setTimeout(() => notification.classList.add("show"), 100);
 
   
   setTimeout(() => {
     notification.classList.remove("show");
     setTimeout(() => {
       notification.remove();
-      conquistaQueue.shift();
+      processingConquista = false;
+      processConquistaQueue();
     }, 500);
-  }, 4000 + delay);
+  }, 4000);
 }
 if (session === "login" && username) {
   fetch(`https://professorclicker-api.vercel.app/api/${username}`)
