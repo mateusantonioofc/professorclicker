@@ -145,11 +145,7 @@ const conquistas = [
     condicao: (game) => game.bonus >= 37
   },
   {
-    id: "minotauro",
-    nome: "Amigo do Minotauro",
-    descricao: "Você clicou mais de 1000 vezes sem comprar nenhum professor!",
-    condicao: (game) => game.score >= 1000 && Object.values(game.professores).every(v => !v)
-  },
+  
   {
     id: "musica_perfeita",
     nome: "DJ Cicero",
