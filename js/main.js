@@ -155,6 +155,13 @@ const conquistas = [
       return musicPlayed.length === 10;
     }
   },
+{
+    id: "auto_click_5s",
+    nome: "Mão Robótica",
+    descricao: "Clique automático por 5 segundos desbloqueado / teste pra kbummmm",
+    condicao: (game) => game.score >= 500,
+    recompensa: () => ativarAutoClick(5, 300)
+},
   {
     id: "ghost_mode",
     nome: "Fantasma",
@@ -215,6 +222,25 @@ function processConquistaQueue() {
     }, 500);
   }, 4000);
 }
+let autoClickInterval = null;
+
+// Função para ativar o clique automático
+function ativarAutoClick(duracaoSegundos = 10, intervaloMs = 500) {
+    if (autoClickInterval) clearInterval(autoClickInterval); // evita múltiplos
+    autoClickInterval = setInterval(() => {
+        count(); 
+    }, intervaloMs);
+
+   
+    setTimeout(() => {
+        clearInterval(autoClickInterval);
+        autoClickInterval = null;
+        notify("Clique automático terminou! ⏱️");
+    }, duracaoSegundos * 1000);
+
+    notify(`Clique automático ativado por ${duracaoSegundos} segundos! 🤖`);
+}
+
 if (session === "login" && username) {
   fetch(`https://professorclicker-api.vercel.app/api/${username}`)
     .then(res => res.json())
