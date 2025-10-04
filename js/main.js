@@ -12,6 +12,14 @@ const username = localStorage.getItem("nickname");
 
 let musicaIniciada = false;
 
+if (!localStorage.getItem("startTime")) {
+  localStorage.setItem("startTime", Date.now());
+}
+
+if (!localStorage.getItem("clicksLog")) {
+  localStorage.setItem("clicksLog", JSON.stringify([]));
+}
+
 const professores = {
   Tetianao: { nome: "Teti Anão", preco: 50, bonus: 2, img: "assets/professores/teti_anao.png", background: "url('assets/backgrounds/montanha.jpg')"  },
   Tetisupremo: { nome: "Teti Supremo", preco: 300, bonus: 3, img: "assets/professores/teti.png", background: "url('assets/backgrounds/sala.jpg')"},
@@ -155,7 +163,68 @@ const conquistas = [
     nome: "Fantasma",
     descricao: "Entrou como convidado e alcançou 1000 pontos!",
     condicao: (game) => session === "convidado" && game.score >= 1000
+  },
+{
+  id: "milionario",
+  nome: "Milionário",
+  descricao: "Você juntou 10.000.000 pontos!",
+  condicao: (game) => game.score >= 10000000
+},
+{
+  id: "click_monstro",
+  nome: "Monstro do Clique",
+  descricao: "Você clicou 10.000 vezes!",
+  condicao: (game) => game.score >= 10000
+},
+{
+  id: "professor_legendario",
+  nome: "Professor Lendário",
+  descricao: "Você comprou um professor que custa acima de 100.000 pontos!",
+  condicao: (game) => {
+    return game.professores.Silviofurry || game.professores.Rejane || game.professores.luanafilosofa || game.professores.luanasociologa;
   }
+},
+{
+  id: "upgrade_master",
+  nome: "Mestre dos Upgrades",
+  descricao: "Você melhorou o auto click 5 vezes!",
+  condicao: (game) => {
+    const profsAuto = ["Tetimulher","FelipeBase","Sheyla","Glauco","Richardson","Silviogoat","Silviofurry","Rejane","luanafilosofa","luanasociologa"];
+    return profsAuto.filter(p => game.professores[p]).length >= 5;
+  }
+},
+{
+  id: "sem_sono",
+  nome: "Sem Sono",
+  descricao: "Você jogou por mais de 1 hora sem fechar a página!",
+  condicao: () => {
+    const start = Number(localStorage.getItem("startTime")) || Date.now();
+    return Date.now() - start >= 3600000; // 1 hora
+  }
+},
+{
+  id: "spam_click",
+  nome: "Dedos de Aço",
+  descricao: "Você clicou 50 vezes em menos de 10 segundos!",
+  condicao: () => {
+    const clicks = JSON.parse(localStorage.getItem("clicksLog") || "[]");
+    const agora = Date.now();
+    const recentes = clicks.filter(t => agora - t <= 10000);
+    return recentes.length >= 50;
+  }
+},
+{
+  id: "convidado_pro",
+  nome: "Turista Profissional",
+  descricao: "Como convidado, você alcançou 50.000 pontos!",
+  condicao: (game) => session === "convidado" && game.score >= 50000
+},
+{
+  id: "reset_deus",
+  nome: "O Reset é o Caminho",
+  descricao: "Você reiniciou o jogo 10 vezes!",
+  condicao: () => Number(localStorage.getItem("resets")) >= 10
+}
 ];
 
 
@@ -406,9 +475,15 @@ function count() {
     tocarMusicaAleatoria();
   }
 
+  // 🔥 log de clique para conquistas tipo "spam_click"
+  let clicks = JSON.parse(localStorage.getItem("clicksLog") || "[]");
+  clicks.push(Date.now());
+  // mantém só últimos 20s para não pesar
+  clicks = clicks.filter(t => Date.now() - t <= 20000);
+  localStorage.setItem("clicksLog", JSON.stringify(clicks));
+
   load();
 }
-
 function checarAnimacoes() {
   for (let id in professores) {
     const btn = document.getElementById(id);
