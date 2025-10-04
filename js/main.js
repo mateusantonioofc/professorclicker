@@ -178,7 +178,7 @@ function checarConquistas(game) {
         load();
         notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
       } else if (typeof c.recompensa === "function") {
-        c.recompensa(); // executa a função de recompensa
+        c.recompensa();
       }
     }
   });
@@ -226,7 +226,7 @@ function ativarAutoClick(intervaloMs = 500) {
         count(); 
     }, intervaloMs);
 
-    notify(`esse professor tem auto clicker, parabéns `);
+    notify(`VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE `);
 }
 
 //segurança 
