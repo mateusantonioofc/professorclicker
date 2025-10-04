@@ -13,8 +13,8 @@ const username = localStorage.getItem("nickname");
 let musicaIniciada = false;
 
 const professores = {
-  Tetianao: { nome: "Teti Anão", preco: 50, bonus: 200000, img: "assets/professores/teti_anao.png", background: "url('assets/backgrounds/montanha.jpg')" },
-  Tetisupremo: { nome: "Teti Supremo", preco: 300, bonus: 3, img: "assets/professores/teti.png", background: "url('assets/backgrounds/sala.jpg')" },
+  Tetianao: { nome: "Teti Anão", preco: 50, bonus: 200000, img: "assets/professores/teti_anao.png", background: "url('assets/backgrounds/montanha.jpg')",autoClickIntervalo: 99999999999999999999999999 },
+  Tetisupremo: { nome: "Teti Supremo", preco: 300, bonus: 3, img: "assets/professores/teti.png", background: "url('assets/backgrounds/sala.jpg')" ,autoClickIntervalo: 99999999999999999999999999},
   Tetimulher: { nome: "Teti Mulher", preco: 2500, bonus: 5, img: "assets/professores/teti_mulher.png", background: "url('assets/backgrounds/cozinha.jpg')",autoClickIntervalo: 5000 },
   FelipeBase: { nome: "Felipe O Grego τ", preco: 5000, bonus: 7, img: "assets/professores/felipe.png", background: "url('assets/backgrounds/fisica.jpg')" ,autoClickIntervalo: 4500},
   Sheyla: { nome: "Dom Sheyla II", preco: 10000, bonus: 9, img: "assets/professores/sheyla.png", background: "url('assets/backgrounds/surubanco.jpg')",autoClickIntervalo: 4000 },
