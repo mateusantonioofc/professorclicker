@@ -152,7 +152,7 @@ const conquistas = [
       return musicPlayed.length === 10;
     }
   },
-  {
+  
 
   {
     id: "ghost_mode",
