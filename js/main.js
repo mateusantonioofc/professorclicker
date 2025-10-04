@@ -194,13 +194,13 @@ function notifyConquista(message) {
   notification.innerText = message;
 
   
-  const delay = conquistaQueue.length * 500; 
+  const delay = conquistaQueue.length * 1000; 
   notification.style.transitionDelay = delay + "ms";
 
   container.appendChild(notification);
   conquistaQueue.push(notification);
 
-  setTimeout(() => notification.classList.add("show"), 50);
+  setTimeout(() => notification.classList.add("show"), 500);
 
   
   setTimeout(() => {
