@@ -219,16 +219,17 @@ let autoClickInterval = null;
 
 
 function ativarAutoClick(intervaloMs = 500) {
-    
-    if (autoClickInterval) clearInterval(autoClickInterval);
+  if (autoClickInterval) clearInterval(autoClickInterval);
 
-    autoClickInterval = setInterval(() => {
-        count(); 
-    }, intervaloMs);
-if(game.bonus === 5){
- notify(`VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE `);
-}else if(game.bonus >5){`AUTO CLICK UPADO`);
-}}
+  autoClickInterval = setInterval(() => {
+      count(); 
+  }, intervaloMs);
+
+  if(game.bonus === 5){
+    notify("VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE");
+  } else if(game.bonus > 5){
+    notify("AUTO CLICK UPADO ✅");
+  }
 }
    
 
