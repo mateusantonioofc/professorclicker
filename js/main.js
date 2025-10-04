@@ -206,7 +206,7 @@ function processConquistaQueue() {
   container.appendChild(notification);
 
  
-  setTimeout(() => notification.classList.add("show"), 50);
+  setTimeout(() => notification.classList.add("show"), 500);
 
   
   setTimeout(() => {
@@ -215,7 +215,7 @@ function processConquistaQueue() {
       notification.remove();
       processingConquista = false;
       processConquistaQueue();
-    }, 500);
+    }, 2000);
   }, 4000);
 }
 if (session === "login" && username) {
