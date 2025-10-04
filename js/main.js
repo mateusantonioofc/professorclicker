@@ -541,7 +541,7 @@ function comprarProfessor(id) {
         }
     }
 }
-fufunction resetGame() {
+function resetGame() {
   const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
   if (!confirmReset) return;
 
@@ -566,7 +566,7 @@ fufunction resetGame() {
   document.body.style.backgroundImage = "none";
   document.getElementById("notification-container").innerHTML = "";
 
-  // 🔥 salva resets, limpa o resto
+  
   const tempResets = resets;
   localStorage.clear();
   localStorage.setItem("resets", tempResets);
@@ -646,9 +646,11 @@ document.getElementById("btnLogout").onclick = function () {
 };
 
 audioPlayer.addEventListener("ended", () => {
-  const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
-  if (!musicPlayed.includes(audioPlayer.src)) musicPlayed.push(audioPlayer.src);
-  localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
+  let musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+  if (!musicPlayed.includes(audioPlayer.src)) {
+    musicPlayed.push(audioPlayer.src);
+    localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
+  }
   tocarMusicaAleatoria();
 });
 
