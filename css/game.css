@@ -648,7 +648,7 @@ textarea {
     color: #fff;
     text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 30%) {
     .nav-menu {
         display: flex !important;
         position: static;
