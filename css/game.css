@@ -590,9 +590,9 @@ textarea {
   padding: 12px 20px;
   border-radius: 12px;
   box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
-  transform: translateX(-120%);
+  transform: translateX(-150%);
   opacity: 0;
-  transition: all 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -606,13 +606,7 @@ textarea {
 }
 
 @keyframes neonPulse {
-  0% {
-    box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
-  }
-  50% {
-    box-shadow: 0 0 20px #e94560, 0 0 30px #f87171;
-  }
-  100% {
-    box-shadow: 0 0 10px #e94560, 0 0 20px #f87171;
-  }
+  0% { box-shadow: 0 0 10px #e94560, 0 0 20px #f87171; }
+  50% { box-shadow: 0 0 20px #e94560, 0 0 30px #f87171; }
+  100% { box-shadow: 0 0 10px #e94560, 0 0 20px #f87171; }
 }
