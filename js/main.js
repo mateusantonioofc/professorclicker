@@ -153,12 +153,7 @@ const conquistas = [
     }
   },
   {
-    id: "auto_click_5s",
-    nome: "Mão Robótica",
-    descricao: "Clique automático por 5 segundos desbloqueado!",
-    condicao: (game) => game.score >= 500,
-    recompensa: () => ativarAutoClick(5, 300) // agora vai funcionar
-  },
+
   {
     id: "ghost_mode",
     nome: "Fantasma",
