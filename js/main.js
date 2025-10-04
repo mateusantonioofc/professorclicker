@@ -185,23 +185,39 @@ function checarConquistas(game) {
     }
   });
 }
+let conquistaQueue = [];
+let processingConquista = false;
+
 function notifyConquista(message) {
+  conquistaQueue.push(message);
+  processConquistaQueue();
+}
+
+function processConquistaQueue() {
+  if (processingConquista || conquistaQueue.length === 0) return;
+  processingConquista = true;
+
   const container = document.getElementById("notification-container");
+  const message = conquistaQueue.shift();
+
   const notification = document.createElement("div");
   notification.classList.add("notification", "conquista");
   notification.innerText = message;
   container.appendChild(notification);
 
-  // delay para ativar animação
-  setTimeout(() => notification.classList.add("show"), 10);
+ 
+  setTimeout(() => notification.classList.add("show"), 50);
 
-  // remover após 4 segundos
+  
   setTimeout(() => {
     notification.classList.remove("show");
-    setTimeout(() => notification.remove(), 500);
+    setTimeout(() => {
+      notification.remove();
+      processingConquista = false;
+      processConquistaQueue();
+    }, 500);
   }, 4000);
 }
-
 if (session === "login" && username) {
   fetch(`https://professorclicker-api.vercel.app/api/${username}`)
     .then(res => res.json())
