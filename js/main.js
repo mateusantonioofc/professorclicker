@@ -49,8 +49,7 @@ const conquistas = [
     id: "super_clique",
     nome: "Clique Frenético",
     descricao: "Você clicou 100 vezes!",
-    condicao: (game) => game.score >= 100,
-    recompensa: 100
+    condicao: (game) => game.score >= 100
   },
   {
     id: "primeiro_clique",
@@ -75,15 +74,13 @@ const conquistas = [
     id: "fanatico",
     nome: "Viciado em Pontos",
     descricao: "Você chegou em 50.000 pontos!",
-    condicao: (game) => game.score >= 50000,
-    recompensa: 100000
+    condicao: (game) => game.score >= 50000
   },
   {
     id: "background_mestre",
     nome: "Mestre das Salas",
     descricao: "Você trocou o background 3 vezes!",
-    condicao: (game) => game.bonus >= 7,
-    recompensa: 50
+    condicao: (game) => game.bonus >= 7
   },
   {
     id: "resetador",
@@ -134,8 +131,7 @@ const conquistas = [
     id: "score_51",
     nome: "A Resposta",
     descricao: "Você chegou exatamente em 51 pontos!",
-    condicao: (game) => game.score === 51,
-    recompensa: 51
+    condicao: (game) => game.score === 51
   },
   {
     id: "todos_os_professores",
