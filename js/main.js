@@ -174,7 +174,7 @@ function checarConquistas(game) {
   localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
 
   
-  notifyConquista(`🏆 Conquista desbloqueada: ${c.nome}`);
+  notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} ${c.descricao}`);
 
   let bonusPontos = c.recompensa || 0;
   if (bonusPontos > 0) {
