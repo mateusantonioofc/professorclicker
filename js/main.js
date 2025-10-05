@@ -680,6 +680,4 @@ document.getElementById('btnLogoutMenu').onclick = () => {
     hamburgerBtn.classList.remove('active');
 };
 
-
-
 load();
