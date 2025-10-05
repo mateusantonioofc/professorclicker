@@ -5,6 +5,7 @@ import { Storage } from "./modules/storage.js";
 import { GameFuncs } from "./modules/gamefunctions.js";
 
 
+
 // ==================== VARIÁVEIS ====================
 const scoreEl = document.getElementById("score");
 const pointsButton = document.getElementById("points_button");
