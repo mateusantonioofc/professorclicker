@@ -53,10 +53,10 @@ function processConquistaQueue() {
       processingConquista = false;
       processConquistaQueue();
     }, 500);
-  }, 4000);
+  }, 2500);
 }
 
-// ==================== FUNÇÕES PRINCIPAIS ====================
+
 function load() {
   if (scoreEl) scoreEl.textContent = score;
   checarAnimacoes();
@@ -101,7 +101,7 @@ async function loadUserData() {
   }
 }
 
-// ==================== CLIQUE PRINCIPAL ====================
+
 function count() {
   score += bonus;
   Storage.saveScore(score);
@@ -132,7 +132,7 @@ function count() {
   load();
 }
 
-// ==================== CHECAR CONQUISTAS ====================
+
 function checarConquistas() {
   const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
 
@@ -153,7 +153,7 @@ function checarConquistas() {
   });
 }
 
-// ==================== LOJA ====================
+
 function checarAnimacoes() {
   for (let id in PROFESSORES) {
     const btn = document.getElementById(id);
@@ -207,7 +207,7 @@ function comprarProfessor(id) {
   }
 }
 
-// ==================== UI INICIAL ====================
+
 if (!session || (session === "login" && !username)) {
   alert("Acesso negado! Faça login ou entre como convidado.");
   window.location.href = "index.html";
@@ -226,7 +226,7 @@ if (session === "convidado") {
   titleEl.textContent = username || "Ghost";
 }
 
-// ==================== BOTÕES ====================
+
 for (let id in PROFESSORES) {
   const prof = PROFESSORES[id];
   const btn = document.createElement("button");
@@ -264,11 +264,10 @@ if (logoutBtn) {
   };
 }
 
-// ==================== EVENTOS ====================
 window.addEventListener("load", async () => {
   await loadUserData();
   load();
-  checarConquistas(); // garante conquistas já cumpridas
+  checarConquistas(); 
 });
 
 clickEl?.addEventListener("click", count);
