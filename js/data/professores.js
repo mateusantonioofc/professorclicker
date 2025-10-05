@@ -25,7 +25,7 @@ export const PROFESSORES = {
     bonus: 5,
     img: ASSETS_PROFESSORES_PATH + "teti_mulher.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}cozinha.jpg')`,
-    autoClickIntervalo: -1
+    autoClickIntervalo: 5000
   },
   felipe_grego: {
     id: "felipe_grego",
