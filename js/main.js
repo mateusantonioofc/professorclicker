@@ -204,12 +204,16 @@ if (!session || (session === "login" && !username)) {
 
 if (session === "convidado") {
   const rankingBtn = document.getElementById("btnLeaderboard");
-  if (rankingBtn) rankingBtn.style.display = "none";
+  if (rankingBtn) {
+    rankingBtn.style.display = "none";
+    rankingBtn.onclick = () => playSound("ranking");
+  }
 
   titleEl.textContent = GameFuncs.gerarNome();
 } else {
   titleEl.textContent = username || "Ghost";
 }
+
 
 // botões da store
 for (let id in PROFESSORES) {
@@ -244,10 +248,14 @@ menuToggle?.addEventListener("click", () => {
 });
 
 // logout
-document.getElementById("btnLogout")?.addEventListener("click", () => {
-  saveAll();
-  window.location.href = "index.html";
-});
+const logoutBtn = document.getElementById("btnLogout");
+if (logoutBtn) {
+  logoutBtn.onclick = () => {
+    saveAll();
+    window.location.href = "index.html";
+  };
+}
+
 
 // save a cada 3 segundos
 setInterval(saveAll, 3000);
