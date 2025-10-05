@@ -205,35 +205,3 @@ export const CONQUISTAS = {
 };
 
 }
-let conquistaQueue = [];
-let processingConquista = false;
-
-function notifyConquista(message) {
-  conquistaQueue.push(message);
-  processConquistaQueue();
-}
-
-function processConquistaQueue() {
-  if (processingConquista || conquistaQueue.length === 0) return;
-  processingConquista = true;
-
-  const message = conquistaQueue.shift();
-  const container = document.getElementById("notification-container");
-  const notification = document.createElement("div");
-  notification.classList.add("notification", "conquista");
-  notification.innerText = message;
-  container.appendChild(notification);
-
-
-  setTimeout(() => notification.classList.add("show"), 100);
-
-  
-  setTimeout(() => {
-    notification.classList.remove("show");
-    setTimeout(() => {
-      notification.remove();
-      processingConquista = false;
-      processConquistaQueue();
-    }, 500);
-  }, 4000);
-}
