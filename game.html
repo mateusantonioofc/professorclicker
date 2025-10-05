@@ -49,20 +49,33 @@
     <!-- Botões fixos -->
     <button class="btn-reset" onclick="resetGame()">♻️ Resetar Jogo</button>
 
-    
+    <!-- Botão da loja -->
     <button class="menu-toggle" id="menu-toggle-store">
         <i class="fa-solid fa-store"></i>
     </button>
 
-   
+    <!-- Loja -->
     <aside class="store" id="store">
         <h2>Loja</h2>
         <div id="store-items"></div>
     </aside>
 
-    
+    <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/leaderboard.js"></script>
-  
+    <script>
+        // Toggle da loja
+        const menuToggle = document.getElementById("menu-toggle-store");
+        const store = document.getElementById("store");
+
+        menuToggle.addEventListener("click", () => {
+            store.classList.toggle("active");
+            const icon = menuToggle.querySelector("i");
+            if(icon){
+                icon.classList.toggle("fa-xmark");
+                icon.classList.toggle("fa-store");
+            }
+        });
+    </script>
 </body>
 </html>
