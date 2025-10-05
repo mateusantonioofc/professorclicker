@@ -14,7 +14,7 @@ const CONQUISTAS = [
   { id: "prof_maria", nome: "Profª Maria", descricao: "Você contratou a Profª Maria!", condicao: (game) => game.professores["Maria"] },
 
   // ⏱️ TEMPO DE JOGO
-  { id: "persistente", nome: "Persistente", descricao: "Você jogou por 1 hora!", condicao: () => Date.now() - Number(localStorage.getItem("startTime")) >= 3600000 },
+  { id: "persistente", nome: "Persistente", descricao: "Você jogou por 1 hora!", condicao: () => Date.now() - Number(localStorage.getItem("startTime")) >= 10000 },
 
   // 🔁 RESETS
   { id: "recomeçar", nome: "Recomeçar", descricao: "Você resetou o jogo!", condicao: () => Number(localStorage.getItem("resets")) >= 1 },
