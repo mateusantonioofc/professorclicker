@@ -3,7 +3,7 @@ import { Sounds } from "./sounds.js";
 
 export const GameFuncs = {
   score: Storage.loadScore() || 0,
-  bonus: 1,
+  bonus: 1 * (Storage.loadRebirths() || 0) + 1,
   professoresComprados: Storage.loadProfessores() || {},
   conquistasDesbloqueadas: Storage.loadConquistas() || [],
   rebirths: Storage.loadRebirths() || 0,
@@ -162,17 +162,38 @@ export const GameFuncs = {
     return `${sub}${adj}${numero}`;
   },
 
-  rebirth() {
+  rebirth(username, session) {
     let rebirthsCount = Storage.loadRebirths() || 0;
 
-    let rebirthCost = 100000 * (rebirthsCount + 1);
+    if (session === "login" && username) {
+      try {
+        const res = fetch(`https://professorclicker-api.vercel.app/api/${username}`);
+        if (res.ok) {
+          const serverData = res.json();
+          rebirthsCount = serverData.rebirths || rebirthsCount;
+          this.score = serverData.score || this.score;
+        }
+      } catch (err) {
+        console.error("Erro ao buscar rebirths do servidor:", err);
+      }
+    }
+
+    const rebirthCost = 100000 * (rebirthsCount + 1);
 
     if (this.score < rebirthCost) {
       this.notify(`Você precisa de ${rebirthCost.toLocaleString("pt-BR")} para fazer um Rebirth!`, "error");
       return false;
     }
+
+    rebirthsCount += 1;
+    this.rebirths = rebirthsCount;
+    this.bonus = 1 + rebirthsCount;
     this.score = 0;
-    this.bonus = 1;
     this.professoresComprados = {};
+
+    this.saveAll(username, session);
+
+    this.notify(`Rebirth realizado! Você agora tem ${rebirthsCount} rebirth(s) e seu bônus de clique é x${this.bonus}!`);
+    return true;
   }
 };

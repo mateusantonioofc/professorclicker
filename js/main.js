@@ -14,6 +14,7 @@ const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const storeEl = document.getElementById("store");
 const logoutBtn = document.getElementById("btnLogout");
+const rebirthBtn = document.getElementById("btnReset");
 
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
@@ -227,7 +228,6 @@ if (session === "convidado") {
   titleEl.textContent = username || "Ghost";
 }
 
-
 for (let id in PROFESSORES) {
   const prof = PROFESSORES[id];
   const btn = document.createElement("button");
@@ -264,6 +264,26 @@ if (logoutBtn) {
     localStorage.clear();
 
     window.location.href = "index.html";
+  };
+}
+
+if (rebirthBtn) {
+
+  rebirthBtn.onclick = () => {
+
+    if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
+      const sucesso = GameFuncs.rebirth(username, session);
+      
+      if (sucesso) {
+        score = GameFuncs.score;
+        professoresComprados = GameFuncs.professoresComprados;
+        bonus = GameFuncs.bonus;
+        if (scoreEl) scoreEl.textContent = score;
+        notifyConquista("Rebirth realizado com sucesso!");
+        load();
+        checarConquistas();
+      }
+    }
   };
 }
 
