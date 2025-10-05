@@ -32,12 +32,27 @@
         <div class="profilebtnLogout-user">  
             <i class="fa-solid fa-user-tie"></i>  
         </div>  
-        <h1 class="h1">Nickname</h1>  
+        <!-- Este h1 será o item fixo do dropdown -->
+        <h1 class="h1" id="menu-username">Nickname</h1>  
+
         <button id="btnLogout" class="btn-logout">  
             <i class="fa fa-sign-out"></i>  
         </button>  
     </div>
-</header>  <div class="container">  
+
+    <!-- Botão do menu hambúrguer -->
+    <button id="menu-toggle" class="menu-toggle">  
+        <i class="fas fa-bars"></i>  
+    </button>
+
+    <!-- Dropdown -->
+    <div id="dropdown-menu" class="dropdown-menu">
+        <div id="menu-items" class="menu-items">
+            <!-- Itens dinâmicos via JS entram aqui -->
+        </div>
+    </div>
+</header>
+ <div class="container">  
             <div id="notification-container"></div>  
                     <button id="click" onclick="count()">  
                             <img id="points_button" src="assets/nave.png" alt="">  
