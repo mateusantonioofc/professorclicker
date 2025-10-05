@@ -122,23 +122,24 @@ function count() {
 
 // checa conquistas
 function checarConquistas() {
-  const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
-  novas.forEach(c => {
-    if (!conquistasDesbloqueadas.includes(c.id)) {
-      conquistasDesbloqueadas.push(c.id);
-      Storage.saveConquistas(conquistasDesbloqueadas);
-      GameFuncs.notify(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
-      if (typeof c.recompensa === "number") {
-        score += c.recompensa;
-        Storage.saveScore(score);
-        load();
-        GameFuncs.notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
-      } else if (typeof c.recompensa === "function") {
-        c.recompensa();
-      }
-    }
-  });
+    const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
+
+    novas.forEach(c => {
+        conquistasDesbloqueadas.push(c.id); // push só aqui
+        Storage.saveConquistas(conquistasDesbloqueadas);
+        GameFuncs.notify(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+
+        if (typeof c.recompensa === "number") {
+            score += c.recompensa;
+            Storage.saveScore(score);
+            load();
+            GameFuncs.notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
+        } else if (typeof c.recompensa === "function") {
+            c.recompensa();
+        }
+    });
 }
+
 
 // checa se professores podem ser comprados
 function checarAnimacoes() {
@@ -162,7 +163,7 @@ function comprarProfessor(id) {
   if (!jaComprado) {
     if (score >= prof.preco) {
       score -= prof.preco;
-      bonus = prof.bonus;
+      bonus += prof.bonus;
       professoresComprados[id] = true;
 
       pointsButton.src = prof.img;

@@ -1,6 +1,6 @@
 export const CONQUISTAS = {
     /**
-     * Lista de todas as conquistas do jogo.
+     * Lista de todas as conquistas do jogo
      * Cada conquista possui:
      * - id: identificador único
      * - nome: título da conquista
@@ -192,8 +192,7 @@ export const CONQUISTAS = {
         for (let i = 0; i < this.lista.length; i++) {
             const c = this.lista[i];
             if (!desbloqueadas.includes(c.id) && c.condicao(game)) {
-                desbloqueadas.push(c.id);
-                novas.push(c);
+                novas.push(c); // <--- só adiciona aqui, não no desbloqueadas
             }
         }
         return novas;
