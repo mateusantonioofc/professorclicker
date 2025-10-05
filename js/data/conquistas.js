@@ -9,26 +9,7 @@
 export const CONQUISTAS = {
 
   lista: [
-    { id: "primeiro_clique", nome: "Primeiro Clique", descricao: "Você clicou 1 vez!", condicao: (game) => game.score >= 1 },
-    { id: "dez_toques", nome: "Dez Toques", descricao: "Você clicou 10 vezes!", condicao: (game) => game.score >= 10 },
-    { id: "dedos_agaes", nome: "Dedos Ágeis", descricao: "Você clicou 100 vezes!", condicao: (game) => game.score >= 100 },
-    { id: "aquecendo", nome: "Aquecendo", descricao: "Você clicou 500 vezes!", condicao: (game) => game.score >= 500 },
-    { id: "ritmo_crescente", nome: "Ritmo Crescente", descricao: "Você clicou 1.000 vezes!", condicao: (game) => game.score >= 1000 },
-    { id: "explosao_cliques", nome: "Explosão de Cliques", descricao: "Você clicou 2.500 vezes!", condicao: (game) => game.score >= 2500 },
-    { id: "frenesi", nome: "Frenesi", descricao: "Você clicou 5.000 vezes!", condicao: (game) => game.score >= 5000 },
-    { id: "maratona_dedos", nome: "Maratona de Dedos", descricao: "Você clicou 10.000 vezes!", condicao: (game) => game.score >= 10000 },
-    { id: "velocidade_extrema", nome: "Velocidade Extrema", descricao: "Você clicou 25.000 vezes!", condicao: (game) => game.score >= 25000 },
-    { id: "monstro_clique", nome: "Monstro do Clique", descricao: "Você clicou 50.000 vezes!", condicao: (game) => game.score >= 50000 },
-    { id: "robo_clique", nome: "Robô do Clique", descricao: "Você clicou 100.000 vezes!", condicao: (game) => game.score >= 100000 },
-    { id: "hiperclicker", nome: "Hiperclicker", descricao: "Você clicou 250.000 vezes!", condicao: (game) => game.score >= 250000 },
-    { id: "turbo_dedos", nome: "Turbo Dedos", descricao: "Você clicou 500.000 vezes!", condicao: (game) => game.score >= 500000 },
-    { id: "maquina_cliques", nome: "Máquina de Cliques", descricao: "Você clicou 1.000.000 vezes!", condicao: (game) => game.score >= 1000000 },
-    { id: "clicker_supremo", nome: "Clicker Supremo", descricao: "Você clicou 2.500.000 vezes!", condicao: (game) => game.score >= 2500000 },
-    { id: "lenda_clicker", nome: "Lenda do Clicker", descricao: "Você clicou 5.000.000 vezes!", condicao: (game) => game.score >= 5000000 },
-    { id: "clicker_epico", nome: "Clicker Épico", descricao: "Você clicou 10.000.000 vezes!", condicao: (game) => game.score >= 10000000 },
-    { id: "clicker_lendario", nome: "Clicker Lendário", descricao: "Você clicou 25.000.000 vezes!", condicao: (game) => game.score >= 25000000 },
-    { id: "clicker_imortal", nome: "Clicker Imortal", descricao: "Você clicou 50.000.000 vezes!", condicao: (game) => game.score >= 50000000 },
-    { id: "clicker_divino", nome: "Clicker Divino", descricao: "Você clicou 100.000.000 vezes!", condicao: (game) => game.score >= 100000000 },
+  
 
     { id: "primeiro_ponto", nome: "Primeiro Ponto", descricao: "Você alcançou 1 ponto!", condicao: (game) => game.score >= 1 },
     { id: "dez_pontos", nome: "Dez Pontos", descricao: "Você alcançou 10 pontos!", condicao: (game) => game.score >= 10 },
