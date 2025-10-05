@@ -1,6 +1,7 @@
 import { Storage } from "./storage.js";
 import { Sounds } from "./sounds.js";
 
+
 export const GameFuncs = {
   score: Storage.loadScore() || 0,
   bonus: 1 * (Storage.loadRebirths() || 0) + 1,
