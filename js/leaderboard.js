@@ -2,6 +2,8 @@ const rankingElement = document.getElementById("ranking");
 const btnLeaderboard = document.getElementById("btnLeaderboard");
 const leaderboardContainer = document.getElementById("leaderboardContainer");
 
+const EXCLUDED_USERS = ["ADM", "admin", "teste", "guest"]; // Adicione aqui os nomes que não entram no ranking
+
 // Exemplo para testar
 // if (!localStorage.getItem("players")) {
 //   localStorage.setItem("players", JSON.stringify([
@@ -18,6 +20,7 @@ const leaderboardContainer = document.getElementById("leaderboardContainer");
 //     { name: "Rafa", money: 3000 }
 //   ]));
 // }
+
 function formatScore(score) {
   if (score >= 1000000) {
     return (score / 1000000).toFixed(2) + "m";
@@ -30,7 +33,9 @@ async function fetchRanking() {
     const response = await fetch("https://professorclicker-api.vercel.app/ranking");
     const data = await response.json();
 
-    const ranking = (data.ranking || []).filter(player => player.username !== "ADM");
+    const ranking = (data.ranking || []).filter(
+      player => !EXCLUDED_USERS.includes(player.username)
+    );
 
     let top10 = ranking.slice(0, 10);
 
