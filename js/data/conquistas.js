@@ -46,6 +46,7 @@ export const CONQUISTAS = {
     { id: "cinquenta_milhoes_pontos", nome: "Cinquenta Milhões de Pontos", descricao: "Você alcançou 50.000.000 pontos!", condicao: (game) => game.score >= 50000000 },
     { id: "cem_milhoes_pontos", nome: "Cem Milhões de Pontos", descricao: "Você alcançou 100.000.000 pontos!", condicao: (game) => game.score >= 100000000 },
 
+
     { id: "primeiro_professor", nome: "Primeiro Professor", descricao: "Você comprou seu primeiro professor!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 1 },
     { id: "aprendiz", nome: "Aprendiz", descricao: "Você comprou 2 professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 2 },
     { id: "colecionador", nome: "Colecionador", descricao: "Você comprou 3 professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 3 },
