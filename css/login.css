@@ -8,6 +8,10 @@ html, body {
   touch-action: manipulation;
 }
 
+.logo{
+height:auto;
+width:auto;}
+
 * {
   box-sizing: border-box;
 }
