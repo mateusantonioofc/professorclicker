@@ -2,13 +2,18 @@ import { Storage } from "./storage.js";
 import { Sounds } from "./sounds.js";
 
 export const GameFuncs = {
+  score: Storage.loadScore() || 0,
+  bonus: 1,
+  professoresComprados: Storage.loadProfessores() || {},
+  conquistasDesbloqueadas: Storage.loadConquistas() || [],
+  musicaIniciada: false,
+  clicksLog: Storage.loadClicksLog() || [],
+
   autoClickInterval: null,
   conquistaQueue: [],
   processingConquista: false,
 
-  // ========================
-  // AUTO CLICK
-  // ========================
+  
   ativarAutoClick(intervaloMs = 500, countFn, mostrarNotif = true, bonus = 1) {
     if (this.autoClickInterval) clearInterval(this.autoClickInterval);
     this.autoClickInterval = setInterval(countFn, intervaloMs);
@@ -45,13 +50,11 @@ export const GameFuncs = {
     }, 3000);
   },
 
-  
   notifyConquista(message) {
     this.conquistaQueue.push(message);
     this.processConquistaQueue();
   },
 
-  
   processConquistaQueue() {
     if (this.processingConquista || this.conquistaQueue.length === 0) return;
     this.processingConquista = true;
@@ -76,6 +79,76 @@ export const GameFuncs = {
   },
 
   
+  saveAll(username, session) {
+    Storage.saveScore(this.score);
+    Storage.saveProfessores(this.professoresComprados);
+    Storage.saveConquistas(this.conquistasDesbloqueadas);
+
+    if (session === "login" && username) {
+      fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          score: this.score,
+          professores_comprados: this.professoresComprados,
+          conquistas: this.conquistasDesbloqueadas
+        })
+      }).catch(err => console.error("Erro ao salvar no servidor:", err));
+    }
+  },
+
+  async loadUserData(username, session) {
+    if (session === "login" && username) {
+      try {
+        const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
+        if (!res.ok) throw new Error("Falha ao buscar dados do servidor");
+
+        const serverData = await res.json();
+
+        this.score = Math.max(this.score, serverData.score || 0);
+        this.professoresComprados = { ...serverData.professores_comprados, ...this.professoresComprados };
+        this.conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...this.conquistasDesbloqueadas]));
+
+        Storage.saveScore(this.score);
+        Storage.saveProfessores(this.professoresComprados);
+        Storage.saveConquistas(this.conquistasDesbloqueadas);
+      } catch (err) {
+        console.error("Erro ao carregar dados do servidor:", err);
+      }
+    }
+  },
+
+  count(clickEl, scoreEl, checarConquistas, checarAnimacoes) {
+    this.score += this.bonus;
+    Storage.saveScore(this.score);
+
+    checarConquistas();
+    Sounds.play("click");
+
+    if (clickEl) {
+      clickEl.classList.remove("popp");
+      void clickEl.offsetWidth;
+      clickEl.classList.add("popp");
+    }
+    if (scoreEl) {
+      scoreEl.classList.remove("pop");
+      void scoreEl.offsetWidth;
+      scoreEl.classList.add("pop");
+    }
+
+    if (!this.musicaIniciada) {
+      this.musicaIniciada = true;
+      Sounds.tocarAleatoria();
+    }
+
+    this.clicksLog.push(Date.now());
+    this.clicksLog = this.clicksLog.filter(t => Date.now() - t <= 20000);
+    localStorage.setItem("clicksLog", JSON.stringify(this.clicksLog));
+
+    checarAnimacoes();
+    if (scoreEl) scoreEl.textContent = this.score;
+  },
+
   gerarNome() {
     const substantivos = ["Gabiru", "Miojo", "Coxinha", "Sagui", "Mamífero", "Sabugo", "Calabreso", "Chinelo"];
     const adjetivos = ["Labubônico", "Emburrado", "Carente", "Teimoso", "DaSilva", "Guloso", "Tabacudo","Abestado", "Fofolete"];
