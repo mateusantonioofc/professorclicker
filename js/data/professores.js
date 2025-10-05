@@ -6,7 +6,7 @@ export const PROFESSORES = {
     bonus: 2,
     img: "assets/professores/teti_anao.png",
     background: "url('assets/backgrounds/montanha.jpg')",
-autoClickIntervalo: -1
+autoClickIntervalo: -10000
   },
   teti_supremo: {
     id: "teti_supremo",
