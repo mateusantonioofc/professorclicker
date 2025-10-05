@@ -654,33 +654,48 @@ audioPlayer.addEventListener("ended", () => {
   tocarMusicaAleatoria();
 });
   
-const dynamicMenuItems = [
-    { name: "Loja", action: () => document.getElementById('store').classList.toggle('open') },
-    { name: "Conquistas", action: () => alert("Conquistas clicadas!") },
-    { name: "Configurações", action: () => alert("Configurações clicadas!") },
-];
-
-
-const menuToggle = document.getElementById("menu-toggle");
+// Menu Toggle
+const menuToggleBtn = document.getElementById("menu-toggle");
+const store = document.getElementById("store");
 const dropdownMenu = document.getElementById("dropdown-menu");
 const menuItemsContainer = document.getElementById("menu-items");
 
+// Itens do menu
+const dynamicMenuItems = [
+    { name: "Loja", action: () => store.classList.toggle("active") },
+    { name: "Conquistas", action: () => openConquistas() },
+    { name: "Configurações", action: () => openConfig() },
+];
 
 dynamicMenuItems.forEach(item => {
-    const button = document.createElement("button");
-    button.textContent = item.name;
-    button.addEventListener("click", item.action);
-    menuItemsContainer.appendChild(button);
+    const btn = document.createElement("button");
+    btn.textContent = item.name;
+    btn.addEventListener("click", item.action);
+    menuItemsContainer.appendChild(btn);
 });
 
-menuToggle.addEventListener("click", (e) => {
+// Toggle dropdown
+menuToggleBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     dropdownMenu.style.display = dropdownMenu.style.display === "flex" ? "none" : "flex";
 });
 
+// Fecha dropdown ao clicar fora
 document.addEventListener("click", (e) => {
-    if (!dropdownMenu.contains(e.target) && e.target !== menuToggle) {
+    if (!dropdownMenu.contains(e.target) && e.target !== menuToggleBtn) {
         dropdownMenu.style.display = "none";
     }
 });
+
+// Funções exemplo para abrir containers
+function openConquistas() {
+    // Coloque aqui seu código de abrir conquistas
+    alert("Conquistas abertas!");
+}
+
+function openConfig() {
+    // Coloque aqui seu código de abrir configurações
+    alert("Configurações abertas!");
+}
+
 load();
