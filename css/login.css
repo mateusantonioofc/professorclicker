@@ -286,7 +286,7 @@ body::before{
 .input:focus{
   border-color: var(--glass-border-2);
   box-shadow: 0 6px 28px rgba(0,0,0,0.55), 0 0 18px rgba(124,107,255,0.06);
-  transform: translateY(-6px);
+  transform: translateY(-40px);
 }
 .input:focus + .input-label,
 .input[data-has-value="true"] + .input-label{
