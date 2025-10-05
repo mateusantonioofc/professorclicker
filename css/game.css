@@ -606,8 +606,8 @@ animation: neonPulse 1.2s infinite alternate;
 }
 
 @keyframes neonPulse {
-0% { box-shadow: 0 0 10px green, 0 0 20px #f87171; }
-50% { box-shadow: 0 0 20px green, 0 0 30px #f87171; }
-100% { box-shadow: 0 0 10px green, 0 0 20px #f87171; }
+0% { box-shadow: 0 0 10px green, 0 0 20px green; }
+50% { box-shadow: 0 0 20px green, 0 0 30px green; }
+100% { box-shadow: 0 0 10px green, 0 0 20px green; }
 }
 
