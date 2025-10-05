@@ -1,4 +1,4 @@
-import { PROFESSORES, getProfessor} from "./data/professores.js";
+import { PROFESSORES, getProfessor } from "./data/professores.js";
 import { CONQUISTAS } from "./data/conquistas.js";
 import { Sounds } from "./modules/sounds.js";
 import { Storage } from "./modules/storage.js";
@@ -17,17 +17,15 @@ const storeEl = document.getElementById("store");
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
-// variaveis do jogo
-let score = Storage.loadScore();
+// variáveis do jogo
+let score = Storage.loadScore() || 0;
 let bonus = 1; 
-let professoresComprados = Storage.loadProfessores();
-let conquistasDesbloqueadas = Storage.loadConquistas();
+let professoresComprados = Storage.loadProfessores() || {};
+let conquistasDesbloqueadas = Storage.loadConquistas() || [];
 let musicaIniciada = false;
+let clicksLog = Storage.loadClicksLog() || [];
 
-const startTime = Storage.loadStartTime();
-let clicksLog = Storage.loadClicksLog();
-
-// settings da msc
+// settings da música
 Sounds.audioPlayer.volume = 0.4;
 Sounds.audioPlayer.addEventListener("ended", () => {
   let musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
@@ -38,19 +36,13 @@ Sounds.audioPlayer.addEventListener("ended", () => {
   Sounds.tocarAleatoria();
 });
 
-window.addEventListener("load", () => Sounds.tocarAleatoria());
-
-document.addEventListener("click", () => {
-  if (Sounds.audioPlayer.paused) Sounds.tocarAleatoria();
-}, { once: true });
-
-// Atualiza os elementos do DOOOOOOOOOOOOOOOOOOOOOOOOOOOOM
+// Atualiza os elementos do jogo
 function load() {
-  scoreEl.textContent = score;
+  if (scoreEl) scoreEl.textContent = score;
   checarAnimacoes();
 }
 
-// Salva tudo tlgd
+// salva dados no localStorage e servidor
 function saveAll() {
   Storage.saveScore(score);
   Storage.saveProfessores(professoresComprados);
@@ -65,14 +57,39 @@ function saveAll() {
         professores_comprados: professoresComprados,
         conquistas: conquistasDesbloqueadas
       })
-    });
+    }).catch(err => console.error("Erro ao salvar no servidor:", err));
   }
 }
 
-/**
- * Função d clique
- * aomenta score, salva, checa conquistas e anima elementos
- */
+// merge com dados do servidor
+async function loadUserData() {
+  if (session === "login" && username) {
+    try {
+      const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
+      if (!res.ok) throw new Error("Falha ao buscar dados do servidor");
+
+      const serverData = await res.json();
+
+      score = Math.max(score, serverData.score || 0);
+      professoresComprados = { ...serverData.professores_comprados, ...professoresComprados };
+      conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...conquistasDesbloqueadas]));
+
+      Storage.saveScore(score);
+      Storage.saveProfessores(professoresComprados);
+      Storage.saveConquistas(conquistasDesbloqueadas);
+    } catch (err) {
+      console.error("Erro ao carregar dados do servidor:", err);
+    }
+  }
+}
+
+// Inicialização do jogo
+window.addEventListener("load", async () => {
+  await loadUserData();
+  load();
+});
+
+// Função de clique
 function count() {
   score += bonus;
   Storage.saveScore(score);
@@ -96,7 +113,6 @@ function count() {
     Sounds.tocarAleatoria();
   }
 
-  // Log de cliques recentes (20s) para conquistas
   clicksLog.push(Date.now());
   clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
@@ -104,28 +120,27 @@ function count() {
   load();
 }
 
-/**
- * conquistas desbloqueáveis e aplica recompensas
- */
+// checa conquistas
 function checarConquistas() {
   const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
   novas.forEach(c => {
-    conquistasDesbloqueadas.push(c.id);
-    Storage.saveConquistas(conquistasDesbloqueadas);
-    GameFuncs.notify(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
-
-    if (c.recompensa && typeof c.recompensa === "number") {
-      score += c.recompensa;
-      Storage.saveScore(score);
-      load();
-      GameFuncs.notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
-    } else if (typeof c.recompensa === "function") {
-      c.recompensa();
+    if (!conquistasDesbloqueadas.includes(c.id)) {
+      conquistasDesbloqueadas.push(c.id);
+      Storage.saveConquistas(conquistasDesbloqueadas);
+      GameFuncs.notify(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+      if (typeof c.recompensa === "number") {
+        score += c.recompensa;
+        Storage.saveScore(score);
+        load();
+        GameFuncs.notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
+      } else if (typeof c.recompensa === "function") {
+        c.recompensa();
+      }
     }
   });
 }
 
-// se professores podem ser comprados e atualiza classes do DOM
+// checa se professores podem ser comprados
 function checarAnimacoes() {
   for (let id in PROFESSORES) {
     const btn = document.getElementById(id);
@@ -137,7 +152,7 @@ function checarAnimacoes() {
   }
 }
 
-// um professor se possível e aplica efeitos
+// comprar professor
 function comprarProfessor(id) {
   const prof = getProfessor(id);
   if (!prof) return;
@@ -180,38 +195,7 @@ function comprarProfessor(id) {
   }
 }
 
-// reseta o jogo limpa progresso e redireciona para a tela inicial
-function resetGame() {
-  const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
-  if (!confirmReset) return;
-
-  Sounds.play("reset");
-
-  let resets = Number(localStorage.getItem("resets")) || 0;
-  resets++;
-  localStorage.setItem("resets", resets);
-
-  score = 0;
-  bonus = 1;
-
-  for (let id in PROFESSORES) {
-    professoresComprados[id] = false;
-    document.getElementById(id)?.classList.remove("comprado", "compravel");
-  }
-
-  pointsButton.src = "assets/nave.png";
-  document.body.style.backgroundImage = "none";
-  document.getElementById("notification-container").innerHTML = "";
-
-  const tempResets = resets;
-  localStorage.clear();
-  localStorage.setItem("resets", tempResets);
-
-  window.location.href = "index.html";
-  alert("Jogo reiniciado!");
-}
-
-// UI Inicial
+// UI inicial
 if (!session || (session === "login" && !username)) {
   alert("Acesso negado! Faça login ou entre como convidado.");
   window.location.href = "index.html";
@@ -222,11 +206,10 @@ if (session === "convidado") {
   const rankingBtn = document.getElementById("btnLeaderboard");
   if (rankingBtn) rankingBtn.style.display = "none";
 
-  titleEl.textContent = GameFuncs.gerarNome();// GabiruGuloso643
+  titleEl.textContent = GameFuncs.gerarNome();
 } else {
   titleEl.textContent = username || "Ghost";
 }
-
 
 // botões da store
 for (let id in PROFESSORES) {
@@ -239,33 +222,29 @@ for (let id in PROFESSORES) {
 }
 
 // toggle menu da store
-if (menuToggle && storeEl) {
-  menuToggle.addEventListener("click", () => {
-    Sounds.play("menu");
-    storeEl.classList.toggle("active");
-    menuToggle.classList.toggle("active");
+menuToggle?.addEventListener("click", () => {
+  Sounds.play("menu");
+  storeEl.classList.toggle("active");
+  menuToggle.classList.toggle("active");
 
-    const icon = menuToggle.querySelector("i");
-    if (icon) {
-      icon.style.transition = "transform 0.3s ease";
-      icon.style.transform = "rotate(90deg)";
+  const icon = menuToggle.querySelector("i");
+  if (icon) {
+    icon.style.transition = "transform 0.3s ease";
+    icon.style.transform = "rotate(90deg)";
 
-      setTimeout(() => {
-        if (storeEl.classList.contains("active")) {
-          icon.classList.remove("fa-store");
-          icon.classList.add("fa-xmark");
-        } else {
-          icon.classList.remove("fa-xmark");
-          icon.classList.add("fa-store");
-        }
-        icon.style.transform = "rotate(0deg)";
-      }, 200);
-    }
-  });
-}
+    setTimeout(() => {
+      if (storeEl.classList.contains("active")) {
+        icon.classList.replace("fa-store", "fa-xmark");
+      } else {
+        icon.classList.replace("fa-xmark", "fa-store");
+      }
+      icon.style.transform = "rotate(0deg)";
+    }, 200);
+  }
+});
 
 // logout
-document.getElementById("btnLogout").addEventListener("click", () => {
+document.getElementById("btnLogout")?.addEventListener("click", () => {
   saveAll();
   window.location.href = "index.html";
 });
@@ -273,7 +252,7 @@ document.getElementById("btnLogout").addEventListener("click", () => {
 // save a cada 3 segundos
 setInterval(saveAll, 3000);
 
-// clicque principal
-clickEl.addEventListener("click", count);
+// click principal
+clickEl?.addEventListener("click", count);
 
 load();
