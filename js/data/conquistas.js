@@ -9,8 +9,6 @@
 export const CONQUISTAS = {
 
   lista: [
-  
-
     { id: "primeiro_ponto", nome: "Primeiro Ponto", descricao: "Você alcançou 1 ponto!", condicao: (game) => game.score >= 1 },
     { id: "dez_pontos", nome: "Dez Pontos", descricao: "Você alcançou 10 pontos!", condicao: (game) => game.score >= 10 },
     { id: "cem_pontos", nome: "Cem Pontos", descricao: "Você alcançou 100 pontos!", condicao: (game) => game.score >= 100 },
