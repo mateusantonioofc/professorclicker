@@ -46,7 +46,7 @@ export const GameFuncs = {
     setTimeout(() => notification.classList.add("show"), 10);
     setTimeout(() => {
       notification.classList.remove("show");
-      setTimeout(() => notification.remove(), 1000);
+      setTimeout(() => notification.remove(), 1500);
     }, 3000);
   },
 
