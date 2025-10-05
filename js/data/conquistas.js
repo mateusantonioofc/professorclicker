@@ -204,3 +204,136 @@ export const CONQUISTAS = {
 };
 
 
+let conquistaQueue = [];
+let processingConquista = false;
+
+function notifyConquista(message) {
+  conquistaQueue.push(message);
+  processConquistaQueue();
+}
+
+function processConquistaQueue() {
+  if (processingConquista || conquistaQueue.length === 0) return;
+  processingConquista = true;
+
+  const message = conquistaQueue.shift();
+  const container = document.getElementById("notification-container");
+  const notification = document.createElement("div");
+  notification.classList.add("notification", "conquista");
+  notification.innerText = message;
+  container.appendChild(notification);
+
+  
+  setTimeout(() => notification.classList.add("show"), 100);
+
+  
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      notification.remove();
+      processingConquista = false;
+      processConquistaQueue(); 
+    }, 500);
+  }, 4000);
+}
+function checarConquistas() {
+  const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
+
+  novas.forEach(c => {
+    
+    conquistasDesbloqueadas.push(c.id);
+    Storage.saveConquistas(conquistasDesbloqueadas);
+
+    
+    notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+
+    
+    if (typeof c.recompensa === "number") {
+      score += c.recompensa;
+      Storage.saveScore(score);
+      load();
+
+      
+      notifyConquista(`🎁 Você ganhou ${c.recompensa} pontos!`);
+    } else if (typeof c.recompensa === "function") {
+      c.recompensa();
+    }
+  });
+}
+
+
+
+function count() {
+  score += bonus;
+  Storage.saveScore(score);
+
+  checarConquistas(); 
+
+  Sounds.play("click");
+
+  if (clickEl) {
+    clickEl.classList.remove("popp");
+    void clickEl.offsetWidth;
+    clickEl.classList.add("popp");
+  }
+  if (scoreEl) {
+    scoreEl.classList.remove("pop");
+    void scoreEl.offsetWidth;
+    scoreEl.classList.add("pop");
+  }
+
+  if (!musicaIniciada) {
+    musicaIniciada = true;
+    Sounds.tocarAleatoria();
+  }
+
+  clicksLog.push(Date.now());
+  clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
+  localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
+
+  load();
+}
+
+function comprarProfessor(id) {
+  const prof = getProfessor(id);
+  if (!prof) return;
+
+  const jaComprado = professoresComprados[id];
+
+  if (!jaComprado) {
+    if (score >= prof.preco) {
+      score -= prof.preco;
+      bonus += prof.bonus;
+      professoresComprados[id] = true;
+
+      pointsButton.src = prof.img;
+      document.body.style.backgroundImage = prof.background;
+
+      document.getElementById(id)?.classList.remove("compravel");
+      document.getElementById(id)?.classList.add("comprado");
+
+      notifyConquista(`Você comprou ${prof.nome} ✅`); // notificação via fila
+      saveAll();
+
+      checarConquistas();
+
+      if (prof.autoClickIntervalo) {
+        GameFuncs.ativarAutoClick(prof.autoClickIntervalo, count, false, bonus);
+      }
+
+      load();
+      Sounds.play("buy");
+    } else {
+      notifyConquista('Erro: saldo insuficiente ❌'); // também fila
+    }
+  } else {
+    pointsButton.src = prof.img;
+    document.body.style.backgroundImage = prof.background;
+    bonus = prof.bonus;
+    if (prof.autoClickIntervalo) {
+      GameFuncs.ativarAutoClick(prof.autoClickIntervalo, count, false, bonus);
+    }
+  }
+}
+
+
