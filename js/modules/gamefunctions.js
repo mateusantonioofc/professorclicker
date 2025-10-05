@@ -109,9 +109,7 @@ export const GameFuncs = {
         this.professoresComprados = { ...serverData.professores_comprados, ...this.professoresComprados };
         this.conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...this.conquistasDesbloqueadas]));
 
-        Storage.saveScore(this.score);
-        Storage.saveProfessores(this.professoresComprados);
-        Storage.saveConquistas(this.conquistasDesbloqueadas);
+        this.saveAll(username, session);
       } catch (err) {
         console.error("Erro ao carregar dados do servidor:", err);
       }
