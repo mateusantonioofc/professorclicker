@@ -653,6 +653,5 @@ audioPlayer.addEventListener("ended", () => {
   }
   tocarMusicaAleatoria();
 });
-  
 
 load();
