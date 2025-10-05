@@ -11,7 +11,7 @@ export const Sounds = {
   play(type) {
     if (!this.sounds[type]) return;
     const audio = new Audio(this.sounds[type]);
-    audio.play().catch(() => {});
+    audio.play().catch(() => { });
   },
 
   tocarAleatoria() {
