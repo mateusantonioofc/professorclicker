@@ -260,6 +260,8 @@ menuToggle?.addEventListener("click", () => {
 if (logoutBtn) {
   logoutBtn.onclick = () => {
     saveAll();
+    localStorage.clear();
+    
     window.location.href = "index.html";
   };
 }
