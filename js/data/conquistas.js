@@ -54,7 +54,7 @@ export const CONQUISTAS = {
     { id: "mestre", nome: "Mestre", descricao: "Você comprou 5 professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5 },
     { id: "guru", nome: "Guru", descricao: "Você comprou 6 professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 6 },
     { id: "lenda", nome: "Lenda", descricao: "Você comprou 7 professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length >= 7 },
-    { id: "todos_os_professores", nome: "Colecionador Lendário", descricao: "Você comprou todos os professores!", condicao: (game) => Object.values(game.professores).filter(v => v).length === Object.keys(game.professores).length },
+    
 
     { id: "reset_1", nome: "Reinício Estratégico", descricao: "Você reiniciou o jogo 1 vez!", condicao: () => Number(localStorage.getItem("resets")) >= 1 },
     { id: "reset_5", nome: "Recomeço Infinito", descricao: "Você reiniciou o jogo 5 vezes!", condicao: () => Number(localStorage.getItem("resets")) >= 5 },
