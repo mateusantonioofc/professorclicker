@@ -1,5 +1,5 @@
 
-     * Lista de todas as conquistas do jogo
+     /* Lista de todas as conquistas do jogo
      * Cada conquista possui:
      * - id: identificador único
      * - nome: título da conquista
