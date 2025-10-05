@@ -290,7 +290,7 @@ body::before{
 }
 .input:focus + .input-label,
 .input[data-has-value="true"] + .input-label{
-  top:8px;
+  top:2px;
   transform: none;
   font-size:12px;
   color:var(--accent-b);
