@@ -11,6 +11,10 @@ export const Storage = {
   saveConquistas(cons) { localStorage.setItem('conquistas', JSON.stringify(cons)); },
   loadConquistas() { return JSON.parse(localStorage.getItem('conquistas') || '[]'); },
 
+  // salva e carrega o numero de rebirths
+  saveRebirths(rebirths) { localStorage.setItem('rebirths', rebirths); },
+  loadRebirths() { return Number(localStorage.getItem('rebirths')) || 0; },
+
   loadStartTime() {
     if (!localStorage.getItem('startTime')) localStorage.setItem('startTime', Date.now());
     return Number(localStorage.getItem('startTime'));

@@ -6,6 +6,8 @@ export const GameFuncs = {
   bonus: 1,
   professoresComprados: Storage.loadProfessores() || {},
   conquistasDesbloqueadas: Storage.loadConquistas() || [],
+  rebirths: Storage.loadRebirths() || 0,
+
   musicaIniciada: false,
   clicksLog: Storage.loadClicksLog() || [],
 
@@ -83,6 +85,7 @@ export const GameFuncs = {
     Storage.saveScore(this.score);
     Storage.saveProfessores(this.professoresComprados);
     Storage.saveConquistas(this.conquistasDesbloqueadas);
+    Storage.saveRebirths(this.rebirths || 0);
 
     if (session === "login" && username) {
       fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
@@ -91,7 +94,8 @@ export const GameFuncs = {
         body: JSON.stringify({
           score: this.score,
           professores_comprados: this.professoresComprados,
-          conquistas: this.conquistasDesbloqueadas
+          conquistas: this.conquistasDesbloqueadas,
+          rebirths: this.rebirths || 0
         })
       }).catch(err => console.error("Erro ao salvar no servidor:", err));
     }
@@ -156,5 +160,19 @@ export const GameFuncs = {
     const adj = adjetivos[Math.floor(Math.random() * adjetivos.length)];
 
     return `${sub}${adj}${numero}`;
+  },
+
+  rebirth() {
+    let rebirthsCount = Storage.loadRebirths() || 0;
+
+    let rebirthCost = 100000 * (rebirthsCount + 1);
+
+    if (this.score < rebirthCost) {
+      this.notify(`Você precisa de ${rebirthCost.toLocaleString("pt-BR")} para fazer um Rebirth!`, "error");
+      return false;
+    }
+    this.score = 0;
+    this.bonus = 1;
+    this.professoresComprados = {};
   }
 };
