@@ -23,20 +23,48 @@
 
 </head>
 <body>
-
+  <div class="app-shell">
     <div class="glass-container">
-        <h1>Login/Cadastro</h1>
-        <input type="text" id="nicknameInput" placeholder="Nome">
-        <input type="password" id="passwordInput" placeholder="Senha" required>
+      <div class="header">
+        <div class="logo">LOGO</div>
+        <h1 class="h-title"><span>Professor Clicker</span> v1.0</h1>
+      </div>
 
-        <button onclick="login()">Entrar</button>
+      <div class="form-card">
+        <div class="form-field">
+          <input type="text" id="nicknameInput" class="input" placeholder="" />
+          <label class="input-label" for="nicknameInput">Nome</label>
+        </div>
+
+        <div class="form-field">
+          <input type="password" id="passwordInput" class="input" placeholder="" required />
+          <label class="input-label" for="passwordInput">Senha</label>
+        </div>
+
+        <div class="controls">
+          <button class="btn" onclick="login()">Entrar</button>
+        </div>
+
+        <div class="divider">ou</div>
+
+        <div class="controls">
+          <button class="btn btn-ghost" onclick="convidado()">Entrar como Turista</button>
+        </div>
+
         <div class="nickname-display" id="nicknameDisplay"></div>
-	<br><br>
-		<button class="mode-btn" onclick="convidado()">Entrar como Turista</button>
-	
+      </div>
     </div>
+  </div>
 
-    <script src="js/form.js"></script>
-	<script src="js/modo.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/modo.js"></script>
 </body>
+<script>
+  document.querySelectorAll('.input').forEach(input => {
+    input.addEventListener('input', e => {
+      input.dataset.hasValue = input.value ? "true" : "false";
+    });
+  });
+</script>
+
 </html>
