@@ -3,7 +3,7 @@ export const PROFESSORES = {
     id: "teti_anao",
     nome: "Teti Anão",
     preco: 50,
-    bonus: 999999,
+    bonus: 2,
     img: "assets/professores/teti_anao.png",
     background: "url('assets/backgrounds/montanha.jpg')"
   },
