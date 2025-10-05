@@ -4,7 +4,7 @@ import { Sounds } from "./modules/sounds.js";
 import { Storage } from "./modules/storage.js";
 import { GameFuncs } from "./modules/gamefunctions.js";
 
-// DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoooooooooooooooooooooooooooooooooooooOOOOOOOOOOOOOOOOOOOOOOOOOM
+// ==================== VARIÁVEIS ====================
 const scoreEl = document.getElementById("score");
 const pointsButton = document.getElementById("points_button");
 const titleEl = document.querySelector(".h1");
@@ -12,37 +12,56 @@ const clickEl = document.querySelector("#click");
 const storeContainer = document.getElementById("store-items");
 const menuToggle = document.getElementById("menu-toggle");
 const storeEl = document.getElementById("store");
+const logoutBtn = document.getElementById("btnLogout");
 
-// user
 const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
-// variáveis do jogo
 let score = Storage.loadScore() || 0;
-let bonus = 1; 
+let bonus = 1;
 let professoresComprados = Storage.loadProfessores() || {};
 let conquistasDesbloqueadas = Storage.loadConquistas() || [];
 let musicaIniciada = false;
 let clicksLog = Storage.loadClicksLog() || [];
 
-// settings da música
-Sounds.audioPlayer.volume = 0.4;
-Sounds.audioPlayer.addEventListener("ended", () => {
-  let musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
-  if (!musicPlayed.includes(Sounds.audioPlayer.src)) {
-    musicPlayed.push(Sounds.audioPlayer.src);
-    localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
-  }
-  Sounds.tocarAleatoria();
-});
+// ==================== SISTEMA DE NOTIFICAÇÕES (FILA) ====================
+let conquistaQueue = [];
+let processingConquista = false;
 
-// Atualiza os elementos do jogo
+function notifyConquista(message) {
+  conquistaQueue.push(message);
+  processConquistaQueue();
+}
+
+function processConquistaQueue() {
+  if (processingConquista || conquistaQueue.length === 0) return;
+  processingConquista = true;
+
+  const message = conquistaQueue.shift();
+  const container = document.getElementById("notification-container");
+  const notification = document.createElement("div");
+  notification.classList.add("notification", "conquista");
+  notification.innerText = message;
+  container.appendChild(notification);
+
+  setTimeout(() => notification.classList.add("show"), 100);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      notification.remove();
+      processingConquista = false;
+      processConquistaQueue();
+    }, 500);
+  }, 4000);
+}
+
+// ==================== FUNÇÕES PRINCIPAIS ====================
 function load() {
   if (scoreEl) scoreEl.textContent = score;
   checarAnimacoes();
 }
 
-// salva dados no localStorage e servidor
 function saveAll() {
   Storage.saveScore(score);
   Storage.saveProfessores(professoresComprados);
@@ -61,7 +80,6 @@ function saveAll() {
   }
 }
 
-// merge com dados do servidor
 async function loadUserData() {
   if (session === "login" && username) {
     try {
@@ -83,13 +101,7 @@ async function loadUserData() {
   }
 }
 
-// Inicialização do jogo
-window.addEventListener("load", async () => {
-  await loadUserData();
-  load();
-});
-
-// Função de clique
+// ==================== CLIQUE PRINCIPAL ====================
 function count() {
   score += bonus;
   Storage.saveScore(score);
@@ -120,28 +132,28 @@ function count() {
   load();
 }
 
-// checa conquistas
+// ==================== CHECAR CONQUISTAS ====================
 function checarConquistas() {
-    const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
+  const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
 
-    novas.forEach(c => {
-        conquistasDesbloqueadas.push(c.id); // push só aqui
-        Storage.saveConquistas(conquistasDesbloqueadas);
-        GameFuncs.notify(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+  novas.forEach(c => {
+    conquistasDesbloqueadas.push(c.id);
+    Storage.saveConquistas(conquistasDesbloqueadas);
 
-        if (typeof c.recompensa === "number") {
-            score += c.recompensa;
-            Storage.saveScore(score);
-            load();
-            GameFuncs.notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
-        } else if (typeof c.recompensa === "function") {
-            c.recompensa();
-        }
-    });
+    notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+
+    if (typeof c.recompensa === "number") {
+      score += c.recompensa;
+      Storage.saveScore(score);
+      load();
+      notifyConquista(`Você ganhou ${c.recompensa} pontos! 🎉`);
+    } else if (typeof c.recompensa === "function") {
+      c.recompensa();
+    }
+  });
 }
 
-
-// checa se professores podem ser comprados
+// ==================== LOJA ====================
 function checarAnimacoes() {
   for (let id in PROFESSORES) {
     const btn = document.getElementById(id);
@@ -153,7 +165,6 @@ function checarAnimacoes() {
   }
 }
 
-// comprar professor
 function comprarProfessor(id) {
   const prof = getProfessor(id);
   if (!prof) return;
@@ -172,7 +183,7 @@ function comprarProfessor(id) {
       document.getElementById(id)?.classList.remove("compravel");
       document.getElementById(id)?.classList.add("comprado");
 
-      GameFuncs.notify(`Você comprou ${prof.nome} ✅`);
+      notifyConquista(`Você comprou ${prof.nome} ✅`);
       saveAll();
 
       checarConquistas();
@@ -184,7 +195,7 @@ function comprarProfessor(id) {
       load();
       Sounds.play("buy");
     } else {
-      GameFuncs.notify('Erro: saldo insuficiente ❌', "error");
+      GameFuncs.notify("Erro: saldo insuficiente ❌", "error");
     }
   } else {
     pointsButton.src = prof.img;
@@ -196,7 +207,7 @@ function comprarProfessor(id) {
   }
 }
 
-// UI inicial
+// ==================== UI INICIAL ====================
 if (!session || (session === "login" && !username)) {
   alert("Acesso negado! Faça login ou entre como convidado.");
   window.location.href = "index.html";
@@ -215,8 +226,7 @@ if (session === "convidado") {
   titleEl.textContent = username || "Ghost";
 }
 
-
-// botões da store
+// ==================== BOTÕES ====================
 for (let id in PROFESSORES) {
   const prof = PROFESSORES[id];
   const btn = document.createElement("button");
@@ -226,7 +236,6 @@ for (let id in PROFESSORES) {
   storeContainer.appendChild(btn);
 }
 
-// toggle menu da store
 menuToggle?.addEventListener("click", () => {
   Sounds.play("menu");
   storeEl.classList.toggle("active");
@@ -248,8 +257,6 @@ menuToggle?.addEventListener("click", () => {
   }
 });
 
-// logout
-const logoutBtn = document.getElementById("btnLogout");
 if (logoutBtn) {
   logoutBtn.onclick = () => {
     saveAll();
@@ -257,11 +264,13 @@ if (logoutBtn) {
   };
 }
 
+// ==================== EVENTOS ====================
+window.addEventListener("load", async () => {
+  await loadUserData();
+  load();
+  checarConquistas(); // garante conquistas já cumpridas
+});
 
-// save a cada 3 segundos
-setInterval(saveAll, 3000);
-
-// click principal
 clickEl?.addEventListener("click", count);
 
-load();
+setInterval(saveAll, 3000);
