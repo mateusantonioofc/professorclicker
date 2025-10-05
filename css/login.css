@@ -120,7 +120,7 @@ body::before{
   z-index:1;
 }
 .glass-container::before{
-  /* soft inner gradient border */
+  
   padding:1px;
   background: linear-gradient(120deg, rgba(124,107,255,0.06), rgba(0,197,255,0.04));
   mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
@@ -136,13 +136,13 @@ body::before{
   opacity: .9;
 }
 
-/* subtle lift on hover (desktop) */
+
 .glass-container:hover{
   transform: translateY(-6px) rotateX(1deg);
   box-shadow: 0 30px 60px rgba(2,4,10,0.7);
 }
 
-/* Header / Logo area */
+
 .header{
   display:flex;
   flex-direction:column;
