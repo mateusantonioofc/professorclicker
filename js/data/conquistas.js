@@ -192,7 +192,7 @@ export const CONQUISTAS = {
         for (let i = 0; i < this.lista.length; i++) {
             const c = this.lista[i];
             if (!desbloqueadas.includes(c.id) && c.condicao(game)) {
-                novas.push(c); // <--- só adiciona aqui, não no desbloqueadas
+                novas.push(c);
             }
         }
         return novas;
