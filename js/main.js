@@ -680,4 +680,36 @@ document.getElementById('btnLogoutMenu').onclick = () => {
     hamburgerBtn.classList.remove('active');
 };
 
+// Menu items dinâmicos
+const dynamicMenuItems = [
+    { name: "Loja", action: () => document.getElementById('store').classList.toggle('open') },
+    { name: "Conquistas", action: () => alert("Conquistas clicadas!") },
+    { name: "Configurações", action: () => alert("Configurações clicadas!") },
+];
+
+// Seleciona elementos
+const menuToggle = document.getElementById("menu-toggle");
+const dropdownMenu = document.getElementById("dropdown-menu");
+const menuItemsContainer = document.getElementById("menu-items");
+
+
+dynamicMenuItems.forEach(item => {
+    const button = document.createElement("button");
+    button.textContent = item.name;
+    button.addEventListener("click", item.action);
+    menuItemsContainer.appendChild(button);
+});
+
+menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdownMenu.style.display = dropdownMenu.style.display === "flex" ? "none" : "flex";
+});
+
+
+document.addEventListener("click", (e) => {
+    if (!dropdownMenu.contains(e.target) && e.target !== menuToggle) {
+        dropdownMenu.style.display = "none";
+    }
+});
+
 load();
