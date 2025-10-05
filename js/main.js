@@ -43,12 +43,9 @@ let conquistasDesbloqueadas = JSON.parse(localStorage.getItem("conquistas") || "
 const game = {
   score: i,
   bonus: bonus,
-  professores: professoresComprados
+  professores: JSON.parse(localStorage.getItem("professores_comprados") || "{}"),
 };
 
-// ==========================
-// Conquistas
-// ==========================
 const conquistas = [
   {
     id: "primeiro_professor",
@@ -78,7 +75,7 @@ const conquistas = [
     id: "colecionador",
     nome: "Colecionador de Professores",
     descricao: "Você comprou 5 professores diferentes!",
-    condicao: (game) => Object.keys(game.professores).filter(id => game.professores[id]).length >= 5,
+    condicao: (game) => Object.values(game.professores).filter(v => v).length >= 5,
     recompensa: 5000
   },
   {
@@ -87,12 +84,170 @@ const conquistas = [
     descricao: "Você chegou em 50.000 pontos!",
     condicao: (game) => game.score >= 50000
   },
-  // ... restante das conquistas
+  {
+    id: "background_mestre",
+    nome: "Mestre das Salas",
+    descricao: "Você trocou o background 3 vezes!",
+    condicao: (game) => game.bonus >= 7
+  },
+  {
+    id: "resetador",
+    nome: "Reinício Estratégico",
+    descricao: "Você reiniciou o jogo 1 vez!",
+    condicao: (game) => Number(localStorage.getItem("resets")) >= 1
+  },
+  {
+    id: "todo_poderoso",
+    nome: "Bônus Máximo",
+    descricao: "Você atingiu o maior bônus disponível!",
+    condicao: (game) => game.bonus >= 37
+  },
+  {
+    id: "lenda",
+    nome: "Lenda do Clicker",
+    descricao: "Você alcançou 1.000.000 pontos!",
+    condicao: (game) => game.score >= 1000000
+  },
+  {
+    id: "silvio_fan",
+    nome: "Fã Número 1",
+    descricao: "Você comprou Silvio Goat ou Silvio Furry!",
+    condicao: (game) => game.professores.Silviogoat || game.professores.Silviofurry
+  },
+  // Conquistas secretas
+  {
+    id: "reset_mestre",
+    nome: "Recomeço Infinito",
+    descricao: "Você reiniciou o jogo 5 vezes!",
+    condicao: (game) => Number(localStorage.getItem("resets")) >= 5
+  },
+  {
+    id: "background_lover",
+    nome: "Amante do Visual",
+    descricao: "Você trocou o background 7 vezes!",
+    condicao: (game) => game.bonus >= 16,
+    recompensa: 1
+  },
+  {
+    id: "click_666",
+    nome: "Cuidado com o Click",
+    descricao: "Você clicou exatamente 666 vezes!",
+    condicao: (game) => game.score === 666,
+    recompensa: 666
+  },
+  {
+    id: "score_51",
+    nome: "A Resposta",
+    descricao: "Você chegou exatamente em 51 pontos!",
+    condicao: (game) => game.score === 51
+  },
+  {
+    id: "todos_os_professores",
+    nome: "Colecionador Lendário",
+    descricao: "Você comprou todos os professores!",
+    condicao: (game) => game.bonus >= 37
+  },
+  {
+    id: "musica_perfeita",
+    nome: "DJ Cicero",
+    descricao: "Você ouviu todas as músicas pelo menos uma vez!",
+    condicao: (game) => {
+      const musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+      return musicPlayed.length === 10;
+    }
+  },
+  
+
+  {
+    id: "ghost_mode",
+    nome: "Fantasma",
+    descricao: "Entrou como convidado e alcançou 1000 pontos!",
+    condicao: (game) => session === "convidado" && game.score >= 1000
+  },
+{
+  id: "milionario",
+  nome: "Milionário",
+  descricao: "Você juntou 10.000.000 pontos!",
+  condicao: (game) => game.score >= 10000000
+},
+{
+  id: "click_monstro",
+  nome: "Monstro do Clique",
+  descricao: "Você clicou 10.000 vezes!",
+  condicao: (game) => game.score >= 10000
+},
+{
+  id: "professor_legendario",
+  nome: "Professor Lendário",
+  descricao: "Você comprou um professor que custa acima de 100.000 pontos!",
+  condicao: (game) => {
+    return game.professores.Silviofurry || game.professores.Rejane || game.professores.luanafilosofa || game.professores.luanasociologa;
+  }
+},
+{
+  id: "upgrade_master",
+  nome: "Mestre dos Upgrades",
+  descricao: "Você melhorou o auto click 5 vezes!",
+  condicao: (game) => {
+    const profsAuto = ["Tetimulher","FelipeBase","Sheyla","Glauco","Richardson","Silviogoat","Silviofurry","Rejane","luanafilosofa","luanasociologa"];
+    return profsAuto.filter(p => game.professores[p]).length >= 5;
+  }
+},
+{
+  id: "sem_sono",
+  nome: "Sem Sono",
+  descricao: "Você jogou por mais de 1 hora sem fechar a página!",
+  condicao: () => {
+    const start = Number(localStorage.getItem("startTime")) || Date.now();
+    return Date.now() - start >= 3600000; // 1 hora
+  }
+},
+{
+  id: "spam_click",
+  nome: "Dedos de Aço",
+  descricao: "Você clicou 50 vezes em menos de 10 segundos!",
+  condicao: () => {
+    const clicks = JSON.parse(localStorage.getItem("clicksLog") || "[]");
+    const agora = Date.now();
+    const recentes = clicks.filter(t => agora - t <= 10000);
+    return recentes.length >= 50;
+  }
+},
+{
+  id: "convidado_pro",
+  nome: "Turista Profissional",
+  descricao: "Como convidado, você alcançou 50.000 pontos!",
+  condicao: (game) => session === "convidado" && game.score >= 50000
+},
+{
+  id: "reset_deus",
+  nome: "O Reset é o Caminho",
+  descricao: "Você reiniciou o jogo 10 vezes!",
+  condicao: () => Number(localStorage.getItem("resets")) >= 10
+}
 ];
 
-// ==========================
-// Sistema de notificações
-// ==========================
+
+function checarConquistas(game) {
+  conquistas.forEach(c => {
+    if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
+      conquistasDesbloqueadas.push(c.id);
+      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
+
+      notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
+
+      if (typeof c.recompensa === "number" && c.recompensa > 0) {
+        i += c.recompensa;
+        game.score = i;
+        saveScore();
+        load();
+        notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
+      } else if (typeof c.recompensa === "function") {
+        c.recompensa();
+      }
+    }
+  });
+}
 let conquistaQueue = [];
 let processingConquista = false;
 
@@ -112,8 +267,10 @@ function processConquistaQueue() {
   notification.innerText = message;
   container.appendChild(notification);
 
+
   setTimeout(() => notification.classList.add("show"), 100);
 
+  
   setTimeout(() => {
     notification.classList.remove("show");
     setTimeout(() => {
@@ -123,53 +280,17 @@ function processConquistaQueue() {
     }, 500);
   }, 4000);
 }
+let autoClickInterval = null;
 
-function notify(message, type = "normal") {
-  const container = document.getElementById("notification-container");
-  const notification = document.createElement("div");
-  notification.classList.add("notification");
-  if (type === "error") notification.classList.add("error");
-  notification.innerText = message;
-  container.appendChild(notification);
-  setTimeout(() => notification.classList.add("show"), 10);
-  setTimeout(() => {
-    notification.classList.remove("show");
-    setTimeout(() => notification.remove(), 1000);
-  }, 3000);
-}
 
-// ==========================
-// Conquistas
-// ==========================
-function checarConquistas(game) {
-  conquistas.forEach(c => {
-    if (!conquistasDesbloqueadas.includes(c.id) && c.condicao(game)) {
-      conquistasDesbloqueadas.push(c.id);
-      localStorage.setItem("conquistas", JSON.stringify(conquistasDesbloqueadas));
-      notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
-
-      if (typeof c.recompensa === "number" && c.recompensa > 0) {
-        i += c.recompensa;
-        game.score = i;
-        saveScore();
-        load();
-        notify(`Você ganhou ${c.recompensa} pontos! 🎉`);
-      } else if (typeof c.recompensa === "function") {
-        c.recompensa();
-      }
-    }
-  });
-}
-
-// ==========================
-// Auto Click
-// ==========================
 function ativarAutoClick(intervaloMs = 500, mostrarNotificacao = true) {
     if (autoClickInterval) clearInterval(autoClickInterval);
 
-    autoClickInterval = setInterval(() => count(), intervaloMs);
+    autoClickInterval = setInterval(() => {
+        count(); 
+    }, intervaloMs);
 
-    if (mostrarNotificacao && intervaloMs > 0) {
+    if (mostrarNotificacao) {
         if(game.bonus === 5){
             notify("VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE");
         } else if(game.bonus > 5){
@@ -177,7 +298,9 @@ function ativarAutoClick(intervaloMs = 500, mostrarNotificacao = true) {
         }
     }
 }
+   
 
+//segurança 
 function desativarAutoClick() {
     if (autoClickInterval) {
         clearInterval(autoClickInterval);
@@ -185,10 +308,144 @@ function desativarAutoClick() {
         notify("Clique automático desativado! ⏱️");
     }
 }
+if (session === "login" && username) {
+  fetch(`https://professorclicker-api.vercel.app/api/${username}`)
+    .then(res => res.json())
+    .then(data => {
+      if (typeof data.score === "number") {
+        i = data.score;
+        game.score = i;
+        localStorage.setItem('score', i);
+      }
+      if (data.professores_comprados && typeof data.professores_comprados === "object") {
+        professoresComprados = data.professores_comprados;
+        game.professores = professoresComprados;
+        localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+        const ultimosComprados = Object.keys(professoresComprados).filter(k => professoresComprados[k]);
+        if (ultimosComprados.length > 0) {
+          const ultimo = professores[ultimosComprados[ultimosComprados.length - 1]];
+          if (ultimo) bonus = ultimo.bonus;
+          game.bonus = bonus;
+        }
+      }
+      if (data.conquistas) {
+        conquistasDesbloqueadas = data.conquistas;
+        localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+      }
+      load();
+    })
+    .catch(() => {
+      load();
+    });
+} else {
+  load();
+}
 
-// ==========================
-// Contagem e clique
-// ==========================
+if (!session || (session === "login" && !username)) {
+  alert("Acesso negado! Faça login ou entre como convidado.");
+  window.location.href = "index.html";
+  throw new Error("Redirecionado para login");
+}
+
+if (session === "convidado") {
+  const rankingBtn = document.getElementById("btnLeaderboard");
+  if (rankingBtn) rankingBtn.style.display = "none";
+  title.textContent = "Turista";
+} else {
+  title.textContent = localStorage.getItem("nickname") || "Ghost";
+}
+
+function load() {
+  score.textContent = i;
+  checarAnimacoes();
+}
+
+function saveScore() {
+  localStorage.setItem('score', i);
+}
+
+function saveScoreInDB() {
+  if (session === "login") {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ score: i })
+    });
+  }
+}
+
+function saveProfessoresComprados() {
+  localStorage.setItem('professores_comprados', JSON.stringify(professoresComprados));
+  if (session === "login" && username) {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ professores_comprados: professoresComprados })
+    });
+  }
+}
+
+function saveConquistas() {
+  localStorage.setItem('conquistas', JSON.stringify(conquistasDesbloqueadas));
+  if (session === "login" && username) {
+    fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ conquistas: conquistasDesbloqueadas })
+    });
+  }
+}
+
+const sounds = {
+  click: "assets/sfx/click.mp3",
+  buy: "assets/sfx/buy.mp3",
+  reset: "assets/sfx/reset.mp3",
+  ranking: "assets/sfx/ranking.mp3",
+  menu: "assets/sfx/menu.mp3"
+};
+
+function playSound(type) {
+  if (!sounds[type]) return;
+  const audio = new Audio(sounds[type]);
+  audio.play().catch(() => { });
+}
+
+let audioPlayer = new Audio();
+audioPlayer.volume = 0.4;
+
+const musicas = [
+  "assets/sfx/musica1.mp3",
+  "assets/sfx/musica2.mp3",
+  "assets/sfx/musica3.mp3",
+  "assets/sfx/musica4.mp3",
+  "assets/sfx/musica5.mp3",
+  "assets/sfx/musica6.mp3",
+  "assets/sfx/musica7.mp3",
+  "assets/sfx/musica8.mp3",
+  "assets/sfx/musica10.mp3",
+  "assets/sfx/musica11.mp3",
+];
+
+function tocarMusicaAleatoria() {
+  const aleatoria = Math.floor(Math.random() * musicas.length);
+  audioPlayer.src = musicas[aleatoria];
+  audioPlayer.play().catch(err => console.log("Erro ao tocar música:", err));
+}
+
+audioPlayer.addEventListener("ended", () => {
+  tocarMusicaAleatoria();
+});
+
+window.addEventListener("load", () => {
+  tocarMusicaAleatoria();
+});
+
+document.addEventListener("click", () => {
+  if (audioPlayer.paused) {
+    tocarMusicaAleatoria();
+  }
+}, { once: true });
+
 function count() {
   i += bonus;
   saveScore();
@@ -198,6 +455,9 @@ function count() {
 
   checarConquistas(game);
   playSound("click");
+
+  clickSound.currentTime = 0.5;
+  clickSound.play();
 
   if (click) {
     click.classList.remove("popp");
@@ -215,18 +475,26 @@ function count() {
     tocarMusicaAleatoria();
   }
 
-  // 🔥 log de clique
+  // 🔥 log de clique para conquistas tipo "spam_click"
   let clicks = JSON.parse(localStorage.getItem("clicksLog") || "[]");
   clicks.push(Date.now());
+  // mantém só últimos 20s para não pesar
   clicks = clicks.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicks));
 
   load();
 }
+function checarAnimacoes() {
+  for (let id in professores) {
+    const btn = document.getElementById(id);
+    if (!professoresComprados[id] && i >= professores[id].preco) {
+      btn?.classList.add("compravel");
+    } else {
+      btn?.classList.remove("compravel");
+    }
+  }
+}
 
-// ==========================
-// Compra de professores
-// ==========================
 function comprarProfessor(id) {
     const prof = professores[id];
     if (!prof) return;
@@ -234,6 +502,7 @@ function comprarProfessor(id) {
     const jaComprado = professoresComprados[id];
 
     if (!jaComprado) {
+      
         if (i >= prof.preco) {
             i -= prof.preco;
             bonus = prof.bonus;
@@ -250,6 +519,7 @@ function comprarProfessor(id) {
 
             checarConquistas(game);
 
+           
             if (prof.autoClickIntervalo) {
                 ativarAutoClick(prof.autoClickIntervalo, true);
             }
@@ -260,6 +530,7 @@ function comprarProfessor(id) {
             notify('Erro: saldo insuficiente ❌', "error");
         }
     } else {
+       
         pointsButton.src = prof.img;
         document.body.style.backgroundImage = prof.background;
         bonus = prof.bonus;
@@ -270,69 +541,145 @@ function comprarProfessor(id) {
         }
     }
 }
-
-// ==========================
-// Reset seguro
-// ==========================
 function resetGame() {
-  if (!confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.")) return;
+  const confirmReset = confirm("Tem certeza que deseja reiniciar o jogo? Todo progresso será perdido.");
+  if (!confirmReset) return;
 
   playSound("reset");
 
+  
   let resets = Number(localStorage.getItem("resets")) || 0;
   resets++;
+  localStorage.setItem("resets", resets);
 
   i = 0;
   bonus = 1;
-  professoresComprados = {};
 
-  localStorage.setItem("score", i);
-  localStorage.setItem("professores_comprados", JSON.stringify(professoresComprados));
-  localStorage.setItem("resets", resets);
+  for (let id in professores) {
+    professoresComprados[id] = false;
+    document.getElementById(id)?.classList.remove("comprado", "compravel");
+  }
+
+  saveScoreInDB();
 
   pointsButton.src = "assets/nave.png";
   document.body.style.backgroundImage = "none";
   document.getElementById("notification-container").innerHTML = "";
 
+  
+  const tempResets = resets;
+  localStorage.clear();
+  localStorage.setItem("resets", tempResets);
+
   window.location.href = "index.html";
   alert("Jogo reiniciado!");
 }
 
-// ==========================
-// Menu Hambúrguer e Dropdown
-// ==========================
-const menuToggleBtn = document.getElementById("menu-toggle");
-const dropdownMenu = document.getElementById("dropdown-menu");
-const menuItemsContainer = document.getElementById("menu-items");
+function notify(message, type = "normal") {
+  const container = document.getElementById("notification-container");
+  const notification = document.createElement("div");
+  notification.classList.add("notification");
+  if (type === "error") notification.classList.add("error");
+  notification.innerText = message;
+  container.appendChild(notification);
+  setTimeout(() => notification.classList.add("show"), 10);
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => notification.remove(), 1000);
+  }, 3000);
+}
 
-const dynamicMenuItems = [
-    { name: "Loja", action: () => store.classList.toggle("active") },
-    { name: "Conquistas", action: () => openConquistas() },
-    { name: "Configurações", action: () => openConfig() },
-];
+const rankingBtn = document.getElementById("btnLeaderboard");
+if (rankingBtn) {
+  rankingBtn.addEventListener("click", () => {
+    playSound("ranking");
+  });
+}
 
-dynamicMenuItems.forEach(item => {
-    const btn = document.createElement("button");
-    btn.textContent = item.name;
-    btn.addEventListener("click", item.action);
-    menuItemsContainer.appendChild(btn);
-});
+if (menuToggle && store) {
+  menuToggle.addEventListener("click", () => {
+    playSound("menu");
 
-menuToggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdownMenu.style.display = dropdownMenu.style.display === "flex" ? "none" : "flex";
-});
+    store.classList.toggle("active");
+    menuToggle.classList.toggle("active");
 
-document.addEventListener("click", (e) => {
-    if (!dropdownMenu.contains(e.target) && e.target !== menuToggleBtn) {
-        dropdownMenu.style.display = "none";
+    const icon = menuToggle.querySelector("i");
+    if (icon) {
+      icon.style.transition = "transform 0.3s ease";
+      icon.style.transform = "rotate(90deg)";
+
+      setTimeout(() => {
+        if (store.classList.contains("active")) {
+          icon.classList.remove("fa-store");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-store");
+        }
+        icon.style.transform = "rotate(0deg)";
+      }, 200);
     }
+  });
+}
+
+for (let id in professores) {
+  const prof = professores[id];
+  const btn = document.createElement("button");
+  btn.id = id;
+  btn.onclick = () => comprarProfessor(id);
+  btn.innerHTML = `<div class="prof-name">${prof.nome}</div><img class="icon" src="${prof.img}" alt="${prof.nome}"><span>${prof.preco}</span>`;
+  storeContainer.appendChild(btn);
+}
+
+setInterval(() => {
+  saveScore();
+  saveScoreInDB();
+  saveProfessoresComprados();
+  saveConquistas();
+}, 3000);
+
+document.getElementById("btnLogout").onclick = function () {
+  saveScoreInDB();
+  saveProfessoresComprados();
+  localStorage.clear();
+  window.location.href = "index.html";
+};
+
+audioPlayer.addEventListener("ended", () => {
+  let musicPlayed = JSON.parse(localStorage.getItem("musicPlayed") || "[]");
+  if (!musicPlayed.includes(audioPlayer.src)) {
+    musicPlayed.push(audioPlayer.src);
+    localStorage.setItem("musicPlayed", JSON.stringify(musicPlayed));
+  }
+  tocarMusicaAleatoria();
+});
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+const navMenu = document.getElementById('nav-menu');
+
+hamburgerBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    hamburgerBtn.classList.toggle('active');
 });
 
-function openConquistas() { alert("Conquistas abertas!"); }
-function openConfig() { alert("Configurações abertas!"); }
 
-// ==========================
-// Inicialização
-// ==========================
+document.getElementById('openStore').onclick = () => {
+    document.getElementById('store').style.display = 'block';
+    navMenu.classList.remove('active');
+    hamburgerBtn.classList.remove('active');
+};
+
+document.getElementById('openRanking').onclick = () => {
+    document.getElementById('leaderboardContainer').style.display = 'block';
+    navMenu.classList.remove('active');
+    hamburgerBtn.classList.remove('active');
+};
+
+document.getElementById('btnLogoutMenu').onclick = () => {
+    document.getElementById('btnLogout').click();
+    navMenu.classList.remove('active');
+    hamburgerBtn.classList.remove('active');
+};
+
+
+
 load();
