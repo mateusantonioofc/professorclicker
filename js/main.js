@@ -267,7 +267,6 @@ if (menuToggle && storeEl) {
 // logout
 document.getElementById("btnLogout").addEventListener("click", () => {
   saveAll();
-  localStorage.clear();
   window.location.href = "index.html";
 });
 
