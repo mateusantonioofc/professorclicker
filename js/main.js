@@ -261,7 +261,7 @@ if (logoutBtn) {
   logoutBtn.onclick = () => {
     saveAll();
     localStorage.clear();
-    
+
     window.location.href = "index.html";
   };
 }
@@ -269,7 +269,7 @@ if (logoutBtn) {
 window.addEventListener("load", async () => {
   await loadUserData();
   load();
-  checarConquistas(); 
+  checarConquistas();
 });
 
 clickEl?.addEventListener("click", count);
