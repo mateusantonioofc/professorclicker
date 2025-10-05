@@ -591,7 +591,7 @@ outline: none;
   font-weight: bold;
   text-align: center;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-width:50%;
+width:80%;
   animation: conquista-glow 1.5s infinite alternate;
 }
 
@@ -601,7 +601,7 @@ width:50%;
 }
 .notification.conquista.show {
 transform: translateX(0);
-transform: translateY(100%)
+transform: translateY(200%)
 
 opacity: 1;
 animation: neonPulse 1.2s infinite alternate;
