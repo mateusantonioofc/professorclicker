@@ -1,6 +1,6 @@
 
 const CONQUISTAS = [
-  // 🖱️ CLIQUES
+  // 🖱️ CLIQUE
   { id: "primeiro_clique", nome: "Primeiro Clique", descricao: "Você clicou 1 vez!", condicao: (game) => game.cliques >= 1 },
   { id: "dez_toques", nome: "Dez Toques", descricao: "Você clicou 10 vezes!", condicao: (game) => game.cliques >= 10 },
   { id: "dedos_ageis", nome: "Dedos Ágeis", descricao: "Você clicou 100 vezes!", condicao: (game) => game.cliques >= 100 },
