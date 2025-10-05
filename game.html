@@ -1,81 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor Clicker - JOGO</title>
-    <link rel="icon" href="assets/nave.png">
-    <link rel="stylesheet" href="css/game.css">
-    <script src="https://kit.fontawesome.com/7611744f2b.js" crossorigin="anonymous"></script>
+	<!-- LINKS -->
+	<link rel="icon" href="assets/nave.png">
+	<link rel="stylesheet" href="css/game.css">
+
+	<title>Professor Clicker - JOGO</title>
+	<script src="https://kit.fontawesome.com/7611744f2b.js" crossorigin="anonymous"></script>
+
+	<meta charset="UTF-8">
+	<meta name="google-site-verification" content="gKeyCOrmDR3am1GD4nv1DDVOZXyhbXZtbEZf3Q5jDS4" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- SEO -->
+	<meta name="description" content="Desafie seus colegas no Professor Clicker! Escolha seu professor favorito, clique sem parar, evolua seu personagem e prove quem merece estar no topo do ranking da escola.">
+	<meta name="keywords" content="clicker, professor clicker, aprendizado, turista, login, professor clicker nave, nave">
+	<meta name="author" content="EQUIPE BEST">
+
+	<meta property="og:title" content="Professor Clicker - NAVE">
+	<meta property="og:description" content="Desafie seus colegas no Professor Clicker! Escolha seu professor favorito, clique sem parar, evolua seu personagem e prove quem merece estar no topo do ranking da escola.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://professorclicker.site">
+	<meta property="og:image" content="https://professorclicker.site/assets/nave.png">
 </head>
 <body>
-    <!-- Botão Ranking -->
-    <button class="btn-leaderboard" id="btnLeaderboard">🏆 Ranking</button>
-    <div class="leaderboard" id="leaderboardContainer">
-        <h2>🤑 Os Mais Ricos 🤑</h2>
-        <ol id="ranking"></ol>
-    </div>
+	<button class="btn-leaderboard" id="btnLeaderboard"> 🏆 Ranking</button>
 
-    <!-- Header -->
-    <header>
+	<div class="leaderboard" id="leaderboardContainer">
+		<h2>🤑 Os Mais Ricos 🤑</h2>
+		<ol id="ranking"></ol>
+	</div>
+
+	        <header>
         <div class="profile">
-            <div class="profilebtnLogout-user">
-                <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <h1 class="h1" id="menu-username">Nickname</h1>
-            <button id="btnLogout" class="btn-logout">
-                <i class="fa fa-sign-out"></i>
-            </button>
+                <div class="profilebtnLogout-user">
+                        <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <h1 class="h1">Nickname</h1>
+                <button id="btnLogout" class="btn-logout">
+                        <i class="fa fa-sign-out" style="font-size:36px"></i>
+                </button>
         </div>
+        </header>
 
-        <!-- Botão do menu dropdown (usuário) -->
-        <button id="menu-toggle-user" class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-    </header>
+	<div class="container">
+		<div id="notification-container"></div>
+			<button id="click" onclick="count()">
+				<img id="points_button" src="assets/nave.png" alt="">
+			</button>
+			<div class="score">
+				<p class="score-label">Pontos:</p>
+				<p id="score" class="score-value">0</p>
+		</div>
+		
+	</div>
 
-    <!-- Container principal -->
-    <div class="container">
-        <div id="notification-container"></div>
-        <button id="click" onclick="count()">
-            <img id="points_button" src="assets/nave.png" alt="">
-        </button>
-        <div class="score">
-            <p class="score-label">Pontos:</p>
-            <p id="score" class="score-value">0</p>
-        </div>
-    </div>
+	<button class="btn-reset" onclick="resetGame()">♻️ Resetar Jogo</button>
+	<button class="menu-toggle" id="menu-toggle">
+	<i class="fa-solid fa-store"></i>
+	</button>
 
-    <!-- Botões fixos -->
-    <button class="btn-reset" onclick="resetGame()">♻️ Resetar Jogo</button>
+	<aside class="store" id="store">
+		<h2>Loja</h2>
+		<div id="store-items"></div>
+	</aside>
 
-    <!-- Botão da loja -->
-    <button class="menu-toggle" id="menu-toggle-store">
-        <i class="fa-solid fa-store"></i>
-    </button>
-
-    <!-- Loja -->
-    <aside class="store" id="store">
-        <h2>Loja</h2>
-        <div id="store-items"></div>
-    </aside>
-
-    <!-- Scripts -->
-    <script src="js/main.js"></script>
-    <script src="js/leaderboard.js"></script>
-    <script>
-        // Toggle da loja
-        const menuToggle = document.getElementById("menu-toggle-store");
-        const store = document.getElementById("store");
-
-        menuToggle.addEventListener("click", () => {
-            store.classList.toggle("active");
-            const icon = menuToggle.querySelector("i");
-            if(icon){
-                icon.classList.toggle("fa-xmark");
-                icon.classList.toggle("fa-store");
-            }
-        });
-    </script>
+	<script src="js/main.js"></script>
+	<script src="js/leaderboard.js"></script>
 </body>
 </html>
