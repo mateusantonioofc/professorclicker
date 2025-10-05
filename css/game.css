@@ -601,7 +601,7 @@ width:80%;
 }
 .notification.conquista.show {
 transform: translateX(0);
-transform: translateY(500%)
+transform: translateY(500px)
 
 opacity: 1;
 animation: neonPulse 1.2s infinite alternate;
