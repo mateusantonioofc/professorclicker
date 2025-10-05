@@ -653,31 +653,6 @@ audioPlayer.addEventListener("ended", () => {
   }
   tocarMusicaAleatoria();
 });
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-const navMenu = document.getElementById('nav-menu');
-
-hamburgerBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    hamburgerBtn.classList.toggle('active');
-});
-
-
-document.getElementById('openStore').onclick = () => {
-    document.getElementById('store').style.display = 'block';
-    navMenu.classList.remove('active');
-    hamburgerBtn.classList.remove('active');
-};
-
-document.getElementById('openRanking').onclick = () => {
-    document.getElementById('leaderboardContainer').style.display = 'block';
-    navMenu.classList.remove('active');
-    hamburgerBtn.classList.remove('active');
-};
-
-document.getElementById('btnLogoutMenu').onclick = () => {
-    document.getElementById('btnLogout').click();
-    navMenu.classList.remove('active');
-    hamburgerBtn.classList.remove('active');
-};
+  
 
 load();
