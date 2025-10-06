@@ -4,8 +4,6 @@ import { Sounds } from "./modules/sounds.js";
 import { Storage } from "./modules/storage.js";
 import { GameFuncs } from "./modules/gamefunctions.js";
 
-
-
 // ==================== VARIÁVEIS ====================
 const scoreEl = document.getElementById("score");
 const pointsButton = document.getElementById("points_button");
@@ -273,7 +271,7 @@ if (rebirthBtn) {
   rebirthBtn.onclick = () => {
 
     if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
-      const sucesso = GameFuncs.rebirth(username, session);
+      const sucesso = GameFuncs.repetirDeAno(username, session);
       
       if (sucesso) {
         score = GameFuncs.score;
