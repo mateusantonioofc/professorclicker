@@ -182,7 +182,7 @@ export const GameFuncs = {
     const rebirthCost = 100000 * (rebirthsCount + 1);
 
     if (this.score < rebirthCost) {
-      this.notify(`Você precisa de ${rebirthCost.toLocaleString("pt-BR")} para fazer um Rebirth!`, "error");
+      this.notify(`Você precisa de ${rebirthCost.toLocaleString("pt-BR")} pontos para reprovar de ano!`, "error");
       return false;
     }
 
