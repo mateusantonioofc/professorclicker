@@ -46,6 +46,7 @@ Professor Clicker é um jogo de clicker incremental onde o jogador clica para ac
    - **Funções:**
      - `saveScore(score) / loadScore()`: salvar/carregar pontuação.
      - `saveProfessores(profs) / loadProfessores()`: salvar/carregar professores comprados.
+     - `saveRebirths(rebirths) / loadRebirths()`: salvar/carregar rebirths.
      - `saveConquistas(cons) / loadConquistas()`: salvar/carregar conquistas desbloqueadas.
      - `loadStartTime()`: retorna timestamp de início do jogo (inicia se não existir).
      - `loadClicksLog()`: retorna array de timestamps dos cliques recentes (20s).
@@ -70,6 +71,7 @@ Professor Clicker é um jogo de clicker incremental onde o jogador clica para ac
        - `type = "error"` para notificação vermelha.
      - `gerarNome()`: retorna nome aleatório de turista, combinando substantivo, adjetivo e número.
        - Ex: `"GabiruGuloso643"`.
+    - `repetirDeAno(username, session)`: reseta os dados e incrementa +1 no rebirth
 
 6. **`main.js`**
    - Lida com o comportamento principal do jogo, UI e eventos.
@@ -92,6 +94,7 @@ Professor Clicker é um jogo de clicker incremental onde o jogador clica para ac
      - Toggle da store (`menuToggle`).
      - Logout (`btnLogout`).
      - Auto-save a cada 3s (`setInterval(saveAll, 3000)`).
+     - Rebirth (`rebirthBtn`).
 
 ---
 
