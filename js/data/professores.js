@@ -6,23 +6,23 @@ export const PROFESSORES = {
     id: "teti_anao",
     nome: "Teti Anão",
     preco: 50,
-    bonus: 2,
+    bonus: 1,
     img: ASSETS_PROFESSORES_PATH + "teti_anao.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}montanha.jpg')`,
   },
   teti_supremo: {
     id: "teti_supremo",
     nome: "Teti Supremo",
-    preco: 300,
-    bonus: 3,
+    preco: 250,
+    bonus: 2,
     img: ASSETS_PROFESSORES_PATH + "teti.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}sala.jpg')`
   },
   teti_mulher: {
     id: "teti_mulher",
     nome: "Teti Mulher",
-    preco: 2500,
-    bonus: 5,
+    preco: 1500,
+    bonus: 4,
     img: ASSETS_PROFESSORES_PATH + "teti_mulher.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}cozinha.jpg')`,
     autoClickIntervalo: 5000
@@ -30,7 +30,7 @@ export const PROFESSORES = {
   felipe_grego: {
     id: "felipe_grego",
     nome: "Felipe O Grego τ",
-    preco: 5000,
+    preco: 4000,
     bonus: 7,
     img: ASSETS_PROFESSORES_PATH + "felipe.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}fisica.jpg')`,
@@ -39,8 +39,8 @@ export const PROFESSORES = {
   dom_sheyla_ii: {
     id: "dom_sheyla_ii",
     nome: "Dom Sheyla II",
-    preco: 10000,
-    bonus: 9,
+    preco: 9000,
+    bonus: 10,
     img: ASSETS_PROFESSORES_PATH + "sheyla.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}surubanco.jpg')`,
     autoClickIntervalo: 4000
@@ -48,8 +48,8 @@ export const PROFESSORES = {
   mr_glauco: {
     id: "mr_glauco",
     nome: "Mr. Glauco",
-    preco: 20000,
-    bonus: 11,
+    preco: 18000,
+    bonus: 12,
     img: ASSETS_PROFESSORES_PATH + "glauco.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}fenda.jpg')`,
     autoClickIntervalo: 3500
@@ -57,8 +57,8 @@ export const PROFESSORES = {
   master_rick: {
     id: "master_rick",
     nome: "Master Rick",
-    preco: 50000,
-    bonus: 13,
+    preco: 40000,
+    bonus: 15,
     img: ASSETS_PROFESSORES_PATH + "richardson.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}programa.jpg')`,
     autoClickIntervalo: 3250
@@ -66,8 +66,8 @@ export const PROFESSORES = {
   silvio_goat: {
     id: "silvio_goat",
     nome: "Silvio Goat",
-    preco: 75000,
-    bonus: 16,
+    preco: 60000,
+    bonus: 18,
     img: ASSETS_PROFESSORES_PATH + "silvio.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}ibura.jpg')`,
     autoClickIntervalo: 3000
@@ -75,8 +75,8 @@ export const PROFESSORES = {
   silvio_furry: {
     id: "silvio_furry",
     nome: "Silvio Furry",
-    preco: 100000,
-    bonus: 19,
+    preco: 80000,
+    bonus: 22,
     img: ASSETS_PROFESSORES_PATH + "silvio_furry.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
     autoClickIntervalo: 2750
@@ -84,8 +84,8 @@ export const PROFESSORES = {
   rejane_latin: {
     id: "rejane_latin",
     nome: "Rejane Latin",
-    preco: 130000,
-    bonus: 24,
+    preco: 120000,
+    bonus: 26,
     img: ASSETS_PROFESSORES_PATH + "rejane.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}biblioteca.jpg')`,
     autoClickIntervalo: 2000
@@ -93,8 +93,8 @@ export const PROFESSORES = {
   luana_filosofa: {
     id: "luana_filosofa",
     nome: "Luana Filosofa",
-    preco: 155000,
-    bonus: 32,
+    preco: 150000,
+    bonus: 30,
     img: ASSETS_PROFESSORES_PATH + "luana.jpeg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}pontanegra.webp')`,
     autoClickIntervalo: 1000
@@ -102,10 +102,46 @@ export const PROFESSORES = {
   luana_sociologa: {
     id: "luana_sociologa",
     nome: "Luana Sociologa",
-    preco: 200000,
-    bonus: 37,
+    preco: 180000,
+    bonus: 34,
     img: ASSETS_PROFESSORES_PATH + "luanasocio.jpeg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}pontanegra.webp')`,
+    autoClickIntervalo: 300
+  },
+  gabriel: {
+    id: "gabriel",
+    nome: "Gabriel, o Maromba",
+    preco: 250000,
+    bonus: 38,
+    img: ASSETS_PROFESSORES_PATH + "gabriel.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}academiagta.webp')`,
+    autoClickIntervalo: 300,
+  },
+  xandinho: {
+    id: "xandinho",
+    nome: "White Xandinho",
+    preco: 300000,
+    bonus: 42,
+    img: ASSETS_PROFESSORES_PATH + "xandinho.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}deserto.png')`,
+    autoClickIntervalo: 300
+  },
+  dani: {
+    id: "dani",
+    nome: "Dani",
+    preco: 350000,
+    bonus: 45,
+    img: ASSETS_PROFESSORES_PATH + "dani.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}mapa.webp')`,
+    autoClickIntervalo: 300
+  },
+  albino: {
+    id: "albino",
+    nome: "Albino Albino",
+    preco: 400000,
+    bonus: 50,
+    img: ASSETS_PROFESSORES_PATH + "albino.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}caverna.png')`,
     autoClickIntervalo: 300
   }
 };
