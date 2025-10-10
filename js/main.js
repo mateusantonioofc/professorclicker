@@ -243,17 +243,12 @@ menuToggle?.addEventListener("click", () => {
 
   const icon = menuToggle.querySelector("i");
   if (icon) {
-    icon.style.transition = "transform 0.3s ease";
-    icon.style.transform = "rotate(90deg)";
-
-    setTimeout(() => {
-      if (storeEl.classList.contains("active")) {
-        icon.classList.replace("fa-store", "fa-xmark");
-      } else {
-        icon.classList.replace("fa-xmark", "fa-store");
-      }
-      icon.style.transform = "rotate(0deg)";
-    }, 200);
+    // seta aponta para direita quando a loja está aberta
+    if (storeEl.classList.contains("active")) {
+      icon.classList.replace("fa-arrow-left", "fa-arrow-right");
+    } else {
+      icon.classList.replace("fa-arrow-right", "fa-arrow-left");
+    }
   }
 });
 
@@ -302,3 +297,4 @@ document.addEventListener("keydown", function(event) {
     return false;
   }
 });
+
