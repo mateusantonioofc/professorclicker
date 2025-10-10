@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professor Clicker - Conquistas</title>
+  <link rel="icon" href="assets/nave.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="assets/nave.png" alt="Professor Clicker">
+        <h1>Professor Clicker</h1>
+      </div>
+      <div class="nav-buttons">
+        <a href="game.html" class="btn btn-back">
+          <i class="fas fa-arrow-left"></i> Voltar ao Jogo
+        </a>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-value" id="total-achievements">12/45</div>
+        <div class="stat-label">Conquistas Desbloqueadas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="completion-rate">27%</div>
+        <div class="stat-label">Taxa de Conclusão</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="total-points">1,250</div>
+        <div class="stat-label">Pontos de Conquistas</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="all">Todas as Conquistas</div>
+      <div class="tab" data-tab="unlocked">Desbloqueadas</div>
+      <div class="tab" data-tab="locked">Bloqueadas</div>
+    </div>
+
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="search-achievements" placeholder="Pesquisar conquistas...">
+    </div>
+
+    <div id="achievements-container">
+    </div>
+  </div>
+
+    <script src="js/renderConquistas.js"></script>
+</body>
+</html>
