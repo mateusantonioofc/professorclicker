@@ -142,7 +142,7 @@ export const PROFESSORES = {
     bonus: 50,
     img: ASSETS_PROFESSORES_PATH + "albino.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}caverna.png')`,
-    autoClickIntervalo: 50
+    autoClickIntervalo: 100
   }
 };
 
