@@ -125,7 +125,8 @@ function count() {
     musicaIniciada = true;
     Sounds.tocarAleatoria();
   }
-
+  
+  showPointsAnimation(bonus);
   clicksLog.push(Date.now());
   clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
@@ -267,7 +268,7 @@ if (rebirthBtn) {
 
     if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
       // const sucesso = GameFuncs.repetirDeAno(username, session);
-      
+
       if (sucesso) {
         score = GameFuncs.score;
         professoresComprados = GameFuncs.professoresComprados;
@@ -291,7 +292,7 @@ clickEl?.addEventListener("click", count);
 
 setInterval(saveAll, 3000);
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     return false;
@@ -304,3 +305,27 @@ const mobileMenu = document.getElementById("mobileMenu");
 hamburger.addEventListener("click", () => {
   mobileMenu.style.display = mobileMenu.style.display === "flex" ? "none" : "flex";
 });
+
+function showPointsAnimation(amount) {
+  const clickBtn = document.getElementById("click");
+  if (!clickBtn) return;
+
+  const pointsEl = document.createElement("div");
+  pointsEl.className = "points-fly";
+  pointsEl.innerText = `+${amount}`;
+
+  // Posiciona próximo ao botão
+  const rect = clickBtn.getBoundingClientRect();
+  pointsEl.style.left = rect.left + rect.width / 2 - 15 + "px";
+  pointsEl.style.top = rect.top - 20 + "px";
+
+  document.body.appendChild(pointsEl);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    pointsEl.classList.add("show");
+  });
+
+  // Remove depois da animação
+  setTimeout(() => pointsEl.remove(), 800);
+}

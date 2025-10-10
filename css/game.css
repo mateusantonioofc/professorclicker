@@ -724,3 +724,20 @@ textarea {
   opacity: 1;
   animation: neonPulse 1.2s infinite alternate;
 }
+
+.points-fly {
+  position: absolute;
+  font-weight: bold;
+  color: #22c55e;
+  font-size: 24px;
+  pointer-events: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.points-fly.show {
+  transform: translateY(-80px);
+  opacity: 0;
+}
