@@ -211,7 +211,7 @@ header {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 0px) {
   .header-buttons {
     display: none;
   }
