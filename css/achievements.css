@@ -37,12 +37,28 @@ header {
     height: 50px;
 }
 
-.logo h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
+
+.h11 {
+    font-size: 48px;
+    font-weight: bold;
     background: linear-gradient(to right, #ffd700, #ff8c00);
+    background-size: 200% auto; /* para animação suave */
+    color: transparent;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: mudar 12s linear infinite;
+}
+
+@keyframes mudar {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .nav-buttons {
@@ -245,12 +261,12 @@ header {
     .achievements-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .stats {
         flex-direction: column;
         gap: 15px;
     }
-
+    
     header {
         flex-direction: column;
         gap: 15px;
