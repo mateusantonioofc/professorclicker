@@ -653,10 +653,6 @@ header h1 {
   color: #fff;
 }
 
-.store {
-  z-index: 30;
-}
-
 .profile {
   display: flex;
   align-items: center;
