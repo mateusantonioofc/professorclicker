@@ -115,7 +115,7 @@ export const PROFESSORES = {
     bonus: 38,
     img: ASSETS_PROFESSORES_PATH + "gabriel.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}academiagta.webp')`,
-    autoClickIntervalo: 300,
+    autoClickIntervalo: 250,
   },
   xandinho: {
     id: "xandinho",
@@ -124,7 +124,7 @@ export const PROFESSORES = {
     bonus: 42,
     img: ASSETS_PROFESSORES_PATH + "xandinho.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}deserto.png')`,
-    autoClickIntervalo: 300
+    autoClickIntervalo: 200
   },
   dani: {
     id: "dani",
@@ -133,7 +133,7 @@ export const PROFESSORES = {
     bonus: 45,
     img: ASSETS_PROFESSORES_PATH + "dani.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}mapa.webp')`,
-    autoClickIntervalo: 300
+    autoClickIntervalo: 150
   },
   albino: {
     id: "albino",
@@ -142,7 +142,7 @@ export const PROFESSORES = {
     bonus: 50,
     img: ASSETS_PROFESSORES_PATH + "albino.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}caverna.png')`,
-    autoClickIntervalo: 300
+    autoClickIntervalo: 50
   }
 };
 
