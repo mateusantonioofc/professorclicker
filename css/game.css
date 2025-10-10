@@ -24,11 +24,83 @@ header {
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(135deg, #1e293b, #0f172a);
-  margin-bottom: 2%;
-  border-top: 3px solid #38bdf8;
-  color: #fff;
   padding: 0 20px;
+  color: #fff;
+  position: relative;
 }
+
+.header-buttons button {
+  margin-left: 10px;
+  background: linear-gradient(135deg, #334155, #1e293b);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.header-buttons button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #475569, #334155);
+}
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 75px;
+  right: 0;
+  width: 200px;
+  background: #1e293b;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+}
+
+.mobile-menu button {
+  width: 100%;
+  background: #334155;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mobile-menu button:hover {
+  background: #475569;
+}
+
+@media (max-width: 768px) {
+  .header-buttons {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
 
 header h1 {
   color: #ffffff;
@@ -599,18 +671,21 @@ header h1 {
   border: none;
   color: #e94560;
   cursor: pointer;
-  padding: 0 8px;
-  font-size: 1.8rem;
+  padding: 4px 6px;
+  font-size: 1.4rem;
   transition: color 0.2s, transform 0.2s;
-  z-index: 20;
-  margin-left: auto;
   display: flex;
   align-items: center;
 }
 
 .btn-logout:hover {
   color: #b8263a;
-  transform: scale(1.08);
+  transform: scale(1.05);
+}
+
+#btnLogoutMobile {
+  padding: 4px 6px;
+  font-size: 1.4rem;
 }
 
 button,

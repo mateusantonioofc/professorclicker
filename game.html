@@ -19,16 +19,28 @@
   </div>
 
   <header>
-    <div class="profile">
-      <div class="profilebtnLogout-user">
-        <i class="fa-solid fa-user-tie"></i>
-      </div>
+    <div class="header-left">
       <h1 class="h1">Nickname</h1>
-      <button id="btnLogout" class="btn-logout">
-        <i class="fa fa-sign-out" style="font-size: 36px"></i>
-      </button>
+    </div>
+
+    <div class="header-buttons">
+      <button class="btn-profile"><i class="fa-solid fa-user-tie"></i> Perfil</button>
+      <button class="btn-settings"><i class="fa-solid fa-gear"></i> Configurações</button>
+      <button id="btnLogout" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</button>
+    </div>
+
+    <button class="hamburger" id="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="btn-profile"><i class="fa-solid fa-user-tie"></i> Perfil</button>
+      <button class="btn-settings"><i class="fa-solid fa-gear"></i> Configurações</button>
+      <button id="btnLogoutMobile" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</button>
     </div>
   </header>
+
 
   <div class="container">
     <div id="notification-container"></div>
