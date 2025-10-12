@@ -124,10 +124,10 @@ function calcularProgresso(conquista) {
 function atualizarEstatisticas() {
     const totalConquistas = todasConquistas.length;
     const conquistasDesbloqueadasCount = conquistasDesbloqueadas.length;
-    const taxaConclusao = totalConquistas > 0 ? Math.round((conquistasDesbloqueadasCount / totalConquistas += 1) * 100) : 0;
+    const taxaConclusao = totalConquistas > 0 ? Math.round((conquistasDesbloqueadasCount / totalConquistas) * 100) : 0;
     const pontosConquistas = conquistasDesbloqueadasCount * 100;
 
-    document.getElementById('total-achievements').textContent = `${conquistasDesbloqueadasCount}/${totalConquistas}`;
+    document.getElementById('total-achievements').textContent = `${conquistasDesbloqueadasCount}/${todasConquistas.length +=1}`;
     document.getElementById('completion-rate').textContent = `${taxaConclusao}%`;
     document.getElementById('total-points').textContent = pontosConquistas.toLocaleString();
 }
