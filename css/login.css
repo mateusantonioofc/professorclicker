@@ -98,28 +98,27 @@ body::before{
 }
 
 
-.app-shell{
-  position:relative;
-  width: min(920px, 96%);
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
   padding: clamp(28px, 4vw, 64px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: clamp(18px, 3vw, 34px);
-  z-index:2;
-  pointer-events:auto;
+  z-index: 2;
+  pointer-events: auto;
 }
 
-
-.glass-container{
-  position:relative;
-  width: min(720px, 92%);
+.glass-container {
+  position: relative;
+  width: 100%;
   max-width: 820px;
   padding: clamp(28px, 3.6vw, 56px);
   border-radius: var(--card-radius);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
-    linear-gradient(135deg, rgba(124,107,255,0.02), rgba(0,197,255,0.02));
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+              linear-gradient(135deg, rgba(124,107,255,0.02), rgba(0,197,255,0.02));
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-1);
   backdrop-filter: blur(12px) saturate(140%);
@@ -127,9 +126,8 @@ body::before{
   overflow: visible;
   transform-origin: center;
   transition: transform 650ms var(--ease-smooth), box-shadow 450ms var(--ease-smooth);
-  z-index:3;
+  z-index: 3;
 }
-
 
 .glass-container::before,
 .glass-container::after{
@@ -268,6 +266,9 @@ body::before{
   backdrop-filter: blur(6px);
 }
 
+.input:autofill {
+    background-color: transparent;
+}
 
 .input-label{
   position:absolute;
@@ -324,28 +325,29 @@ body::before{
   flex-wrap:wrap;
 }
 
-
-.btn{
-  --btn-h:48px;
-  min-width:220px;
-  height:var(--btn-h);
-  border-radius:12px;
-  padding:0 20px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-weight:700;
-  letter-spacing:0.6px;
+.btn {
+  --btn-h: 48px;
+  width: 100%;
+  max-width: 600px;
+  height: var(--btn-h);
+  border-radius: 12px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
   color: #021014;
   background: linear-gradient(135deg, var(--accent-b), var(--accent-c));
   border: 1px solid rgba(255,255,255,0.06);
-  cursor:pointer;
+  cursor: pointer;
   transition: transform 240ms var(--ease-smooth), box-shadow 240ms var(--ease-smooth), filter 240ms var(--ease-smooth);
   box-shadow: 0 8px 26px rgba(0,197,255,0.12), 0 2px 6px rgba(2,4,10,0.4);
-  position:relative;
-  overflow:visible;
+  position: relative;
+  overflow: visible;
 }
+
 
 
 .btn::after{
@@ -440,7 +442,6 @@ body::before{
   .input{ padding:12px 14px; font-size:15px }
   .input-label{ left:14px }
 }
-
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
