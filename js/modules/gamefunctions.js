@@ -16,7 +16,7 @@ export const GameFuncs = {
   conquistaQueue: [],
   processingConquista: false,
 
-  
+
   ativarAutoClick(intervaloMs = 500, countFn, mostrarNotif = true, bonus = 1) {
     if (this.autoClickInterval) clearInterval(this.autoClickInterval);
     this.autoClickInterval = setInterval(countFn, intervaloMs);
@@ -37,7 +37,7 @@ export const GameFuncs = {
     }
   },
 
-  
+
   notify(message, type = "normal") {
     const container = document.getElementById("notification-container");
     const notification = document.createElement("div");
@@ -81,7 +81,7 @@ export const GameFuncs = {
     }, 4000);
   },
 
-  
+
   saveAll(username, session) {
     Storage.saveScore(this.score);
     Storage.saveProfessores(this.professoresComprados);
@@ -154,7 +154,7 @@ export const GameFuncs = {
 
   gerarNome() {
     const substantivos = ["Gabiru", "Miojo", "Coxinha", "Sagui", "Mamífero", "Sabugo", "Calabreso", "Chinelo"];
-    const adjetivos = ["Labubônico", "Emburrado", "Carente", "Teimoso", "DaSilva", "Guloso", "Tabacudo","Abestado", "Fofolete"];
+    const adjetivos = ["Labubônico", "Emburrado", "Carente", "Teimoso", "DaSilva", "Guloso", "Tabacudo", "Abestado", "Fofolete"];
     const numero = Math.floor(Math.random() * 1000);
 
     const sub = substantivos[Math.floor(Math.random() * substantivos.length)];
@@ -164,46 +164,41 @@ export const GameFuncs = {
   },
 
   async repetirDeAno(username, session) {
-  let rebirthsCount = Storage.loadRebirths() || 0;
+    let rebirthsCount = Storage.loadRebirths() || 0;
 
-  if (session === "login" && username) {
-    try {
-      const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
-      if (res.ok) {
-        const serverData = await res.json();
-        rebirthsCount = serverData.rebirths || rebirthsCount;
-        this.score = serverData.score || this.score;
-      } else {
-        console.warn("Erro ao buscar dados do servidor:", res.status);
+    if (session === "login" && username) {
+      try {
+        const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
+        if (res.ok) {
+          const serverData = await res.json();
+          rebirthsCount = serverData.rebirths || rebirthsCount;
+          this.score = serverData.score || this.score;
+        }
+      } catch (err) {
+        console.error("Erro ao buscar dados do servidor:", err);
       }
-    } catch (err) {
-      console.error("Erro ao buscar dados do servidor:", err);
     }
+
+    const repetirCusto = 100000 * (rebirthsCount + 1);
+
+    if (this.score < repetirCusto) {
+      this.notify(
+        `Você precisa de ${repetirCusto.toLocaleString("pt-BR")} pontos para repetir de ano!`,
+        "error"
+      );
+      return false;
+    }
+
+    this.rebirths = ++rebirthsCount;
+    this.bonus = Math.max(1, 1 + rebirthsCount);
+    this.score = 0;
+    this.professoresComprados = {};
+
+    this.saveAll(username, session);
+
+    this.notify(`🎓 Você repetiu de ano! Agora tem ${rebirthsCount} repetição(ões) e seu bônus de clique é x${this.bonus}!`);
+    return true;
   }
 
-  const repetirCusto = 100000 * (rebirthsCount + 1);
-
-  if (this.score < repetirCusto) {
-    this.notify(
-      `Você precisa de ${repetirCusto.toLocaleString("pt-BR")} pontos para repetir de ano!`,
-      "error"
-    );
-    return false;
-  }
-
-  rebirthsCount += 1;
-  this.rebirths = rebirthsCount;
-  this.bonus = 1 + rebirthsCount;
-  this.score = 0;
-  this.professoresComprados = {};
-
-  this.saveAll(username, session);
-
-  this.notify(
-    `Você repetiu de ano! Agora tem ${rebirthsCount} repetição(ões) e seu bônus de clique é x${this.bonus}!`
-  );
-
-  return true;
-}
 
 };

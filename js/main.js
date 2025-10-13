@@ -37,16 +37,16 @@ function notifyConquista(message) {
 function processConquistaQueue() {
   if (processingConquista || conquistaQueue.length === 0) return;
   processingConquista = true;
-  
+
   const message = conquistaQueue.shift();
   const container = document.getElementById("notification-container");
   const notification = document.createElement("div");
   notification.classList.add("notification", "conquista");
   notification.innerText = message;
   container.appendChild(notification);
-  
+
   setTimeout(() => notification.classList.add("show"), 100);
-  
+
   setTimeout(() => {
     notification.classList.remove("show");
     setTimeout(() => {
@@ -67,7 +67,7 @@ function saveAll() {
   Storage.saveScore(score);
   Storage.saveProfessores(professoresComprados);
   Storage.saveConquistas(conquistasDesbloqueadas);
-  
+
   if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
       method: "PUT",
@@ -81,35 +81,41 @@ function saveAll() {
   }
 }
 
-async function loadUserData() {
+async function loadUserData(username, session) {
   if (session === "login" && username) {
     try {
       const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
       if (!res.ok) throw new Error("Falha ao buscar dados do servidor");
-      
+
       const serverData = await res.json();
-      
-      score = Math.max(score, serverData.score || 0);
-      professoresComprados = { ...serverData.professores_comprados, ...professoresComprados };
-      conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...conquistasDesbloqueadas]));
-      
-      Storage.saveScore(score);
-      Storage.saveProfessores(professoresComprados);
-      Storage.saveConquistas(conquistasDesbloqueadas);
+
+      this.score = Math.max(this.score, serverData.score || 0);
+      this.professoresComprados = { ...serverData.professores_comprados, ...this.professoresComprados };
+      this.conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...this.conquistasDesbloqueadas]));
+      this.rebirths = serverData.rebirths || this.rebirths || 0;
+
+      this.bonus = 1 + this.rebirths;
+
+      this.saveAll(username, session);
     } catch (err) {
       console.error("Erro ao carregar dados do servidor:", err);
     }
+  } else {
+    this.rebirths = Storage.loadRebirths || 0;
+    this.bonus = 1 + this.rebirths;
+    console.log("Dados locais carregados. Rebirths:", this.rebirths);
   }
 }
+
 
 
 function count() {
   score += bonus;
   Storage.saveScore(score);
-  
+
   checarConquistas();
   Sounds.play("click");
-  
+
   if (clickEl) {
     clickEl.classList.remove("popp");
     void clickEl.offsetWidth;
@@ -120,30 +126,30 @@ function count() {
     void scoreEl.offsetWidth;
     scoreEl.classList.add("pop");
   }
-  
+
   if (!musicaIniciada) {
     musicaIniciada = true;
     Sounds.tocarAleatoria();
   }
-  
+
   showPointsAnimation(bonus);
   clicksLog.push(Date.now());
   clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
-  
+
   load();
 }
 
 
 function checarConquistas() {
   const novas = CONQUISTAS.checar({ score, bonus, professores: professoresComprados, session }, conquistasDesbloqueadas);
-  
+
   novas.forEach(c => {
     conquistasDesbloqueadas.push(c.id);
     Storage.saveConquistas(conquistasDesbloqueadas);
-    
+
     notifyConquista(`🏆 Conquista desbloqueada: ${c.nome} -> ${c.descricao}`);
-    
+
     if (typeof c.recompensa === "number") {
       score += c.recompensa;
       Storage.saveScore(score);
@@ -170,30 +176,30 @@ function checarAnimacoes() {
 function comprarProfessor(id) {
   const prof = getProfessor(id);
   if (!prof) return;
-  
+
   const jaComprado = professoresComprados[id];
-  
+
   if (!jaComprado) {
     if (score >= prof.preco) {
       score -= prof.preco;
       bonus += prof.bonus;
       professoresComprados[id] = true;
-      
+
       pointsButton.src = prof.img;
       document.body.style.backgroundImage = prof.background;
-      
+
       document.getElementById(id)?.classList.remove("compravel");
       document.getElementById(id)?.classList.add("comprado");
-      
+
       notifyConquista(`Você comprou ${prof.nome} ✅`);
       saveAll();
-      
+
       checarConquistas();
-      
+
       if (prof.autoClickIntervalo) {
         GameFuncs.ativarAutoClick(prof.autoClickIntervalo, count, true, bonus);
       }
-      
+
       load();
       Sounds.play("buy");
     } else {
@@ -222,7 +228,7 @@ if (session === "convidado") {
     rankingBtn.style.display = "none";
     rankingBtn.onclick = () => playSound("ranking");
   }
-  
+
   titleEl.textContent = GameFuncs.gerarNome();
 } else {
   titleEl.textContent = username || "Ghost";
@@ -241,10 +247,9 @@ menuToggle?.addEventListener("click", () => {
   Sounds.play("menu");
   storeEl.classList.toggle("active");
   menuToggle.classList.toggle("active");
-  
+
   const icon = menuToggle.querySelector("i");
   if (icon) {
-    // seta aponta para direita quando a loja está aberta
     if (storeEl.classList.contains("active")) {
       icon.classList.replace("fa-arrow-left", "fa-arrow-right");
     } else {
@@ -257,54 +262,36 @@ if (logoutBtn) {
   logoutBtn.onclick = () => {
     saveAll();
     localStorage.clear();
-    
+
     window.location.href = "index.html";
   };
 }
 
 if (rebirthBtn) {
-  
-  rebirthBtn.onclick = () => {
-    
+  rebirthBtn.onclick = async () => {
     if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
-      // const sucesso = GameFuncs.repetirDeAno(username, session);
-      
+      const sucesso = await GameFuncs.repetirDeAno(username, session);
+
       if (sucesso) {
         score = GameFuncs.score;
         professoresComprados = GameFuncs.professoresComprados;
         bonus = GameFuncs.bonus;
         if (scoreEl) scoreEl.textContent = score;
-        notifyConquista("Rebirth realizado com sucesso!");
+
+        notifyConquista("Voce repetiu de ano! 🎓");
         load();
-        checarConquistas();
       }
     }
   };
 }
 
-window.addEventListener("load", async () => {
-  await loadUserData();
-  load();
-  checarConquistas();
-});
-
-clickEl?.addEventListener("click", count);
-
-setInterval(saveAll, 3000);
-
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    return false;
-  }
-});
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   mobileMenu.classList.toggle("show");
-  
+
   const icon = hamburger.querySelector("i");
   if (hamburger.classList.contains("active")) {
     icon.classList.remove("fa-bars");
@@ -313,7 +300,7 @@ hamburger.addEventListener("click", () => {
     icon.classList.remove("fa-xmark");
     icon.classList.add("fa-bars");
   }
-  
+
   if (window.Sounds && typeof Sounds.play === "function") {
     Sounds.play("menu");
   }
@@ -322,23 +309,38 @@ hamburger.addEventListener("click", () => {
 function showPointsAnimation(amount) {
   const clickBtn = document.getElementById("click");
   if (!clickBtn) return;
-  
+
   const pointsEl = document.createElement("div");
   pointsEl.className = "points-fly";
   pointsEl.innerText = `+${amount}`;
-  
-  // Posiciona próximo ao botão
+
   const rect = clickBtn.getBoundingClientRect();
   pointsEl.style.left = rect.left + rect.width / 2 - 15 + "px";
   pointsEl.style.top = rect.top - 20 + "px";
-  
+
   document.body.appendChild(pointsEl);
-  
-  // Trigger animation
+
   requestAnimationFrame(() => {
     pointsEl.classList.add("show");
   });
-  
-  // Remove depois da animação
+
   setTimeout(() => pointsEl.remove(), 800);
 }
+
+window.addEventListener("load", async () => {
+  await loadUserData();
+  bonus = 1 + (Storage.loadRebirths() || 0);
+  load();
+  checarConquistas();
+});
+
+clickEl?.addEventListener("click", count);
+
+setInterval(saveAll, 3000);
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    return false;
+  }
+});
