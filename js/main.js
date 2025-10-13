@@ -81,31 +81,30 @@ function saveAll() {
   }
 }
 
-async function loadUserData(username, session) {
+async function loadUserData(username = localStorage.getItem("nickname"), session = localStorage.getItem("tipo_usuario")) {
+  
   if (session === "login" && username) {
     try {
       const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
       if (!res.ok) throw new Error("Falha ao buscar dados do servidor");
-
+      
       const serverData = await res.json();
+      
+      score = Math.max(score, serverData.score || 0);
+      professoresComprados = { ...serverData.professores_comprados, ...professoresComprados };
+      conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...conquistasDesbloqueadas]));
+      
+      Storage.saveScore(score);
+      Storage.saveProfessores(professoresComprados);
+      Storage.saveConquistas(conquistasDesbloqueadas);
 
-      this.score = Math.max(this.score, serverData.score || 0);
-      this.professoresComprados = { ...serverData.professores_comprados, ...this.professoresComprados };
-      this.conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...this.conquistasDesbloqueadas]));
-      this.rebirths = serverData.rebirths || this.rebirths || 0;
-
-      this.bonus = 1 + this.rebirths;
-
-      this.saveAll(username, session);
     } catch (err) {
       console.error("Erro ao carregar dados do servidor:", err);
     }
-  } else {
-    this.rebirths = Storage.loadRebirths || 0;
-    this.bonus = 1 + this.rebirths;
-    console.log("Dados locais carregados. Rebirths:", this.rebirths);
+
   }
 }
+
 
 
 
@@ -267,23 +266,23 @@ if (logoutBtn) {
   };
 }
 
-if (rebirthBtn) {
-  rebirthBtn.onclick = async () => {
-    if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
-      const sucesso = await GameFuncs.repetirDeAno(username, session);
+// if (rebirthBtn) {
+//   rebirthBtn.onclick = async () => {
+//     if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
+//       const sucesso = await GameFuncs.repetirDeAno(username, session);
 
-      if (sucesso) {
-        score = GameFuncs.score;
-        professoresComprados = GameFuncs.professoresComprados;
-        bonus = GameFuncs.bonus;
-        if (scoreEl) scoreEl.textContent = score;
+//       if (sucesso) {
+//         score = GameFuncs.score;
+//         professoresComprados = GameFuncs.professoresComprados;
+//         bonus = GameFuncs.bonus;
+//         if (scoreEl) scoreEl.textContent = score;
 
-        notifyConquista("Voce repetiu de ano! 🎓");
-        load();
-      }
-    }
-  };
-}
+//         notifyConquista("Voce repetiu de ano! 🎓");
+//         load();
+//       }
+//     }
+//   };
+// }
 
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -329,7 +328,7 @@ function showPointsAnimation(amount) {
 
 window.addEventListener("load", async () => {
   await loadUserData();
-  bonus = 1 + (Storage.loadRebirths() || 0);
+  bonus = 1;
   load();
   checarConquistas();
 });

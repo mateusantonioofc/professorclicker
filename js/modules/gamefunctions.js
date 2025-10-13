@@ -7,7 +7,6 @@ export const GameFuncs = {
   bonus: 1 * (Storage.loadRebirths() || 0) + 1,
   professoresComprados: Storage.loadProfessores() || {},
   conquistasDesbloqueadas: Storage.loadConquistas() || [],
-  rebirths: Storage.loadRebirths() || 0,
 
   musicaIniciada: false,
   clicksLog: Storage.loadClicksLog() || [],
@@ -163,42 +162,42 @@ export const GameFuncs = {
     return `${sub}${adj}${numero}`;
   },
 
-  async repetirDeAno(username, session) {
-    let rebirthsCount = Storage.loadRebirths() || 0;
+  // async repetirDeAno(username, session) {
+  //   let rebirthsCount = Storage.loadRebirths() || 0;
 
-    if (session === "login" && username) {
-      try {
-        const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
-        if (res.ok) {
-          const serverData = await res.json();
-          rebirthsCount = serverData.rebirths || rebirthsCount;
-          this.score = serverData.score || this.score;
-        }
-      } catch (err) {
-        console.error("Erro ao buscar dados do servidor:", err);
-      }
-    }
+  //   if (session === "login" && username) {
+  //     try {
+  //       const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
+  //       if (res.ok) {
+  //         const serverData = await res.json();
+  //         rebirthsCount = serverData.rebirths || rebirthsCount;
+  //         this.score = serverData.score || this.score;
+  //       }
+  //     } catch (err) {
+  //       console.error("Erro ao buscar dados do servidor:", err);
+  //     }
+  //   }
 
-    const repetirCusto = 10 * (rebirthsCount + 1);
+  //   const repetirCusto = 10 * (rebirthsCount + 1);
 
-    if (this.score < repetirCusto) {
-      this.notify(
-        `Você precisa de ${repetirCusto.toLocaleString("pt-BR")} pontos para repetir de ano!`,
-        "error"
-      );
-      return false;
-    }
+  //   if (this.score < repetirCusto) {
+  //     this.notify(
+  //       `Você precisa de ${repetirCusto.toLocaleString("pt-BR")} pontos para repetir de ano!`,
+  //       "error"
+  //     );
+  //     return false;
+  //   }
 
-    this.rebirths = ++rebirthsCount;
-    this.bonus = Math.max(1, 1 + rebirthsCount);
-    this.score = 0;
-    this.professoresComprados = {};
+  //   this.rebirths = ++rebirthsCount;
+  //   this.bonus = Math.max(1, 1 + rebirthsCount);
+  //   this.score = 0;
+  //   this.professoresComprados = {};
 
-    this.saveAll(username, session);
+  //   this.saveAll(username, session);
 
-    this.notify(`🎓 Você repetiu de ano! Agora tem ${rebirthsCount} repetição(ões) e seu bônus de clique é x${this.bonus}!`);
-    return true;
-  }
+  //   this.notify(`🎓 Você repetiu de ano! Agora tem ${rebirthsCount} repetição(ões) e seu bônus de clique é x${this.bonus}!`);
+  //   return true;
+  // }
 
 
 };
