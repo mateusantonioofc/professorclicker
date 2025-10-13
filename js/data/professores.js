@@ -61,7 +61,7 @@ export const PROFESSORES = {
     bonus: 15,
     img: ASSETS_PROFESSORES_PATH + "richardson.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}programa.jpg')`,
-    autoClickIntervalo: 3250
+    autoClickIntervalo: 3000
   },
   silvio_goat: {
     id: "silvio_goat",
@@ -70,7 +70,7 @@ export const PROFESSORES = {
     bonus: 18,
     img: ASSETS_PROFESSORES_PATH + "silvio.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}ibura.jpg')`,
-    autoClickIntervalo: 3000
+    autoClickIntervalo: 2500
   },
   silvio_furry: {
     id: "silvio_furry",
@@ -79,7 +79,7 @@ export const PROFESSORES = {
     bonus: 22,
     img: ASSETS_PROFESSORES_PATH + "silvio_furry.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
-    autoClickIntervalo: 2750
+    autoClickIntervalo: 2250
   },
   rejane_latin: {
     id: "rejane_latin",
@@ -97,7 +97,7 @@ export const PROFESSORES = {
     bonus: 30,
     img: ASSETS_PROFESSORES_PATH + "luana.jpeg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}pontanegra.webp')`,
-    autoClickIntervalo: 1000
+    autoClickIntervalo: 1500
   },
   luana_sociologa: {
     id: "luana_sociologa",
@@ -106,7 +106,7 @@ export const PROFESSORES = {
     bonus: 34,
     img: ASSETS_PROFESSORES_PATH + "luanasocio.jpeg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}pontanegra.webp')`,
-    autoClickIntervalo: 300
+    autoClickIntervalo: 500
   },
   gabriel: {
     id: "gabriel",
@@ -115,7 +115,7 @@ export const PROFESSORES = {
     bonus: 38,
     img: ASSETS_PROFESSORES_PATH + "gabriel.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}academiagta.webp')`,
-    autoClickIntervalo: 250,
+    autoClickIntervalo: 400,
   },
   xandinho: {
     id: "xandinho",
@@ -124,7 +124,7 @@ export const PROFESSORES = {
     bonus: 42,
     img: ASSETS_PROFESSORES_PATH + "xandinho.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}deserto.png')`,
-    autoClickIntervalo: 200
+    autoClickIntervalo: 350
   },
   dani: {
     id: "dani",
@@ -133,7 +133,7 @@ export const PROFESSORES = {
     bonus: 45,
     img: ASSETS_PROFESSORES_PATH + "dani.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}mapa.webp')`,
-    autoClickIntervalo: 150
+    autoClickIntervalo: 300
   },
   albino: {
     id: "albino",
@@ -142,7 +142,7 @@ export const PROFESSORES = {
     bonus: 50,
     img: ASSETS_PROFESSORES_PATH + "albino.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}caverna.png')`,
-    autoClickIntervalo: 100
+    autoClickIntervalo: 270
   }
 };
 
