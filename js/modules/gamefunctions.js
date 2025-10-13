@@ -179,7 +179,7 @@ export const GameFuncs = {
       }
     }
 
-    const repetirCusto = 100000 * (rebirthsCount + 1);
+    const repetirCusto = 10 * (rebirthsCount + 1);
 
     if (this.score < repetirCusto) {
       this.notify(
