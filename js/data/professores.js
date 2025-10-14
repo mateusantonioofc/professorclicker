@@ -146,7 +146,7 @@ export const PROFESSORES = {
   },
   amaro: {
     id: "amaro",
-    nome: "Amaro",
+    nome: "Amaro Bezerra",
     preco: 450000,
     bonus: 55,
     img: ASSETS_PROFESSORES_PATH + "amaronormal.jpeg",
