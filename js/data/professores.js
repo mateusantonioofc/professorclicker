@@ -143,6 +143,24 @@ export const PROFESSORES = {
     img: ASSETS_PROFESSORES_PATH + "albino.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}caverna.png')`,
     autoClickIntervalo: 270
+  },
+  amaro: {
+    id: "amaro",
+    nome: "Amaro",
+    preco: 450000,
+    bonus: 55,
+    img: ASSETS_PROFESSORES_PATH + "amaronormal.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}natureza.jpeg')`,
+    autoClickIntervalo: 260
+  },
+  amaro_prime: {
+    id: "amaro_prime",
+    nome: "Amaro Prime",
+    preco: 475000,
+    bonus: 60,
+    img: ASSETS_PROFESSORES_PATH + "amaro.png",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}prime.jpeg')`,
+    autoClickIntervalo: 250
   }
 };
 
