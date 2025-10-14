@@ -149,7 +149,7 @@ export const PROFESSORES = {
     nome: "Amaro",
     preco: 450000,
     bonus: 55,
-    img: ASSETS_PROFESSORES_PATH + "amaronormal.jpg",
+    img: ASSETS_PROFESSORES_PATH + "amaronormal.jpeg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}natureza.jpeg')`,
     autoClickIntervalo: 260
   },
