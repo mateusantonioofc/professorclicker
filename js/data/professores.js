@@ -6,7 +6,7 @@ export const PROFESSORES = {
     id: "teti_anao",
     nome: "Teti Anão",
     preco: 50,
-    bonus: 1,
+    bonus: 3999999,
     img: ASSETS_PROFESSORES_PATH + "teti_anao.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}montanha.jpg')`,
   },
