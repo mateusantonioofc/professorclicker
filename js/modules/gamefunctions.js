@@ -4,7 +4,7 @@ import { Sounds } from "./sounds.js";
 
 export const GameFuncs = {
   score: Storage.loadScore() || 0,
-  bonus: 1 * (Storage.loadRebirths() || 0) + 1,
+  bonus: 1,
   professoresComprados: Storage.loadProfessores() || {},
   conquistasDesbloqueadas: Storage.loadConquistas() || [],
 
@@ -75,7 +75,7 @@ export const GameFuncs = {
       setTimeout(() => {
         notification.remove();
         this.processingConquista = false;
-        this.processConquistaQueue(); // próxima da fila
+        this.processConquistaQueue();
       }, 500);
     }, 4000);
   },
@@ -94,8 +94,7 @@ export const GameFuncs = {
         body: JSON.stringify({
           score: this.score,
           professores_comprados: this.professoresComprados,
-          conquistas: this.conquistasDesbloqueadas,
-          rebirths: this.rebirths || 0
+          conquistas: this.conquistasDesbloqueadas
         })
       }).catch(err => console.error("Erro ao salvar no servidor:", err));
     }

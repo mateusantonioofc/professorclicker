@@ -105,9 +105,6 @@ async function loadUserData(username = localStorage.getItem("nickname"), session
   }
 }
 
-
-
-
 function count() {
   score += bonus;
   Storage.saveScore(score);
@@ -265,24 +262,6 @@ if (logoutBtn) {
     window.location.href = "index.html";
   };
 }
-
-// if (rebirthBtn) {
-//   rebirthBtn.onclick = async () => {
-//     if (confirm("Tem certeza que deseja fazer um Rebirth? Você perderá pontos e professores, mas ganhará um bônus de clique permanente!")) {
-//       const sucesso = await GameFuncs.repetirDeAno(username, session);
-
-//       if (sucesso) {
-//         score = GameFuncs.score;
-//         professoresComprados = GameFuncs.professoresComprados;
-//         bonus = GameFuncs.bonus;
-//         if (scoreEl) scoreEl.textContent = score;
-
-//         notifyConquista("Voce repetiu de ano! 🎓");
-//         load();
-//       }
-//     }
-//   };
-// }
 
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
