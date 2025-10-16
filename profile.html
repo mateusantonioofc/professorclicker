@@ -3,53 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tela de Perfil</title>
-  <link rel="stylesheet" href="profile.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Perfil - Professor Clicker</title>
+  <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-
   <div class="cartao-perfil">
     <div class="cabecalho-perfil">
-      <div class="avatar">BS</div>
+      <div class="avatar" id="avatar">P</div>
       <div class="info-usuario">
-        <h2>Bruno Adm Abuse</h2>
-        <p>ID: #A10923</p>
-        <span class="posicao-rank">7º no ranking</span>
+        <h2 id="username">Jogador</h2>
+        <p>Pontuação: <span id="score">0</span></p>
+        <p class="posicao-rank" id="rank">Rank: -</p>
       </div>
     </div>
 
     <div class="secao">
-      <h3>Score Atual</h3>
-      <p>18.628.852</p>
-      <p class="texto-progresso">Oloko, tá com tudo isso de ponto?</p>
-    </div>
+      <h3>Progresso Geral</h3>
+      <p class="texto-progresso">
+        Rebirths: <span id="rebirths">0</span>
+      </p>
 
-    <div class="estatisticas">
-      <div class="caixa-estatistica estatistica-professores">
-        <div class="numero-estatistica">24</div>
-        <div class="rotulo-estatistica">Professores</div>
-      </div>
-      <div class="caixa-estatistica estatistica-conquistas">
-        <div class="numero-estatistica">18</div>
-        <div class="rotulo-estatistica">Conquistas</div>
+      <div class="estatisticas">
+        <div class="caixa-estatistica estatistica-professores">
+          <p class="numero-estatistica" id="professores">0</p>
+          <p class="rotulo-estatistica">Professores</p>
+        </div>
+
+        <div class="caixa-estatistica estatistica-conquistas">
+          <p class="numero-estatistica" id="conquistas">0</p>
+          <p class="rotulo-estatistica">Conquistas</p>
+        </div>
       </div>
     </div>
 
     <div class="conquistas">
-      <h4>🏆 Últimas Conquistas</h4>
-      <div class="lista-conquistas">
-        <span class="insignia mestre">Sabugoso Master</span>
-        <span class="insignia precisao">Adm</span>
-        <span class="insignia veloz">OOO</span>
-        <span class="insignia estrela">Wow</span>
-        <span class="insignia diamante">Oloko</span>
-        <span class="insignia sequencia">Sequência</span>
+      <h4>🏅 Conquistas Recentes</h4>
+      <div class="lista-conquistas" id="listaConquistas">
+        <span class="insignia estrela">Nenhuma ainda</span>
       </div>
     </div>
 
-    <p class="texto-rodape">Que belo perfil hehe — Ass: Adm Bruno</p>
+    <div class="texto-rodape">
+      <button id="btnVoltar" style="
+        margin-top: 10px;
+        background: #7c3aed;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      ">⬅ Voltar</button>
+    </div>
   </div>
 
+  <script type="module" src="js/profile.js"></script>
 </body>
 </html>

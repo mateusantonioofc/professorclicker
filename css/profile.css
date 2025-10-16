@@ -1,0 +1,208 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: #e0e0e0;
+}
+
+.cartao-perfil {
+  background: #1e1e2f;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  max-width: 420px;
+  width: 100%;
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cabecalho-perfil {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.3rem;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.info-usuario h2 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.info-usuario p {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.posicao-rank {
+  background: #3f3b6d;
+  color: #d8b4fe;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.secao h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.texto-progresso {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.estatisticas {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.caixa-estatistica {
+  flex: 1;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+.estatistica-professores {
+  background: #3b3b6d;
+}
+
+.estatistica-conquistas {
+  background: #3b2f1e;
+}
+
+.numero-estatistica {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.rotulo-estatistica {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.conquistas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.conquistas h4 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lista-conquistas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.insignia.mestre {
+  background: #facc15;
+  color: #000;
+}
+
+.insignia.precisao {
+  background: #ef4444;
+}
+
+.insignia.veloz {
+  background: #3b82f6;
+}
+
+.insignia.estrela {
+  background: #8b5cf6;
+}
+
+.insignia.diamante {
+  background: #10b981;
+}
+
+.insignia.sequencia {
+  background: #f97316;
+}
+
+.texto-rodape {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+#btnVoltar {
+  margin-top: 10px;
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#btnVoltar:hover {
+  background: #a78bfa;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 500px) {
+  .cartao-perfil {
+    padding: 20px;
+  }
+
+  .estatisticas {
+    flex-direction: column;
+  }
+}
