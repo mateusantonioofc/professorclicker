@@ -162,6 +162,15 @@ export const PROFESSORES = {
     background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
     autoClickIntervalo: 200
   },
+  gabriel_prime: {
+    id: "gabriel_prime",
+    nome: "Gabriel Prime",
+    preco: 495000,
+    bonus: 65,
+    img: ASSETS_PROFESSORES_PATH + "gabrielprime.jpg",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
+    autoClickIntervalo: 200
+  },
   silvio_furry_shiny: {
     id: "silvio_furry_shiny",
     nome: "Silvio Furry Shiny",
