@@ -137,7 +137,7 @@ export const GameFuncs = {
 
   async repetirDeAno(username, session, scoreAtual) {
     let rebirthsCount = this.rebirths || 0;
-    const custo = 10 * (rebirthsCount + 1);
+    const custo = 100000 * (rebirthsCount + 1);
 
     if (scoreAtual < custo) {
       this.notify(
