@@ -119,37 +119,6 @@ export const GameFuncs = {
     }
   },
 
-  count(clickEl, scoreEl, checarConquistas, checarAnimacoes) {
-    this.score += this.bonus;
-    Storage.saveScore(this.score);
-
-    checarConquistas();
-    Sounds.play("click");
-
-    if (clickEl) {
-      clickEl.classList.remove("popp");
-      void clickEl.offsetWidth;
-      clickEl.classList.add("popp");
-    }
-    if (scoreEl) {
-      scoreEl.classList.remove("pop");
-      void scoreEl.offsetWidth;
-      scoreEl.classList.add("pop");
-    }
-
-    if (!this.musicaIniciada) {
-      this.musicaIniciada = true;
-      Sounds.tocarAleatoria();
-    }
-
-    this.clicksLog.push(Date.now());
-    this.clicksLog = this.clicksLog.filter(t => Date.now() - t <= 20000);
-    localStorage.setItem("clicksLog", JSON.stringify(this.clicksLog));
-
-    checarAnimacoes();
-    if (scoreEl) scoreEl.textContent = this.score;
-  },
-
   gerarNome() {
     const substantivos = ["Gabiru", "Miojo", "Coxinha", "Sagui", "Mamífero", "Sabugo", "Calabreso", "Chinelo"];
     const adjetivos = ["Labubônico", "Emburrado", "Carente", "Teimoso", "DaSilva", "Guloso", "Tabacudo", "Abestado", "Fofolete"];

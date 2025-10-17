@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   usernameEl.textContent = username
   avatarEl.textContent = username.charAt(0).toUpperCase()
   scoreEl.textContent = score.toLocaleString("pt-BR")
-  rebirthsEl.textContent = rebirths
+  //rebirthsEl.textContent = rebirths
   profsEl.textContent = Object.keys(profs).length
   conquistasEl.textContent = conquistas.length
 
