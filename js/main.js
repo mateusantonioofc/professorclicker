@@ -337,6 +337,7 @@ window.addEventListener("load", async () => {
 clickEl?.addEventListener("click", count);
 
 setInterval(saveAll, 3000);
+setInterval(Storage.saveScore(score), 2000);
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
