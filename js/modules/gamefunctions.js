@@ -1,12 +1,12 @@
 import { Storage } from "./storage.js";
 import { Sounds } from "./sounds.js";
 
-
 export const GameFuncs = {
   score: Storage.loadScore() || 0,
   bonus: 1,
   professoresComprados: Storage.loadProfessores() || {},
   conquistasDesbloqueadas: Storage.loadConquistas() || [],
+  rebirths: Storage.loadRebirths() || 0,
 
   musicaIniciada: false,
   clicksLog: Storage.loadClicksLog() || [],
@@ -15,15 +15,14 @@ export const GameFuncs = {
   conquistaQueue: [],
   processingConquista: false,
 
-
   ativarAutoClick(intervaloMs = 500, countFn, mostrarNotif = true, bonus = 1) {
     if (this.autoClickInterval) clearInterval(this.autoClickInterval);
     this.autoClickInterval = setInterval(countFn, intervaloMs);
 
     if (mostrarNotif) {
       const msg = bonus === 5
-        ? "VOCÊ DESBLOQUEOU AUTO CLICK, COMPRE NOVOS PROFESSORES PARA DAR UPGRADE NELE"
-        : "AUTO CLICK UPADO ✅";
+        ? "VOCÊ DESBLOQUEOU AUTO CLICK! Compre novos professores para aprimorar."
+        : "AUTO CLICK ATIVADO ✅";
       this.notify(msg);
     }
   },
@@ -35,7 +34,6 @@ export const GameFuncs = {
       this.notify("Clique automático desativado! ⏱️");
     }
   },
-
 
   notify(message, type = "normal") {
     const container = document.getElementById("notification-container");
@@ -80,12 +78,11 @@ export const GameFuncs = {
     }, 4000);
   },
 
-
   saveAll(username, session) {
     Storage.saveScore(this.score);
     Storage.saveProfessores(this.professoresComprados);
     Storage.saveConquistas(this.conquistasDesbloqueadas);
-    Storage.saveRebirths(this.rebirths || 0);
+    Storage.saveRebirths(this.rebirths);
 
     if (session === "login" && username) {
       fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
@@ -94,7 +91,8 @@ export const GameFuncs = {
         body: JSON.stringify({
           score: this.score,
           professores_comprados: this.professoresComprados,
-          conquistas: this.conquistasDesbloqueadas
+          conquistas: this.conquistasDesbloqueadas,
+          rebirths: this.rebirths
         })
       }).catch(err => console.error("Erro ao salvar no servidor:", err));
     }
@@ -111,13 +109,20 @@ export const GameFuncs = {
         this.score = Math.max(this.score, serverData.score || 0);
         this.professoresComprados = { ...serverData.professores_comprados, ...this.professoresComprados };
         this.conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...this.conquistasDesbloqueadas]));
+        this.rebirths = serverData.rebirths || 0;
+
+        this.bonus = 1 + this.rebirths;
 
         this.saveAll(username, session);
       } catch (err) {
         console.error("Erro ao carregar dados do servidor:", err);
       }
+    } else {
+      this.rebirths = Storage.loadRebirths() || 0;
+      this.bonus = 1 + this.rebirths;
     }
   },
+
 
   gerarNome() {
     const substantivos = ["Gabiru", "Miojo", "Coxinha", "Sagui", "Mamífero", "Sabugo", "Calabreso", "Chinelo"];
@@ -130,42 +135,44 @@ export const GameFuncs = {
     return `${sub}${adj}${numero}`;
   },
 
-  // async repetirDeAno(username, session) {
-  //   let rebirthsCount = Storage.loadRebirths() || 0;
+  async repetirDeAno(username, session, scoreAtual) {
+    let rebirthsCount = this.rebirths || 0;
+    const custo = 10 * (rebirthsCount + 1);
 
-  //   if (session === "login" && username) {
-  //     try {
-  //       const res = await fetch(`https://professorclicker-api.vercel.app/api/${username}`);
-  //       if (res.ok) {
-  //         const serverData = await res.json();
-  //         rebirthsCount = serverData.rebirths || rebirthsCount;
-  //         this.score = serverData.score || this.score;
-  //       }
-  //     } catch (err) {
-  //       console.error("Erro ao buscar dados do servidor:", err);
-  //     }
-  //   }
+    if (scoreAtual < custo) {
+      this.notify(
+        `Você precisa de ${custo.toLocaleString("pt-BR")} pontos para repetir de ano!`,
+        "error"
+      );
+      return false;
+    }
 
-  //   const repetirCusto = 10 * (rebirthsCount + 1);
+    this.rebirths = rebirthsCount + 1;
+    this.bonus = 1 + this.rebirths;
 
-  //   if (this.score < repetirCusto) {
-  //     this.notify(
-  //       `Você precisa de ${repetirCusto.toLocaleString("pt-BR")} pontos para repetir de ano!`,
-  //       "error"
-  //     );
-  //     return false;
-  //   }
+    this.score = 0;
+    this.professoresComprados = {};
 
-  //   this.rebirths = ++rebirthsCount;
-  //   this.bonus = Math.max(1, 1 + rebirthsCount);
-  //   this.score = 0;
-  //   this.professoresComprados = {};
+    await fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        score: this.score,
+        professores_comprados: {},
+        conquistas: this.conquistasDesbloqueadas,
+        rebirths: this.rebirths
+      })
+    }).catch(err => console.error("Erro ao salvar rebirth no servidor:", err));
 
-  //   this.saveAll(username, session);
+    Storage.saveScore(0);
+    Storage.saveProfessores({});
+    Storage.saveRebirths(this.rebirths);
 
-  //   this.notify(`🎓 Você repetiu de ano! Agora tem ${rebirthsCount} repetição(ões) e seu bônus de clique é x${this.bonus}!`);
-  //   return true;
-  // }
+    this.notify(
+      `🎓 Você repetiu de ano! Agora tem ${this.rebirths} repetição(ões) e seu bônus de clique é x${this.bonus}!`
+    );
 
+    return true;
+  }
 
 };

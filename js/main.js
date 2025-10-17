@@ -19,9 +19,10 @@ const session = localStorage.getItem("tipo_usuario");
 const username = localStorage.getItem("nickname");
 
 let score = Storage.loadScore() || 0;
-let bonus = 1;
 let professoresComprados = Storage.loadProfessores() || {};
 let conquistasDesbloqueadas = Storage.loadConquistas() || [];
+let rebirths = Storage.loadRebirths() || 0;
+let bonus = 1 + rebirths;
 let musicaIniciada = false;
 let clicksLog = Storage.loadClicksLog() || [];
 
@@ -67,6 +68,7 @@ function saveAll() {
   Storage.saveScore(score);
   Storage.saveProfessores(professoresComprados);
   Storage.saveConquistas(conquistasDesbloqueadas);
+  Storage.saveRebirths(rebirths);
 
   if (session === "login" && username) {
     fetch(`https://professorclicker-api.vercel.app/api/${username}`, {
@@ -75,7 +77,8 @@ function saveAll() {
       body: JSON.stringify({
         score,
         professores_comprados: professoresComprados,
-        conquistas: conquistasDesbloqueadas
+        conquistas: conquistasDesbloqueadas,
+        rebirths: rebirths
       })
     }).catch(err => console.error("Erro ao salvar no servidor:", err));
   }
@@ -93,10 +96,12 @@ async function loadUserData(username = localStorage.getItem("nickname"), session
       score = Math.max(score, serverData.score || 0);
       professoresComprados = { ...serverData.professores_comprados, ...professoresComprados };
       conquistasDesbloqueadas = Array.from(new Set([...(serverData.conquistas || []), ...conquistasDesbloqueadas]));
-      
+      rebirths = serverData.rebirths || 0;
+
       Storage.saveScore(score);
       Storage.saveProfessores(professoresComprados);
       Storage.saveConquistas(conquistasDesbloqueadas);
+      Storage.saveRebirths(rebirths);
 
     } catch (err) {
       console.error("Erro ao carregar dados do servidor:", err);
@@ -133,6 +138,7 @@ function count() {
   clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
 
+  console.log(bonus)
   load();
 }
 
@@ -156,7 +162,6 @@ function checarConquistas() {
     }
   });
 }
-
 
 function checarAnimacoes() {
   for (let id in PROFESSORES) {
@@ -204,7 +209,7 @@ function comprarProfessor(id) {
   } else {
     pointsButton.src = prof.img;
     document.body.style.backgroundImage = prof.background;
-    bonus = prof.bonus;
+    bonus = prof.bonus + rebirths + 1;
     if (prof.autoClickIntervalo) {
       GameFuncs.ativarAutoClick(prof.autoClickIntervalo, count, false, bonus);
     }
@@ -263,6 +268,25 @@ if (logoutBtn) {
   };
 }
 
+if (rebirthBtn) {
+  rebirthBtn.onclick = async () => {
+    const sucesso = await GameFuncs.repetirDeAno(username, session, score);
+    if (sucesso) {
+      score = 0;
+      professoresComprados = {};
+      rebirths = GameFuncs.rebirths;
+      bonus = GameFuncs.bonus;
+
+      Storage.saveScore(score);
+      Storage.saveProfessores(professoresComprados);
+      Storage.saveRebirths(rebirths);
+
+      load();
+      saveAll();
+    }
+  };
+}
+
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 
@@ -307,7 +331,7 @@ function showPointsAnimation(amount) {
 
 window.addEventListener("load", async () => {
   await loadUserData();
-  bonus = 1;
+  bonus = 1 + rebirths;
   load();
   checarConquistas();
 });
