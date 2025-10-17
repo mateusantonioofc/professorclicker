@@ -168,7 +168,7 @@ export const PROFESSORES = {
     preco: 495000,
     bonus: 65,
     img: ASSETS_PROFESSORES_PATH + "gabrielprime.jpg",
-    background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
+    background: `url('${ASSETS_BACKGROUNDS_PATH}academiagta.webp')`,
     autoClickIntervalo: 200
   },
   silvio_furry_shiny: {
