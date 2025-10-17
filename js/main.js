@@ -137,8 +137,7 @@ function count() {
   clicksLog.push(Date.now());
   clicksLog = clicksLog.filter(t => Date.now() - t <= 20000);
   localStorage.setItem("clicksLog", JSON.stringify(clicksLog));
-
-  console.log(bonus)
+  
   load();
 }
 
