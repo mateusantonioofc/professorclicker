@@ -9,12 +9,15 @@ export const Sounds = {
   },
 
   play(type) {
+    if(localStorage.getItem("soundEnabled") === "false") return;
     if (!this.sounds[type]) return;
     const audio = new Audio(this.sounds[type]);
     audio.play().catch(() => { });
   },
 
   tocarAleatoria() {
+    if(localStorage.getItem("soundEnabled") === "false") return;
+    
     const musicas = [
       "assets/sfx/musica1.mp3",
       "assets/sfx/musica2.mp3",
