@@ -2,7 +2,7 @@ const rankingElement = document.getElementById("ranking");
 const btnLeaderboard = document.getElementById("btnLeaderboard");
 const leaderboardContainer = document.getElementById("leaderboardContainer");
 
-const EXCLUDED_USERS = ["ADM", "admin", "teste", "guest"];
+const EXCLUDED_USERS = ["ADM", "admin", "teste", "guest", "NPA"];
 
 // Exemplo para testar
 // if (!localStorage.getItem("players")) {
