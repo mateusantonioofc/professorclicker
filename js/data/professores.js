@@ -6,7 +6,7 @@ export const PROFESSORES = {
     id: "teti_anao",
     nome: "Teti Anão",
     preco: 50,
-    bonus: 3999999,
+    bonus: 2,
     img: ASSETS_PROFESSORES_PATH + "teti_anao.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}montanha.jpg')`,
   },
@@ -14,7 +14,7 @@ export const PROFESSORES = {
     id: "teti_supremo",
     nome: "Teti Supremo",
     preco: 250,
-    bonus: 2,
+    bonus: 3,
     img: ASSETS_PROFESSORES_PATH + "teti.png",
     background: `url('${ASSETS_BACKGROUNDS_PATH}sala.jpg')`
   },
