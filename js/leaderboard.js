@@ -2,7 +2,7 @@ const rankingElement = document.getElementById("ranking");
 const btnLeaderboard = document.getElementById("btnLeaderboard");
 const leaderboardContainer = document.getElementById("leaderboardContainer");
 
-const EXCLUDED_USERS = ["ADM", "admin", "teste", "guest"]; // Adicione aqui os nomes que não entram no ranking
+const EXCLUDED_USERS = ["ADM", "admin", "teste", "guest"];
 
 // Exemplo para testar
 // if (!localStorage.getItem("players")) {
@@ -42,6 +42,7 @@ async function fetchRanking() {
     rankingElement.innerHTML = top10.map((player, index) => `
       <li>
         <span>${index + 1}. ${player.username}</span>
+        <span class="rebirths">🎓 ${player.rebirths || 0}</span>
         <span>👉 ${formatScore(player.score)}</span>
       </li>
     `).join("");
@@ -50,7 +51,6 @@ async function fetchRanking() {
     rankingElement.innerHTML = "<li>Erro ao carregar ranking</li>";
   }
 }
-
 
 btnLeaderboard.addEventListener("click", () => {
   leaderboardContainer.classList.toggle("show");
