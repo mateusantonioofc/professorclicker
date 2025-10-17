@@ -162,6 +162,15 @@ export const PROFESSORES = {
     background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
     autoClickIntervalo: 200
   },
+  silvio_furry_shiny: {
+    id: "silvio_furry_shiny",
+    nome: "Silvio Furry Shiny",
+    preco: 10000000,
+    bonus: 100,
+    img: ASSETS_PROFESSORES_PATH + "silvio_furry_shiny.png",
+    background: `url('${ASSETS_BACKGROUNDS_PATH}academia.jpg')`,
+    autoClickIntervalo: 100
+  },
 };
 
 export function getProfessor(id) {
