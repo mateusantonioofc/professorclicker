@@ -268,6 +268,9 @@ if (logoutBtn) {
 
 if (rebirthBtn) {
   rebirthBtn.onclick = async () => {
+    const confirmar = confirm("🎓 Tem certeza que deseja repetir de ano? Isso vai zerar seu progresso! Você ganhará bonus extra");
+    if (!confirmar) return;
+
     const sucesso = await GameFuncs.repetirDeAno(username, session, score);
     if (sucesso) {
       score = 0;
