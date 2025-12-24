@@ -50,7 +50,7 @@ export const PROFESSORES = {
     nome: "Teti Supremo",
     preco: 18000,
     bonus: 12,
-    img: ASSETS_PROFESSORES_PATH + "teti.png",
+    img: ASSETS_PROFESSORES_PATH + "teti.jpg",
     background: `url('${ASSETS_BACKGROUNDS_PATH}sala.jpg')`,
     autoClickIntervalo: 3200
   },
